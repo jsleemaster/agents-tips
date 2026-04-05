@@ -1,0 +1,63 @@
+# Agent Tips
+
+An English-first hybrid toolkit for reusable agent assets.
+
+This repository is intentionally small and curated. It packages practical patterns for turning one-off agent work into durable assets:
+
+- public skills you can reuse across repositories
+- reference docs that explain portable design choices
+- prompts that steer a session toward reusable outputs
+- lightweight validation for keeping the catalog tidy
+
+## Start Here
+
+- Read [quick-prompt.md](quick-prompt.md) if you want a strong kickoff prompt for building something real while leaving behind reusable assets.
+- Read [repo-onboarding](skills/public/repo-onboarding/SKILL.md) if you need to understand an unfamiliar repository and spot reusable workflows.
+- Read [repo-skill-builder](skills/public/repo-skill-builder/SKILL.md) if you want to package a repository-specific workflow into a reusable skill.
+- Run `bash scripts/validate-skills.sh` before publishing changes to this repo.
+
+## Repository Contract
+
+- `skills/public/*` contains directly reusable public skills.
+- `references/*` contains durable pattern docs and comparison notes.
+- `scripts/*` contains lightweight validation or support tooling for this repository.
+- `quick-prompt.md` is the opinionated "start here" prompt for turning active work into reusable agent assets.
+
+This repo is not a trend archive. It keeps only patterns that are clear enough to reuse.
+
+## Public Skills
+
+<!-- SKILL_INDEX_START -->
+- [`agent-harness-builder`](skills/public/agent-harness-builder/SKILL.md) designs an agent-friendly harness around an existing tool, repo, or process.
+- [`repo-onboarding`](skills/public/repo-onboarding/SKILL.md) maps an unfamiliar repository and extracts reusable workflows, harness seams, and quality gates.
+- [`repo-skill-builder`](skills/public/repo-skill-builder/SKILL.md) turns repository-specific work into a standard-compliant skill package.
+- [`workflow-skill-designer`](skills/public/workflow-skill-designer/SKILL.md) turns a messy repeated process into a reusable workflow skill.
+<!-- SKILL_INDEX_END -->
+
+## Reference Docs
+
+- [workflow-vs-capability-skills](references/workflow-vs-capability-skills.md)
+- [agent-skills-open-standard](references/agent-skills-open-standard.md)
+- [agent-harness-patterns](references/agent-harness-patterns.md)
+- [tooling-differences](references/tooling-differences.md)
+
+## Validation
+
+Run:
+
+```bash
+bash scripts/validate-skills.sh
+```
+
+The validator checks:
+
+- every public skill has minimal frontmatter
+- local Markdown links resolve
+- the README skill index matches the actual public skill catalog
+
+## Design Stance
+
+- Open-standard concepts come first.
+- Tool-specific behavior belongs in notes and comparisons, not in the core contract.
+- Workflow skills and capability skills solve different problems and should stay distinct.
+- A reusable asset package is usually more useful than a long chat transcript.

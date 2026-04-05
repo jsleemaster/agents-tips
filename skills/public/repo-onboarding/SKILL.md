@@ -1,11 +1,23 @@
 ---
 name: repo-onboarding
-description: "Rapidly understand and operate any codebase. Use when Codex needs to onboard to an unfamiliar repo: identify entry points, build/test commands, architecture, data flow, and risk areas; generate concise summaries and action plans for cleanup, refactors, bug fixes, or feature work."
+description: "Rapidly understand and operate any codebase. Use when you need to onboard to an unfamiliar repo, identify entry points and quality gates, and extract reusable workflows or harness opportunities that could become durable agent assets."
 ---
 
 # Repo Onboarding
 
 Follow this workflow to get productive quickly in any repository without overloading context.
+
+If the repo looks promising for reusable agent work, also extract:
+
+- candidate workflow skills
+- candidate capability skills
+- candidate harness or CLI seams
+- likely quality gates worth preserving
+
+Reference docs:
+
+- [workflow-vs-capability-skills](../../../references/workflow-vs-capability-skills.md)
+- [agent-harness-patterns](../../../references/agent-harness-patterns.md)
 
 ## 1) Establish the repo shape
 
@@ -24,6 +36,7 @@ Suggested commands:
 - Locate scripts or make targets (package.json scripts, Makefile, Taskfile, tox, npm, etc.).
 - Extract the minimal run/test commands.
 - Note environment prerequisites (DBs, services, env vars).
+- Note whether the repo already has a stable validation seam that could back an agent skill or harness.
 
 Suggested commands:
 
@@ -35,6 +48,7 @@ Suggested commands:
 - Identify the app entry point(s): main module, server bootstrap, CLI entry.
 - Find routes/handlers, services, and data access layers.
 - Trace key execution flows for the requested feature/bug.
+- Mark spots where an agent can operate safely through narrow interfaces instead of broad codebase access.
 
 Suggested commands:
 
@@ -47,6 +61,7 @@ Suggested commands:
 - Locate recently changed files or large modules.
 - Identify dependencies, external APIs, or shared libraries.
 - Flag areas likely to require tests or migrations.
+- Flag hidden sharp edges: side effects, stateful commands, flaky tests, brittle scripts, or manual deployment steps.
 
 Suggested commands:
 
@@ -54,7 +69,17 @@ Suggested commands:
 - `git log --oneline -n 20`
 - `rg -n "TODO|FIXME|HACK"`
 
-## 5) Produce a concise onboarding summary
+## 5) Extract reusable opportunities
+
+- List repeated workflows that could become workflow skills.
+- List durable knowledge that belongs in reference docs instead of prompts.
+- List repetitive shell or build sequences that could become scripts.
+- Identify whether a harness pattern makes sense:
+  - stable CLI or script entrypoint already exists
+  - narrow inputs and outputs can be defined
+  - validation boundaries are clear
+
+## 6) Produce a concise onboarding summary
 
 Deliver a short, actionable output. Keep it under ~15 bullets:
 
@@ -66,9 +91,12 @@ Deliver a short, actionable output. Keep it under ~15 bullets:
 - **Data stores + migrations**
 - **External services**
 - **Primary risks**
+- **Reusable workflows**
+- **Harness opportunities**
+- **Quality gates**
 - **Next steps** (for the user’s task)
 
-## 6) If asked to implement work
+## 7) If asked to implement work
 
 - Propose a small plan with 2–5 steps.
 - Implement minimal, targeted changes.
@@ -87,4 +115,7 @@ Use this template when summarizing:
 - Data stores:
 - External services:
 - Risks/unknowns:
+- Reusable workflows:
+- Harness opportunities:
+- Quality gates:
 - Next steps:
