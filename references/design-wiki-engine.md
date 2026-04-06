@@ -1,6 +1,13 @@
 # Design Wiki Engine
 
-This reference describes the local design wiki engine prototype that turns an Obsidian vault into a closed-world project design advisor.
+This reference describes the local design wiki engine prototype that turns a local Markdown workspace into a closed-world project design advisor.
+
+The recommended operating model is Notion-first:
+
+- Notion is the human editing and collection surface.
+- `raw/notion/` records which Notion pages seeded the local corpus.
+- `wiki/` stores compiled, retrieval-friendly decision pages.
+- The engine answers from `wiki/`, not from raw Notion pages at query time.
 
 ## What it does
 
@@ -12,9 +19,9 @@ This reference describes the local design wiki engine prototype that turns an Ob
 - creates review drafts for bigger knowledge gaps under `derived/draft-updates/`
 - promotes approved drafts into canonical `wiki/` pages
 
-## Vault layout
+## Workspace Layout
 
-The engine creates these directories automatically inside the target vault root:
+The engine creates these directories automatically inside the target workspace root:
 
 - `raw/`
 - `wiki/`
@@ -22,6 +29,16 @@ The engine creates these directories automatically inside the target vault root:
 - `derived/draft-updates/`
 - `derived/ingest-summaries/`
 - `state/`
+
+## Typical Notion Workflow
+
+1. Add or update source material in Notion.
+2. Record the source page or database in `raw/notion/`.
+3. Distill the decision points into one or more `wiki/` pages.
+4. Query the engine against the compiled wiki.
+5. Let low-risk updates land automatically and review larger draft insights before promotion.
+
+This keeps the retrieval layer stable even as the Notion source corpus grows.
 
 ## Local API
 
@@ -84,7 +101,7 @@ Quick start:
 ```bash
 ollama serve
 ollama pull gemma4:e4b
-cd /path/to/your/wiki-vault
+cd /path/to/your/wiki-workspace
 npm --prefix /Users/smlee/agent-tips run start:design-wiki:ollama
 ```
 
@@ -93,6 +110,8 @@ The adapter sends the wiki evidence to Ollama with a closed-world system prompt 
 ## Obsidian wrapper
 
 The thin wrapper lives in [obsidian-plugin/design-wiki-thin-wrapper](../obsidian-plugin/design-wiki-thin-wrapper/README.md).
+
+It is optional. The core engine does not require Obsidian and can be used directly from a plain Markdown workspace or any custom UI.
 
 It exposes three commands:
 

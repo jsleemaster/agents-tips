@@ -8,14 +8,14 @@ This repository is intentionally small and curated. It packages practical patter
 - reference docs that explain portable design choices
 - prompts that steer a session toward reusable outputs
 - lightweight validation for keeping the catalog tidy
-- a local design-wiki prototype for Obsidian-backed project design reasoning
+- a local design-wiki prototype for Notion-first, compiled project design reasoning
 
 ## Start Here
 
 - Read [quick-prompt.md](quick-prompt.md) if you want a strong kickoff prompt for building something real while leaving behind reusable assets.
 - Read [repo-onboarding](skills/public/repo-onboarding/SKILL.md) if you need to understand an unfamiliar repository and spot reusable workflows.
 - Read [repo-skill-builder](skills/public/repo-skill-builder/SKILL.md) if you want to package a repository-specific workflow into a reusable skill.
-- Read [design-wiki-engine](references/design-wiki-engine.md) if you want the local Obsidian-backed project design advisor prototype.
+- Read [design-wiki-engine](references/design-wiki-engine.md) if you want the local Notion-first project design advisor prototype.
 - Run `bash scripts/validate-skills.sh` before publishing changes to this repo.
 
 ## Repository Contract
@@ -46,11 +46,22 @@ This repo is not a trend archive. It keeps only patterns that are clear enough t
 
 ## Design Wiki Prototype
 
-This repo now includes a small local prototype for an Obsidian-backed project design wiki:
+This repo now includes a small local prototype for a Notion-first compiled design wiki:
 
 - local engine: `src/design-wiki/`
+- Notion source registry seed: `raw/notion/`
+- compiled retrieval pages: `wiki/`
 - Obsidian thin wrapper: `obsidian-plugin/design-wiki-thin-wrapper/`
 - tests: `tests/design-wiki/`
+
+The intended operating model is:
+
+- write and curate source material in Notion
+- record source pages under `raw/notion/`
+- compile reusable decision pages into `wiki/`
+- let the engine answer only from the compiled local wiki
+
+Obsidian is optional. The thin wrapper exists if you want an editor UI later, but the core engine works from any Markdown workspace.
 
 Run:
 
