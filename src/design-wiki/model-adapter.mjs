@@ -1,5 +1,60 @@
 import { spawn } from 'node:child_process';
 
+function parseJsonObject(value) {
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    const match = String(value).match(/\{[\s\S]*\}/);
+    if (!match) {
+      throw error;
+    }
+
+    return JSON.parse(match[0]);
+  }
+}
+
+function buildOllamaSystemPrompt() {
+  return `You are a closed-world project design advisor.
+
+Rules:
+- Use only the provided wiki evidence.
+- Do not invent citations or unstated facts.
+- If evidence is thin, say so directly.
+- Prefer a concrete recommendation over a vague survey.
+- Return valid JSON only.
+
+Return this JSON shape:
+{
+  "answer": "string",
+  "recommendation": "string",
+  "alternatives": ["string"],
+  "confidence": 0.0
+}`;
+}
+
+function buildOllamaUserPrompt(payload) {
+  const citations = payload.citations.length === 0
+    ? '- none'
+    : payload.citations
+      .map((citation) => `- ${citation.title} | ${citation.path} | ${citation.excerpt}`)
+      .join('\n');
+  const missingKnowledge = payload.missingKnowledge.length === 0
+    ? '- none'
+    : payload.missingKnowledge.map((item) => `- ${item}`).join('\n');
+
+  return `Question:
+${payload.question}
+
+Suggested confidence:
+${payload.suggestedConfidence}
+
+Citations:
+${citations}
+
+Missing knowledge:
+${missingKnowledge}`;
+}
+
 function defaultAnswer({ recommendation, citations, missingKnowledge }) {
   if (citations.length === 0) {
     return `The best answer I can give from the current wiki is that it does not yet contain enough grounded evidence to recommend a design. Before making a stronger recommendation, fill the missing areas and rerun the query.`;
@@ -87,4 +142,94 @@ export class CommandModelAdapter {
       child.stdin.end();
     });
   }
+}
+
+export class OllamaModelAdapter {
+  constructor({
+    baseUrl = 'http://127.0.0.1:11434',
+    model = 'gemma4:e4b',
+    think = 'low',
+    keepAlive = '5m',
+    fetchFn = globalThis.fetch,
+    options = {
+      temperature: 1,
+      top_p: 0.95,
+      top_k: 64,
+    },
+  } = {}) {
+    if (!fetchFn) {
+      throw new Error('fetchFn is required for OllamaModelAdapter');
+    }
+
+    this.baseUrl = baseUrl.replace(/\/$/, '');
+    this.model = model;
+    this.think = think;
+    this.keepAlive = keepAlive;
+    this.fetchFn = fetchFn;
+    this.options = options;
+  }
+
+  async answer(payload) {
+    const response = await this.fetchFn(`${this.baseUrl}/api/chat`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: this.model,
+        stream: false,
+        format: 'json',
+        think: this.think,
+        keep_alive: this.keepAlive,
+        options: this.options,
+        messages: [
+          {
+            role: 'system',
+            content: buildOllamaSystemPrompt(),
+          },
+          {
+            role: 'user',
+            content: buildOllamaUserPrompt(payload),
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      let details = '';
+      try {
+        details = JSON.stringify(await response.json());
+      } catch {
+        details = `status ${response.status}`;
+      }
+      throw new Error(`Ollama request failed: ${details}`);
+    }
+
+    const body = await response.json();
+    const content = body?.message?.content || body?.response;
+    const parsed = parseJsonObject(content);
+
+    return {
+      answer: parsed.answer,
+      recommendation: parsed.recommendation,
+      alternatives: Array.isArray(parsed.alternatives) ? parsed.alternatives : [],
+      confidence: typeof parsed.confidence === 'number' ? parsed.confidence : payload.suggestedConfidence,
+    };
+  }
+}
+
+export function createModelAdapterFromEnv({ env = process.env, fetchFn = globalThis.fetch } = {}) {
+  const backend = env.DESIGN_WIKI_MODEL_BACKEND || (env.DESIGN_WIKI_OLLAMA_MODEL ? 'ollama' : 'heuristic');
+
+  if (backend === 'ollama') {
+    return new OllamaModelAdapter({
+      baseUrl: env.DESIGN_WIKI_OLLAMA_BASE_URL || 'http://127.0.0.1:11434',
+      model: env.DESIGN_WIKI_OLLAMA_MODEL || 'gemma4:e4b',
+      think: env.DESIGN_WIKI_OLLAMA_THINK || 'low',
+      keepAlive: env.DESIGN_WIKI_OLLAMA_KEEP_ALIVE || '5m',
+      fetchFn,
+    });
+  }
+
+  return new HeuristicModelAdapter();
 }

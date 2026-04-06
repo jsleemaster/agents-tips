@@ -57,6 +57,7 @@ Run:
 ```bash
 npm test
 npm run start:design-wiki
+npm run start:design-wiki:ollama
 ```
 
 ## Validation

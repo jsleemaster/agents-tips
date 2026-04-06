@@ -6,6 +6,7 @@
   "scripts": {
     "test": "node --test tests/design-wiki/*.test.mjs",
     "validate": "bash scripts/validate-skills.sh",
-    "start:design-wiki": "node src/design-wiki/cli.mjs"
+    "start:design-wiki": "node src/design-wiki/cli.mjs",
+    "start:design-wiki:ollama": "DESIGN_WIKI_MODEL_BACKEND=ollama DESIGN_WIKI_OLLAMA_MODEL=gemma4:e4b node src/design-wiki/cli.mjs"
   }
 }

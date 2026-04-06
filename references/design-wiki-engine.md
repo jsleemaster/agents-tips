@@ -61,6 +61,35 @@ Contract:
 
 This keeps the engine model-independent while still making local open-model integration straightforward.
 
+### Ollama adapter
+
+Use `OllamaModelAdapter` when you want the engine to call a local Ollama server directly.
+
+Default settings:
+
+- model: `gemma4:e4b`
+- base URL: `http://127.0.0.1:11434`
+- think: `low`
+
+Environment variables:
+
+- `DESIGN_WIKI_MODEL_BACKEND=ollama`
+- `DESIGN_WIKI_OLLAMA_MODEL=gemma4:e4b`
+- `DESIGN_WIKI_OLLAMA_BASE_URL=http://127.0.0.1:11434`
+- `DESIGN_WIKI_OLLAMA_THINK=low`
+- `DESIGN_WIKI_OLLAMA_KEEP_ALIVE=5m`
+
+Quick start:
+
+```bash
+ollama serve
+ollama pull gemma4:e4b
+cd /path/to/your/wiki-vault
+npm --prefix /Users/smlee/agent-tips run start:design-wiki:ollama
+```
+
+The adapter sends the wiki evidence to Ollama with a closed-world system prompt and expects JSON output back.
+
 ## Obsidian wrapper
 
 The thin wrapper lives in [obsidian-plugin/design-wiki-thin-wrapper](../obsidian-plugin/design-wiki-thin-wrapper/README.md).
