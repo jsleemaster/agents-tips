@@ -191,6 +191,47 @@ function normalizeCitation(page, score) {
   };
 }
 
+function containsHangul(value) {
+  return /[\u3131-\u318e\uac00-\ud7a3]/.test(String(value));
+}
+
+function buildClosedWorldFallback({ question, missingKnowledge, suggestedConfidence }) {
+  if (containsHangul(question)) {
+    return {
+      answer: '현재 위키에 있는 자료만으로는 이 질문에 대해 근거 있는 설계 답변을 만들기 어렵습니다. 관련 원칙이나 사례를 먼저 위키에 추가한 뒤 다시 질의하는 편이 정확합니다.',
+      recommendation: '현재 위키에는 이 질문을 뒷받침할 충분한 근거가 없습니다. 먼저 관련 설계 원칙, 사례, 판단 기준을 위키에 추가하세요.',
+      alternatives: [],
+      confidence: Math.min(suggestedConfidence, 0.2),
+      missingKnowledge,
+    };
+  }
+
+  return {
+    answer: 'The best answer I can give from the current wiki is that it does not yet contain enough grounded evidence to recommend a design. Before making a stronger recommendation, fill the missing areas and rerun the query.',
+    recommendation: 'State that the current wiki does not contain enough grounded evidence yet.',
+    alternatives: [],
+    confidence: Math.min(suggestedConfidence, 0.2),
+    missingKnowledge,
+  };
+}
+
+function normalizeModelOutput({ question, citations, missingKnowledge, suggestedConfidence, shaped }) {
+  if (citations.length === 0) {
+    return buildClosedWorldFallback({
+      question,
+      missingKnowledge,
+      suggestedConfidence,
+    });
+  }
+
+  return {
+    answer: shaped.answer,
+    recommendation: shaped.recommendation,
+    alternatives: Array.isArray(shaped.alternatives) ? shaped.alternatives : [],
+    confidence: typeof shaped.confidence === 'number' ? shaped.confidence : suggestedConfidence,
+  };
+}
+
 function findMissingKnowledge(questionTokens, pages) {
   const knownTokens = new Set();
 
@@ -389,10 +430,17 @@ export class DesignWikiEngine {
       missingKnowledge,
       suggestedConfidence,
     });
-    const recommendation = shaped.recommendation;
-    const answer = shaped.answer;
-    const alternatives = shaped.alternatives || [];
-    const confidence = typeof shaped.confidence === 'number' ? shaped.confidence : suggestedConfidence;
+    const normalized = normalizeModelOutput({
+      question,
+      citations,
+      missingKnowledge,
+      suggestedConfidence,
+      shaped,
+    });
+    const recommendation = normalized.recommendation;
+    const answer = normalized.answer;
+    const alternatives = normalized.alternatives;
+    const confidence = normalized.confidence;
     const autoUpdatesApplied = [];
     const draftUpdatesCreated = [];
 

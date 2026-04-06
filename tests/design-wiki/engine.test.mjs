@@ -143,6 +143,39 @@ Use lexical search first.
   assert.match(draftContent, /finance workflow/i);
 });
 
+test('query clamps model output to a closed-world fallback when citations are empty', async () => {
+  const vaultRoot = await makeVault({
+    'wiki/retrieval-strategy.md': `# Retrieval Strategy
+
+Use lexical search first.
+`,
+  });
+
+  const engine = new DesignWikiEngine({
+    rootDir: vaultRoot,
+    modelAdapter: {
+      async answer() {
+        return {
+          answer: 'You should interview users and define a pain point first.',
+          recommendation: 'Build a one-screen journaling MVP first.',
+          alternatives: ['Start with emotion tracking instead.'],
+          confidence: 0.9,
+        };
+      },
+    },
+  });
+
+  const response = await engine.query({
+    question: '아 일기 쓰는 프로젝트를 하고 싶은데 MVP 범위를 어떻게 자르는게 좋지?',
+  });
+
+  assert.equal(response.citations.length, 0);
+  assert.equal(response.alternatives.length, 0);
+  assert.equal(response.confidence <= 0.2, true);
+  assert.match(response.recommendation, /grounded evidence|근거/i);
+  assert.doesNotMatch(response.recommendation, /one-screen journaling/i);
+});
+
 test('reviewUpdates lists pending drafts and promote turns one into a canonical wiki page', async () => {
   const vaultRoot = await makeVault({
     'derived/draft-updates/deployment-approvals.md': `---
