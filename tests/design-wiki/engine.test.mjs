@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { Readable } from 'node:stream';
 
 import { DesignWikiEngine } from '../../src/design-wiki/engine.mjs';
 
@@ -16,6 +17,34 @@ async function makeVault(structure) {
   }
 
   return root;
+}
+
+async function invokeHttp(engine, { method = 'GET', url = '/', headers = {}, body } = {}) {
+  const chunks = body == null ? [] : [Buffer.from(typeof body === 'string' ? body : JSON.stringify(body))];
+  const request = Readable.from(chunks);
+  request.method = method;
+  request.url = url;
+  request.headers = headers;
+
+  return await new Promise((resolve, reject) => {
+    const response = {
+      statusCode: 200,
+      headers: {},
+      writeHead(statusCode, nextHeaders) {
+        this.statusCode = statusCode;
+        this.headers = nextHeaders || {};
+      },
+      end(payload) {
+        resolve({
+          statusCode: this.statusCode,
+          headers: this.headers,
+          body: payload == null ? '' : String(payload),
+        });
+      },
+    };
+
+    engine.handleRequest(request, response).catch(reject);
+  });
 }
 
 test('query uses wiki evidence, returns structured closed-world answer, and logs low-risk updates', async () => {
@@ -227,4 +256,85 @@ Use lexical search first and expand links.
 
   assert.match(queryResult.recommendation, /lexical/i);
   assert.equal(Array.isArray(reviewResult.pending), true);
+});
+
+test('http server serves a browser UI and supports query requests', async () => {
+  const vaultRoot = await makeVault({
+    'wiki/retrieval-strategy.md': `# Retrieval Strategy
+
+Use lexical search first and expand links.
+`,
+  });
+
+  const engine = new DesignWikiEngine({ rootDir: vaultRoot });
+  const pageResponse = await invokeHttp(engine, {
+    method: 'GET',
+    url: '/',
+  });
+  assert.equal(pageResponse.statusCode, 200);
+  assert.match(pageResponse.headers['content-type'] || '', /text\/html/i);
+  const html = pageResponse.body;
+  assert.match(html, /Design Wiki/i);
+  assert.match(html, /Ask The Wiki/i);
+
+  const queryResponse = await invokeHttp(engine, {
+    method: 'POST',
+    url: '/query',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: {
+      question: 'What retrieval approach should I use?',
+    },
+  });
+
+  assert.equal(queryResponse.statusCode, 200);
+  const payload = JSON.parse(queryResponse.body);
+  assert.match(payload.recommendation, /lexical/i);
+  assert.equal(Array.isArray(payload.citations), true);
+});
+
+test('http server can require a shared token for API routes', async () => {
+  const vaultRoot = await makeVault({
+    'wiki/retrieval-strategy.md': `# Retrieval Strategy
+
+Use lexical search first and expand links.
+`,
+  });
+
+  const engine = new DesignWikiEngine({
+    rootDir: vaultRoot,
+    authToken: 'topsecret',
+  });
+
+  const deniedResponse = await invokeHttp(engine, {
+    method: 'POST',
+    url: '/query',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: {
+      question: 'What retrieval approach should I use?',
+    },
+  });
+
+  assert.equal(deniedResponse.statusCode, 401);
+  const deniedPayload = JSON.parse(deniedResponse.body);
+  assert.equal(deniedPayload.error, 'unauthorized');
+
+  const allowedResponse = await invokeHttp(engine, {
+    method: 'POST',
+    url: '/query',
+    headers: {
+      'content-type': 'application/json',
+      'x-design-wiki-token': 'topsecret',
+    },
+    body: {
+      question: 'What retrieval approach should I use?',
+    },
+  });
+
+  assert.equal(allowedResponse.statusCode, 200);
+  const allowedPayload = JSON.parse(allowedResponse.body);
+  assert.match(allowedPayload.recommendation, /lexical/i);
 });

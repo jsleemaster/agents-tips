@@ -69,7 +69,18 @@ Run:
 npm test
 npm run start:design-wiki
 npm run start:design-wiki:ollama
+npm run start:design-wiki:web
+npm run start:design-wiki:web:ollama
 ```
+
+For remote browser access on your local network, set a shared token before using a web script:
+
+```bash
+export DESIGN_WIKI_AUTH_TOKEN="choose-a-long-random-token"
+npm run start:design-wiki:web:ollama
+```
+
+Then open `http://<your-mac-ip>:43121/` in a browser and enter the same token in the page.
 
 ## Validation
 

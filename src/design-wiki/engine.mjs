@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { HeuristicModelAdapter } from './model-adapter.mjs';
+import { renderWebApp } from './web-ui.mjs';
 
 const VAULT_DIRS = [
   'raw',
@@ -373,10 +374,18 @@ function jsonResponse(response, statusCode, body) {
   response.end(JSON.stringify(body));
 }
 
+function htmlResponse(response, statusCode, body) {
+  response.writeHead(statusCode, {
+    'content-type': 'text/html; charset=utf-8',
+  });
+  response.end(body);
+}
+
 export class DesignWikiEngine {
-  constructor({ rootDir, modelAdapter } = {}) {
+  constructor({ rootDir, modelAdapter, authToken } = {}) {
     this.rootDir = rootDir;
     this.modelAdapter = modelAdapter || new HeuristicModelAdapter();
+    this.authToken = String(authToken || '').trim();
   }
 
   async ensureStructure() {
@@ -686,15 +695,56 @@ ${summary || resolvedContent.slice(0, 280)}
     throw new Error(`Unknown route: ${route}`);
   }
 
+  isAuthorized(request) {
+    if (!this.authToken) {
+      return true;
+    }
+
+    const headerToken = request.headers?.['x-design-wiki-token'];
+    if (headerToken === this.authToken) {
+      return true;
+    }
+
+    const authorization = request.headers?.authorization || '';
+    const bearerMatch = authorization.match(/^Bearer\s+(.+)$/i);
+    if (bearerMatch && bearerMatch[1] === this.authToken) {
+      return true;
+    }
+
+    return false;
+  }
+
   async handleRequest(request, response) {
     try {
+      const pathname = new URL(request.url, 'http://design-wiki.local').pathname;
+
+      if (request.method === 'GET' && (pathname === '/' || pathname === '/app')) {
+        htmlResponse(response, 200, renderWebApp({
+          authRequired: Boolean(this.authToken),
+        }));
+        return;
+      }
+
+      if (request.method === 'GET' && pathname === '/health') {
+        jsonResponse(response, 200, {
+          ok: true,
+          auth_required: Boolean(this.authToken),
+        });
+        return;
+      }
+
       if (request.method !== 'POST') {
         jsonResponse(response, 405, { error: 'method_not_allowed' });
         return;
       }
 
+      if (!this.isAuthorized(request)) {
+        jsonResponse(response, 401, { error: 'unauthorized' });
+        return;
+      }
+
       const body = await readJsonBody(request);
-      jsonResponse(response, 200, await this.dispatch(request.url, body));
+      jsonResponse(response, 200, await this.dispatch(pathname, body));
     } catch (error) {
       if (String(error.message).startsWith('Unknown route:')) {
         jsonResponse(response, 404, { error: 'not_found' });
