@@ -1,0 +1,10 @@
+{
+  "id": "design-wiki-thin-wrapper",
+  "name": "Design Wiki Thin Wrapper",
+  "version": "0.1.0",
+  "minAppVersion": "1.6.0",
+  "description": "Thin Obsidian commands for querying a local design wiki engine.",
+  "author": "OpenAI Codex",
+  "authorUrl": "https://openai.com",
+  "isDesktopOnly": true
+}

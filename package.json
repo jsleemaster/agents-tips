@@ -1,0 +1,11 @@
+{
+  "name": "agent-tips",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Reusable agent assets plus a local design-wiki engine prototype.",
+  "scripts": {
+    "test": "node --test tests/design-wiki/*.test.mjs",
+    "validate": "bash scripts/validate-skills.sh",
+    "start:design-wiki": "node src/design-wiki/cli.mjs"
+  }
+}

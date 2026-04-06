@@ -8,12 +8,14 @@ This repository is intentionally small and curated. It packages practical patter
 - reference docs that explain portable design choices
 - prompts that steer a session toward reusable outputs
 - lightweight validation for keeping the catalog tidy
+- a local design-wiki prototype for Obsidian-backed project design reasoning
 
 ## Start Here
 
 - Read [quick-prompt.md](quick-prompt.md) if you want a strong kickoff prompt for building something real while leaving behind reusable assets.
 - Read [repo-onboarding](skills/public/repo-onboarding/SKILL.md) if you need to understand an unfamiliar repository and spot reusable workflows.
 - Read [repo-skill-builder](skills/public/repo-skill-builder/SKILL.md) if you want to package a repository-specific workflow into a reusable skill.
+- Read [design-wiki-engine](references/design-wiki-engine.md) if you want the local Obsidian-backed project design advisor prototype.
 - Run `bash scripts/validate-skills.sh` before publishing changes to this repo.
 
 ## Repository Contract
@@ -39,7 +41,23 @@ This repo is not a trend archive. It keeps only patterns that are clear enough t
 - [workflow-vs-capability-skills](references/workflow-vs-capability-skills.md)
 - [agent-skills-open-standard](references/agent-skills-open-standard.md)
 - [agent-harness-patterns](references/agent-harness-patterns.md)
+- [design-wiki-engine](references/design-wiki-engine.md)
 - [tooling-differences](references/tooling-differences.md)
+
+## Design Wiki Prototype
+
+This repo now includes a small local prototype for an Obsidian-backed project design wiki:
+
+- local engine: `src/design-wiki/`
+- Obsidian thin wrapper: `obsidian-plugin/design-wiki-thin-wrapper/`
+- tests: `tests/design-wiki/`
+
+Run:
+
+```bash
+npm test
+npm run start:design-wiki
+```
 
 ## Validation
 
