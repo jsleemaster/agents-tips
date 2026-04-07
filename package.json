@@ -4,11 +4,12 @@
   "version": "0.1.0",
   "description": "Reusable agent assets plus a local design-wiki engine prototype.",
   "scripts": {
-    "test": "node --test tests/design-wiki/*.test.mjs",
+    "test": "node --test tests/design-wiki/*.test.mjs tests/telegram-error-inbox/*.test.mjs",
     "validate": "bash scripts/validate-skills.sh",
     "start:design-wiki": "node src/design-wiki/cli.mjs",
     "start:design-wiki:ollama": "DESIGN_WIKI_MODEL_BACKEND=ollama DESIGN_WIKI_OLLAMA_MODEL=gemma4:e4b node src/design-wiki/cli.mjs",
     "start:design-wiki:web": "DESIGN_WIKI_HOST=0.0.0.0 node src/design-wiki/cli.mjs",
-    "start:design-wiki:web:ollama": "DESIGN_WIKI_HOST=0.0.0.0 DESIGN_WIKI_MODEL_BACKEND=ollama DESIGN_WIKI_OLLAMA_MODEL=gemma4:e4b node src/design-wiki/cli.mjs"
+    "start:design-wiki:web:ollama": "DESIGN_WIKI_HOST=0.0.0.0 DESIGN_WIKI_MODEL_BACKEND=ollama DESIGN_WIKI_OLLAMA_MODEL=gemma4:e4b node src/design-wiki/cli.mjs",
+    "start:telegram-error-inbox": "node src/telegram-error-inbox/cli.mjs"
   }
 }

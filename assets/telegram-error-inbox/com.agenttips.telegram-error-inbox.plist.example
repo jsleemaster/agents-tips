@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.agenttips.telegram-error-inbox</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/bin/env</string>
+      <string>npm</string>
+      <string>run</string>
+      <string>start:telegram-error-inbox</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/your-user/agent-tips</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>TELEGRAM_BOT_TOKEN</key>
+      <string>123456:replace-me</string>
+      <key>TELEGRAM_ALLOWED_CHAT_IDS</key>
+      <string>123456789</string>
+      <key>TELEGRAM_ERROR_INBOX_DB_PATH</key>
+      <string>/Users/your-user/Library/Application Support/agent-tips/telegram-error-inbox.sqlite</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/your-user/Library/Logs/telegram-error-inbox.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/your-user/Library/Logs/telegram-error-inbox-error.log</string>
+  </dict>
+</plist>

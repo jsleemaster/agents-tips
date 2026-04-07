@@ -9,6 +9,7 @@ This repository is intentionally small and curated. It packages practical patter
 - prompts that steer a session toward reusable outputs
 - lightweight validation for keeping the catalog tidy
 - a local design-wiki prototype for Notion-first, compiled project design reasoning
+- a reusable Telegram error inbox pattern for personal multi-project operations
 
 ## Start Here
 
@@ -31,6 +32,7 @@ This repo is not a trend archive. It keeps only patterns that are clear enough t
 
 <!-- SKILL_INDEX_START -->
 - [`agent-harness-builder`](skills/public/agent-harness-builder/SKILL.md) designs an agent-friendly harness around an existing tool, repo, or process.
+- [`project-alert-integration`](skills/public/project-alert-integration/SKILL.md) integrates a project with the shared Telegram error inbox contract and dual-delivery flow.
 - [`repo-onboarding`](skills/public/repo-onboarding/SKILL.md) maps an unfamiliar repository and extracts reusable workflows, harness seams, and quality gates.
 - [`repo-skill-builder`](skills/public/repo-skill-builder/SKILL.md) turns repository-specific work into a standard-compliant skill package.
 - [`workflow-skill-designer`](skills/public/workflow-skill-designer/SKILL.md) turns a messy repeated process into a reusable workflow skill.
@@ -42,6 +44,8 @@ This repo is not a trend archive. It keeps only patterns that are clear enough t
 - [agent-skills-open-standard](references/agent-skills-open-standard.md)
 - [agent-harness-patterns](references/agent-harness-patterns.md)
 - [design-wiki-engine](references/design-wiki-engine.md)
+- [telegram-error-inbox](references/telegram-error-inbox.md)
+- [telegram-error-inbox-deployment](references/telegram-error-inbox-deployment.md)
 - [tooling-differences](references/tooling-differences.md)
 
 ## Design Wiki Prototype
@@ -81,6 +85,23 @@ npm run start:design-wiki:web:ollama
 ```
 
 Then open `http://<your-mac-ip>:43121/` in a browser and enter the same token in the page.
+
+## Telegram Error Inbox
+
+This repo also includes a reusable Telegram error inbox reference package:
+
+- local hub service: `src/telegram-error-inbox/`
+- public integration skill: `skills/public/project-alert-integration/`
+- architecture reference: `references/telegram-error-inbox.md`
+- deployment guide: `references/telegram-error-inbox-deployment.md`
+
+Run the local inbox:
+
+```bash
+npm run start:telegram-error-inbox
+```
+
+Set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_ALLOWED_CHAT_IDS` if you want Telegram command polling enabled.
 
 ## Validation
 
