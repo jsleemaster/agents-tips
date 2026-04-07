@@ -34,9 +34,56 @@ This design wiki treats selected Notion pages as the human-curated source of tru
   Notion URL: `https://www.notion.so/32cc796e635e811083a9ed787671e452`
   External URL: `https://medium.com/data-science-collective/how-to-build-claude-skills-2-0-better-than-99-of-people-af4927dd5335`
 
+## Source To Target Mapping
+
+- Source: `📐 Claude Code 팁 (2026) - Agent Optimized`
+  Targets:
+  - `wiki/claude-code-operating-patterns.md`
+  Preferred content:
+  - command-level habits
+  - context management heuristics
+  - hook boundaries
+  - MCP usage guidance
+  - compact operator defaults
+
+- Source: `📚 Claude Code in Action 과정 + 최신 팁 종합 정리`
+  Targets:
+  - `wiki/claude-code-operating-patterns.md`
+  - `wiki/agent-skill-system-design.md`
+  Preferred content:
+  - long-form workflow patterns
+  - teams vs subagents tradeoffs
+  - skill architecture
+  - progressive disclosure
+  - automation and verification loops
+
+- Source: `🔗 링크 정리`
+  Targets:
+  - `wiki/open-model-runtime-selection.md`
+  - `wiki/agent-skill-system-design.md`
+  Routing rules:
+  - model families, pricing, context-window signals, deployment fit, and local-vs-hosted escalation go to `wiki/open-model-runtime-selection.md`
+  - skill systems, trigger design, metadata, and reusable agent architecture go to `wiki/agent-skill-system-design.md`
+  - only route material into `wiki/claude-code-operating-patterns.md` when the link changes day-to-day operator behavior rather than model-selection policy
+
+- Seed page: `Gemma 4 공개 — Apache 2.0 오픈 모델을 agentic workflow 중심으로 재정의`
+  Target:
+  - `wiki/open-model-runtime-selection.md`
+
+- Seed page: `Alibaba Qwen3.6-Plus 공개 — 1M 컨텍스트·에이전트 코딩, Claude Opus 4.5 수준 달성`
+  Target:
+  - `wiki/open-model-runtime-selection.md`
+
+- Seed page: `Claude Skills 2.0 - AI 에이전트 스킬 시스템 대규모 업그레이드`
+  Target:
+  - `wiki/agent-skill-system-design.md`
+
 ## Compilation Policy
 
 - Notion stays the human editing surface.
 - `raw/notion/` records which Notion pages seeded the wiki.
 - `wiki/` contains distilled pages optimized for retrieval and design questions.
 - When new Notion pages are added, compile them into existing wiki pages before adding new top-level pages.
+- Follow the source-to-target mapping above before creating a new destination page.
+- If a source touches multiple targets, update each target only with the material that matches its scope.
+- Only create a new canonical page when the incoming material does not fit any mapped target and introduces a genuinely new decision area.
