@@ -11,6 +11,7 @@ Reference docs:
 
 - [telegram-error-inbox](../../../references/telegram-error-inbox.md)
 - [telegram-error-inbox-deployment](../../../references/telegram-error-inbox-deployment.md)
+- [telegram-error-inbox-onboarding](../../../references/telegram-error-inbox-onboarding.md)
 - [agent-harness-patterns](../../../references/agent-harness-patterns.md)
 
 ## 1) Find the real failure boundary
@@ -87,3 +88,11 @@ Before calling the integration done:
 - confirm `/status` or `/detail <id>` reflects the event
 
 If any one of those fails, the integration is incomplete.
+
+## 7) Fast handoff option
+
+If you are onboarding another agent into an existing repo, start from:
+
+- [telegram-error-inbox-onboarding](../../../references/telegram-error-inbox-onboarding.md)
+
+That reference includes a copy-paste kickoff prompt, shared infra assumptions, and a review checklist for the finished integration.

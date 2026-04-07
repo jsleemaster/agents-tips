@@ -46,6 +46,7 @@ This repo is not a trend archive. It keeps only patterns that are clear enough t
 - [design-wiki-engine](references/design-wiki-engine.md)
 - [telegram-error-inbox](references/telegram-error-inbox.md)
 - [telegram-error-inbox-deployment](references/telegram-error-inbox-deployment.md)
+- [telegram-error-inbox-onboarding](references/telegram-error-inbox-onboarding.md)
 - [tooling-differences](references/tooling-differences.md)
 
 ## Design Wiki Prototype
@@ -94,6 +95,7 @@ This repo also includes a reusable Telegram error inbox reference package:
 - public integration skill: `skills/public/project-alert-integration/`
 - architecture reference: `references/telegram-error-inbox.md`
 - deployment guide: `references/telegram-error-inbox-deployment.md`
+- copy-paste onboarding prompt: `references/telegram-error-inbox-onboarding.md`
 
 Run the local inbox:
 
