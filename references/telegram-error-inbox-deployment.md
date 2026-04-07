@@ -40,6 +40,12 @@ npm run start:telegram-error-inbox
 
 Without `TELEGRAM_BOT_TOKEN`, the HTTP ledger still runs, but Telegram command polling stays disabled.
 
+If you prefer a local non-committed env file, create `.telegram-error-inbox.local.env` in the repo root and use:
+
+```bash
+./scripts/start-telegram-error-inbox-local.sh
+```
+
 ## LaunchAgent pattern
 
 Use a user-level LaunchAgent so the service starts at login and restarts on failure.
