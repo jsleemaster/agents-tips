@@ -26,12 +26,16 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - The E2B and E4B line is especially relevant for laptop-class deployment.
 - Source notes highlight four sizes: E2B, E4B, 26B MoE, and 31B Dense.
 - Apache 2.0 matters operationally because it lowers friction for commercial use, internal deployment, and fine-tuning.
+- Native support for function calling, structured JSON output, and system instructions matters more than raw benchmark rank when the target workload is an agent loop.
+- Vision, video, and audio support widen the cases where a local runtime can stay in the loop instead of escalating immediately to a hosted multimodal model.
 - The strongest design implication is that local structured-output agents are now practical enough for product workflows, not only demos.
 
 ## Qwen 3.6 Signal
 
 - Qwen 3.6 pushes the opposite frontier: long context, stronger coding performance, and aggressive price/performance in API form.
 - Source notes claim a 1M-token context window, multimodal support, and repo-scale coding workflows.
+- The price signal is large enough to matter as policy, not trivia: roughly `$0.29` per 1M input tokens versus premium-model pricing an order of magnitude higher.
+- Official compatibility with coding-agent surfaces such as Claude Code, Cline, and OpenClaw increases deployment fit for existing agent workflows.
 - The practical takeaway is that a cheap hosted reasoning layer may beat a purely local stack when the workload needs deeper synthesis across large corpora.
 - The important signal is not just price, but the combination of very long context and coding-agent compatibility.
 
@@ -56,6 +60,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - a large repository must be reasoned over as one unit
   - the source set is too broad to chunk safely
   - the question depends on reconciling many competing signals at once
+- Escalate when multimodal evidence or full-repository coding flows would be materially weakened by local model limits.
 - Do not escalate just because a benchmark looks better; escalate when the workload shape actually matches the benchmark advantage.
 
 ## Current Recommendation
@@ -64,6 +69,9 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Treat larger or hosted models as optional final reasoners, not mandatory defaults.
 - Improve the wiki and retrieval layer before blaming the model for weak answers.
 - Treat a long-context hosted model as the fallback for codebase-wide synthesis, benchmark-sensitive coding tasks, or cases where chunking would distort the answer.
+- Keep the default architecture hybrid:
+  - local open model for private, bounded, retrieval-backed shaping
+  - hosted long-context model for corpus-wide synthesis or agentic coding runs that need broader context than local chunking can preserve
 
 ## What To Add From Future Notion Links
 
@@ -79,10 +87,12 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - privacy and control dominate
   - the corpus is already curated
   - structured outputs and tool use matter more than frontier reasoning depth
+  - commercial deployment flexibility matters because Apache 2.0 removes licensing friction
 - Qwen-style hosted runtimes are strongest when:
   - context length is the primary bottleneck
   - coding-agent workflows need broader synthesis
   - price per million tokens materially changes viability
+  - the deployment already assumes hosted APIs and official compatibility with coding-agent tools reduces integration cost
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
 ## Related Pages

@@ -41,7 +41,9 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/mcp` for external systems, but only when the tool meaning is crisp.
 - `/plan` when the work has multiple moving parts or non-obvious tradeoffs.
 - `/context` to inspect token pressure instead of guessing.
+- `/doctor` to see per-server MCP token load and verify whether tool search is actually paying off.
 - `/cost` when a workflow is drifting into expensive territory.
+- `/diff` when you need to inspect the current edit surface without leaving the session.
 - `/fork` or `/resume` when the value is preserving a branch of thinking, not one continuously growing session.
 
 ## Context Management
@@ -64,6 +66,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 
 - Use subagents when the work stays inside one main session and the parent should remain the control plane.
 - Use Agent Teams only when peers need independent context, direct messaging, or long-running coordination patterns.
+- Team leader sessions should stay orchestration-focused; the source notes call out a dedicated delegate mode rather than having the leader code and coordinate at once.
 - Team topology should be chosen deliberately:
   - hub-and-spoke for central orchestration
   - task queue when workers can self-assign
@@ -82,8 +85,10 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - The high-value lifecycle points are:
   - `PreToolUse` for blocking dangerous inputs
   - `PostToolUse` for formatting or local validation
+  - `UserPromptSubmit` for prompt validation or context injection before work starts
   - `Stop` for end-of-turn checks and self-correction loops
   - `SessionStart` for loading session context
+  - `Notification` for custom alerts or out-of-band reporting
   - `SubagentStop` for verifying delegated work before merge
 - Prefer blocking at `git commit` or other durable boundaries rather than on every write.
 - A stop-hook feedback loop that checks errors and forces a repair pass is one of the strongest quality multipliers in the source material.
@@ -94,8 +99,13 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Tool names and `serverInstructions` should be explicit enough that the agent can choose them without loading the whole schema.
 - Stateful browser-style tools are especially good MCP candidates.
 - Tool search should be on when MCP definitions are large; source notes claim it can cut schema token load by roughly 85 to 96 percent.
+- The default activation point is when MCP definitions exceed roughly 10 percent of context, and an aggressive mode can lower that threshold to 5 percent.
 - `serverInstructions` should describe the real task surface in operator language, not generic transport details.
 - Prefer MCP for stateful environments like Playwright and prefer CLI for stateless systems where shell commands are already strong.
+- Use environment switches deliberately:
+  - `ENABLE_TOOL_SEARCH=auto` for the default threshold-based behavior
+  - `ENABLE_TOOL_SEARCH=auto:5` when large MCP catalogs should load even more aggressively
+  - `ENABLE_TOOL_SEARCH=false` only when debugging or benchmarking the raw schema load
 
 ## CLI And Automation Defaults
 
@@ -110,17 +120,33 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `--quiet`
   - `--format json`
 - For automation chains, use explicit output formats, turn limits, budget limits, and allowed-tool lists rather than trusting ambient defaults.
+- The useful non-interactive knobs to preserve in project guidance are:
+  - `--output-format json|stream-json|text`
+  - `--max-turns <n>`
+  - `--max-budget-usd <n>`
+  - `--json-schema <schema>`
+  - `--allowedTools ...`
+  - `--append-system-prompt ...`
 - Verification should be part of the workflow, not a final optional question:
   - explain how the change will be checked
   - run the test or validation loop
   - only then write durable memory
+- Session chaining is a first-class automation pattern:
+  - capture the emitted session ID
+  - resume that session for follow-up prompts instead of starting fresh when continuity matters
+
+## Multi-Session Patterns
+
+- Use a git worktree when parallel tasks need isolated filesystem state, not only isolated reasoning.
+- A writer/reviewer split is a strong default for major changes because the reviewer session gets a cleaner context and less confirmation bias.
+- Handoff artifacts should stay small and executable:
+  - what was attempted
+  - what failed
+  - what still blocks progress
+  - which files or commands the next session should inspect first
 
 ## Related Pages
 
 - [[Agent Skill System Design]]
 - [[Open Model Runtime Selection]]
 - [[Notion Source Of Truth]]
-
-## Related Questions
-
-- 2026-04-06T15:59:52.344Z Claude Code를 오래 쓸 때 컨텍스트 관리는 어떻게 하는게 좋아?
