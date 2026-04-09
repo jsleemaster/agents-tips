@@ -52,6 +52,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the answer needs stronger synthesis than formatting
   - the local model repeatedly underperforms on the same decision class
   - the task genuinely benefits from repo-scale or corpus-scale context
+- Treat provider portability as a routing requirement, not a nice-to-have, when the agent shell must survive model swaps without changing operator workflow.
 
 ## Routing Thresholds
 
@@ -62,6 +63,12 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the question depends on reconciling many competing signals at once
 - Escalate when multimodal evidence or full-repository coding flows would be materially weakened by local model limits.
 - Do not escalate just because a benchmark looks better; escalate when the workload shape actually matches the benchmark advantage.
+- Do not choose a hosted runtime if the environment requires an explicit no-fallback guarantee; if silent fallback to a vendor-hosted model would violate policy, the runtime must expose a hard offline mode instead of a best-effort preference.
+- For coding-agent shells, treat these capability gates as minimum viability checks before a runtime becomes the shared default:
+  - tool calling
+  - streaming
+  - roughly `128k` context or better
+  - consistent behavior across subagents that inherit the same provider configuration
 
 ## Current Recommendation
 
@@ -72,6 +79,15 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Keep the default architecture hybrid:
   - local open model for private, bounded, retrieval-backed shaping
   - hosted long-context model for corpus-wide synthesis or agentic coding runs that need broader context than local chunking can preserve
+- Prefer agent shells that can preserve the same operator experience across:
+  - hosted APIs
+  - BYOK providers
+  - fully local runtimes
+  - air-gapped or telemetry-disabled environments
+- Prefer runtimes that fail closed:
+  - no silent fallback to vendor-hosted models
+  - subagents inherit the same provider and policy boundary
+  - offline mode is explicit enough to satisfy audit and cost-control requirements
 
 ## What To Add From Future Notion Links
 
@@ -93,6 +109,11 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - coding-agent workflows need broader synthesis
   - price per million tokens materially changes viability
   - the deployment already assumes hosted APIs and official compatibility with coding-agent tools reduces integration cost
+- BYOK-capable agent shells are strongest when:
+  - the team wants one agent workflow across multiple providers
+  - existing enterprise contracts already cover the preferred model vendor
+  - security policy requires explicit network and telemetry boundaries
+  - local and hosted models may be swapped without retraining the operator on a different tool surface
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
 ## Related Pages

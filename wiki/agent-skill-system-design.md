@@ -70,6 +70,7 @@ Skills are most useful when they are not just long prompts. They should package:
   - isolation mode such as forked context
   - lifecycle hooks
   - agent or model selection
+- Repository-level agent definition files are useful when the team needs reusable defaults that travel with the codebase instead of with one developer profile.
 
 ## Design Principles
 
@@ -92,6 +93,8 @@ Skills are most useful when they are not just long prompts. They should package:
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
 - Hot reload matters because it shortens the authoring loop; if a platform lacks it, bias toward smaller skills and cheaper test cycles.
 - A mature skill system should support evaluation, A/B comparison, and trigger tuning so skill quality can be improved from evidence rather than intuition.
+- MCP or tool connectivity should have a governance surface, not just a discovery surface; an allowlist is the clean boundary when teams need centralized approval over which external systems agents may touch.
+- Traceability belongs in the runtime surface too: permission events, tool invocations, and session traces should be capturable without rebuilding the orchestration layer from scratch.
 
 ## What To Capture From New Notion Pages
 
@@ -119,6 +122,15 @@ When a new Notion page is added, extract:
 - The wiki should preserve those design levers even when a specific source claim is tied to one vendor runtime.
 - Cross-platform packaging is strategically important: if a skill format can travel across agent runtimes, invest in reusable instructions and scripts rather than vendor-specific prompt glue.
 - The best bundled code is code the agent can execute without first loading it into model context; this lowers token cost and improves repeatability.
+- Agent platforms are converging on the same reusable control points:
+  - repository-scoped agent definition files
+  - reusable skills attached to those agents
+  - permission frameworks for sensitive actions
+  - distributed tracing or telemetry hooks for audit
+- When evaluating a skill system, treat the orchestration layer itself as part of the product:
+  - can custom agents inherit team defaults predictably
+  - can skills be discovered automatically but governed centrally
+  - can permission approvals and traces be reused across many workflows instead of hand-built each time
 
 ## Related Pages
 
