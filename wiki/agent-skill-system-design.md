@@ -89,6 +89,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Restrict tool access when a skill does not need the full tool surface.
 - Prefer scripts for validation and transformation work.
 - Treat unreviewed third-party skills as executable code, not harmless text.
+- Session-level approval modes are part of the skill and agent risk model. A skill that may run under bypass or autopilot-style approvals needs tighter tool scopes, clearer post-run traces, and stronger stop-boundary verification than one that always asks before side effects.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
 - Hot reload matters because it shortens the authoring loop; if a platform lacks it, bias toward smaller skills and cheaper test cycles.
@@ -127,10 +128,12 @@ When a new Notion page is added, extract:
   - reusable skills attached to those agents
   - permission frameworks for sensitive actions
   - distributed tracing or telemetry hooks for audit
+- Browser debugging, multimodal evidence, and customization files should be treated as part of the reusable agent surface when they materially change task completion, not as optional IDE conveniences.
 - When evaluating a skill system, treat the orchestration layer itself as part of the product:
   - can custom agents inherit team defaults predictably
   - can skills be discovered automatically but governed centrally
   - can permission approvals and traces be reused across many workflows instead of hand-built each time
+  - can the same branch, diff, approval, and session-log model survive across local IDE, CLI, cloud, and mobile control surfaces
 
 ## Related Pages
 

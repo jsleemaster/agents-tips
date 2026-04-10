@@ -82,6 +82,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Hooks are valuable when a step must always happen, not when it is merely preferred.
 - Quality gates are strongest at commit or stop boundaries, not on every tiny edit.
 - Deterministic automation should live in hooks or scripts, not in hope that the model remembers.
+- Treat approval mode as part of the execution model, not as cosmetic UI. A session that can bypass approvals, retry failures, or run in a more autonomous mode needs different logging and review boundaries than a default approval-gated session.
 - The high-value lifecycle points are:
   - `PreToolUse` for blocking dangerous inputs
   - `PostToolUse` for formatting or local validation
@@ -131,6 +132,11 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - explain how the change will be checked
   - run the test or validation loop
   - only then write durable memory
+- For browser-facing work, evaluate the agent loop by end-to-end task completion:
+  - can it run or inspect the browser state
+  - can it feed visual evidence back into the session
+  - can it retry after failures under the current approval policy
+  - can the operator inspect what happened afterward
 - Session chaining is a first-class automation pattern:
   - capture the emitted session ID
   - resume that session for follow-up prompts instead of starting fresh when continuity matters
@@ -139,6 +145,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 
 - Use a git worktree when parallel tasks need isolated filesystem state, not only isolated reasoning.
 - A writer/reviewer split is a strong default for major changes because the reviewer session gets a cleaner context and less confirmation bias.
+- Treat long-running cloud coding agents as remote workers, not PR generators. The durable operating artifacts are the branch, diff, session log, approval points, and PR creation policy.
+- If a remote agent can be started from an issue, prompt, or mobile surface before a PR exists, keep PR creation as an explicit checkpoint unless the task brief asks the agent to open one automatically.
 - Handoff artifacts should stay small and executable:
   - what was attempted
   - what failed
