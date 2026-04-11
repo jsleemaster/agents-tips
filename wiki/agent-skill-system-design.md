@@ -92,6 +92,10 @@ Skills are most useful when they are not just long prompts. They should package:
 - Session-level approval modes are part of the skill and agent risk model. A skill that may run under bypass or autopilot-style approvals needs tighter tool scopes, clearer post-run traces, and stronger stop-boundary verification than one that always asks before side effects.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
+- When a platform exposes per-skill handler types, match the cheapest control surface to the need:
+  - command-style handlers for deterministic validation
+  - prompt-style handlers for fuzzy review
+  - agent-style handlers only when the check truly needs tools or extended investigation
 - Hot reload matters because it shortens the authoring loop; if a platform lacks it, bias toward smaller skills and cheaper test cycles.
 - A mature skill system should support evaluation, A/B comparison, and trigger tuning so skill quality can be improved from evidence rather than intuition.
 - MCP or tool connectivity should have a governance surface, not just a discovery surface; an allowlist is the clean boundary when teams need centralized approval over which external systems agents may touch.
@@ -123,6 +127,7 @@ When a new Notion page is added, extract:
 - The wiki should preserve those design levers even when a specific source claim is tied to one vendor runtime.
 - Cross-platform packaging is strategically important: if a skill format can travel across agent runtimes, invest in reusable instructions and scripts rather than vendor-specific prompt glue.
 - The best bundled code is code the agent can execute without first loading it into model context; this lowers token cost and improves repeatability.
+- Forked-context or isolated execution support is not just convenience. It is the clean boundary for testing risky skills, side-effect-heavy flows, and noisy intermediate work without polluting the parent session.
 - Agent platforms are converging on the same reusable control points:
   - repository-scoped agent definition files
   - reusable skills attached to those agents
@@ -134,6 +139,7 @@ When a new Notion page is added, extract:
   - can skills be discovered automatically but governed centrally
   - can permission approvals and traces be reused across many workflows instead of hand-built each time
   - can the same branch, diff, approval, and session-log model survive across local IDE, CLI, cloud, and mobile control surfaces
+- Build-versus-buy should now be asked at the runtime layer, not only at the model layer. If an existing agent runtime already provides approvals, tracing, attachments, tool execution, and BYOK, the differentiated work is usually the domain tools and policy rather than a custom orchestration shell.
 
 ## Related Pages
 

@@ -49,12 +49,14 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 ## Context Management
 
 - Context is a degrading asset, not a free buffer.
+- Treat the system prompt as assembled state, not just the latest chat turn. Current date, git status, working tree state, `CLAUDE.md`, and loaded tool surfaces all shape behavior before the model sees the task.
 - Point to files directly with `@path` instead of re-explaining where things are.
 - Use small handoff artifacts when changing sessions.
 - Before clearing a long session, write a short `HANDOFF.md`-style note with attempted approaches, known failures, and the next decision to unblock.
 - If a task has become muddy, a new session with a cleaner brief usually beats continuing in place.
 - Pipe large logs or outputs directly into the agent instead of paraphrasing them by hand.
 - Image paste and direct file references are usually cheaper than verbose re-description.
+- Use `CLAUDE.md` for stable routing rules and behavioral constraints because it is part of context assembly; ephemeral chat instructions are weaker than rules that re-enter every turn.
 
 ## Parallelism
 
@@ -82,7 +84,12 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Hooks are valuable when a step must always happen, not when it is merely preferred.
 - Quality gates are strongest at commit or stop boundaries, not on every tiny edit.
 - Deterministic automation should live in hooks or scripts, not in hope that the model remembers.
+- Hooks are a stronger control layer than `CLAUDE.md` alone: project memory is guidance, while hooks can block or reshape execution deterministically.
 - Treat approval mode as part of the execution model, not as cosmetic UI. A session that can bypass approvals, retry failures, or run in a more autonomous mode needs different logging and review boundaries than a default approval-gated session.
+- Hook handler choice should match the job:
+  - command handlers for cheap deterministic checks
+  - prompt handlers for one-turn model evaluation when the rule is fuzzy
+  - agent handlers when validation needs tool access or deeper inspection
 - The high-value lifecycle points are:
   - `PreToolUse` for blocking dangerous inputs
   - `PostToolUse` for formatting or local validation
@@ -91,8 +98,17 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `SessionStart` for loading session context
   - `Notification` for custom alerts or out-of-band reporting
   - `SubagentStop` for verifying delegated work before merge
+- The practical rollout order is:
+  - start with `PostToolUse` auto-formatting
+  - add `PreToolUse` blocks for destructive commands
+  - add `Stop` notifications or validation summaries
+  - only then expand into more specialized hook logic
 - Prefer blocking at `git commit` or other durable boundaries rather than on every write.
 - A stop-hook feedback loop that checks errors and forces a repair pass is one of the strongest quality multipliers in the source material.
+- Hook config location is part of the governance model:
+  - `~/.claude/settings.json` for personal global policy
+  - `.claude/settings.json` for shared repo policy
+  - `.claude/settings.local.json` for local-only exceptions
 
 ## MCP Guidance
 
@@ -152,6 +168,9 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - what failed
   - what still blocks progress
   - which files or commands the next session should inspect first
+- Keep the architecture distinction explicit:
+  - local terminal agents preserve local files, shell state, and credentials unless a tool explicitly transmits them
+  - cloud or remote workers need a separate policy for what context, files, and approvals may leave the machine
 
 ## Related Pages
 
