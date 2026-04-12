@@ -100,6 +100,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - A mature skill system should support evaluation, A/B comparison, and trigger tuning so skill quality can be improved from evidence rather than intuition.
 - MCP or tool connectivity should have a governance surface, not just a discovery surface; an allowlist is the clean boundary when teams need centralized approval over which external systems agents may touch.
 - Traceability belongs in the runtime surface too: permission events, tool invocations, and session traces should be capturable without rebuilding the orchestration layer from scratch.
+- When MCP becomes a shared operations interface instead of a personal convenience tool, design for remote hosting, identity flow, telemetry policy, and network boundary selection up front rather than treating them as deployment afterthoughts.
 
 ## What To Capture From New Notion Pages
 
@@ -140,6 +141,16 @@ When a new Notion page is added, extract:
   - can permission approvals and traces be reused across many workflows instead of hand-built each time
   - can the same branch, diff, approval, and session-log model survive across local IDE, CLI, cloud, and mobile control surfaces
 - Build-versus-buy should now be asked at the runtime layer, not only at the model layer. If an existing agent runtime already provides approvals, tracing, attachments, tool execution, and BYOK, the differentiated work is usually the domain tools and policy rather than a custom orchestration shell.
+- Agent-ready enterprise systems need more than an API:
+  - a stable CLI for local and CI use
+  - an MCP or equivalent read/operate surface for interactive agent loops
+  - an SDK or bulk-safe path for high-volume mutations
+  - explicit safety rules around which execution path is allowed for which class of action
+- Cross-runtime packaging matters more once domain skills become infrastructure. If the same skill bundle can travel across Copilot, Claude Code, or other agent shells, the durable asset is the domain procedure and tool routing policy rather than one vendor's prompt wrapper.
+- Enterprise rollout pressure is shifting skill-system design toward observability and access control:
+  - telemetry should flow into existing audit or tracing stacks, not only vendor dashboards
+  - group or role boundaries should determine which agents, skills, or capabilities are exposed
+  - rollout should be gradual enough that teams can enable agent surfaces per group instead of all at once
 
 ## Related Pages
 

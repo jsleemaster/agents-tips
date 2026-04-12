@@ -156,6 +156,10 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Session chaining is a first-class automation pattern:
   - capture the emitted session ID
   - resume that session for follow-up prompts instead of starting fresh when continuity matters
+- When evaluating an agent platform, treat the local inner loop as a first-class product surface:
+  - local run and remote invoke should use the same operator entrypoint when possible
+  - session continuity should survive repeat debug cycles instead of forcing fresh stateless tests
+  - portal or console round-trips are a real productivity tax, not a harmless implementation detail
 
 ## Multi-Session Patterns
 
