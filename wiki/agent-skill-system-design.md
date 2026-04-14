@@ -151,6 +151,12 @@ When a new Notion page is added, extract:
   - telemetry should flow into existing audit or tracing stacks, not only vendor dashboards
   - group or role boundaries should determine which agents, skills, or capabilities are exposed
   - rollout should be gradual enough that teams can enable agent surfaces per group instead of all at once
+- Standardize the agent access layer separately from the agent choice itself:
+  - centralize authentication, permissions, telemetry, and cost controls even when teams use different task-specific agents
+  - treat agent selection as a portfolio decision at the workflow level, not a reason to duplicate governance for every tool
+- Company-wide agent platforms create a new lock-in surface above the model layer:
+  - orchestration ownership matters more once agents share memory, permissions, and cross-system connectivity
+  - design the runtime so teams can swap or mix agents without rebuilding the policy and data-connectivity layer from scratch
 
 ## Related Pages
 

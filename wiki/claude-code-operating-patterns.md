@@ -160,6 +160,10 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - local run and remote invoke should use the same operator entrypoint when possible
   - session continuity should survive repeat debug cycles instead of forcing fresh stateless tests
   - portal or console round-trips are a real productivity tax, not a harmless implementation detail
+- For complex repos, evaluate execution-context fidelity before benchmark deltas:
+  - can the agent reuse the existing IDE semantic index instead of re-deriving structure from text search alone
+  - can it reuse the project's actual build and test configuration instead of guessing shell commands
+  - can it perform symbol-aware refactors with scope and overload awareness instead of file-level string edits
 
 ## Multi-Session Patterns
 
