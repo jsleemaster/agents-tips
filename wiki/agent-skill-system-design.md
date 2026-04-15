@@ -70,6 +70,9 @@ Skills are most useful when they are not just long prompts. They should package:
   - isolation mode such as forked context
   - lifecycle hooks
   - agent or model selection
+- Keep trigger metadata concrete enough to match operator language:
+  - user-visible nouns like file types, workflow names, or artifacts
+  - phrases such as "use when" that describe the real activation situation
 - Repository-level agent definition files are useful when the team needs reusable defaults that travel with the codebase instead of with one developer profile.
 
 ## Design Principles
@@ -102,6 +105,16 @@ Skills are most useful when they are not just long prompts. They should package:
 - Traceability belongs in the runtime surface too: permission events, tool invocations, and session traces should be capturable without rebuilding the orchestration layer from scratch.
 - When MCP becomes a shared operations interface instead of a personal convenience tool, design for remote hosting, identity flow, telemetry policy, and network boundary selection up front rather than treating them as deployment afterthoughts.
 
+## Runtime Features Worth Capturing
+
+- Forked context is the clean execution boundary when a skill should investigate, test, or mutate temporary state without contaminating the parent session.
+- Hot reload is not just a convenience feature; it shortens the authoring loop enough that smaller, more aggressively iterated skills become practical.
+- Agent-scoped hooks are the right layer when an invariant belongs to one skill rather than the entire repository policy.
+- Direct slash-style invocation and auto-triggered invocation solve different problems:
+  - slash entrypoints are explicit operator commands
+  - auto-triggered skills are opportunistic and context-driven
+- Per-skill model selection is only worth encoding when the workload genuinely differs from the repo default; otherwise it adds routing complexity without enough operational gain.
+
 ## What To Capture From New Notion Pages
 
 When a new Notion page is added, extract:
@@ -128,6 +141,11 @@ When a new Notion page is added, extract:
 - The wiki should preserve those design levers even when a specific source claim is tied to one vendor runtime.
 - Cross-platform packaging is strategically important: if a skill format can travel across agent runtimes, invest in reusable instructions and scripts rather than vendor-specific prompt glue.
 - The best bundled code is code the agent can execute without first loading it into model context; this lowers token cost and improves repeatability.
+- Frontmatter-heavy skill formats are valuable only to the degree that they unlock actual runtime behavior:
+  - forked execution
+  - tool scoping
+  - hook binding
+  - agent or model routing
 - Forked-context or isolated execution support is not just convenience. It is the clean boundary for testing risky skills, side-effect-heavy flows, and noisy intermediate work without polluting the parent session.
 - Agent platforms are converging on the same reusable control points:
   - repository-scoped agent definition files
@@ -151,12 +169,18 @@ When a new Notion page is added, extract:
   - telemetry should flow into existing audit or tracing stacks, not only vendor dashboards
   - group or role boundaries should determine which agents, skills, or capabilities are exposed
   - rollout should be gradual enough that teams can enable agent surfaces per group instead of all at once
+- Skill-authoring maturity should be measured with real feedback loops:
+  - A/B compare alternate skill versions
+  - run evals against recurring failure cases
+  - tune trigger descriptions from observed misses and false positives
+  - track token cost and success rate as first-class design signals
 - Standardize the agent access layer separately from the agent choice itself:
   - centralize authentication, permissions, telemetry, and cost controls even when teams use different task-specific agents
   - treat agent selection as a portfolio decision at the workflow level, not a reason to duplicate governance for every tool
 - Company-wide agent platforms create a new lock-in surface above the model layer:
   - orchestration ownership matters more once agents share memory, permissions, and cross-system connectivity
   - design the runtime so teams can swap or mix agents without rebuilding the policy and data-connectivity layer from scratch
+- Cross-runtime skill packaging is more credible once open standards emerge; when a bundle can travel across multiple agent shells, the durable asset is the procedure, scripts, and policy surface rather than a vendor-specific prompt wrapper.
 
 ## Related Pages
 

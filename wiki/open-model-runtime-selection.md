@@ -27,7 +27,9 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Source notes highlight four sizes: E2B, E4B, 26B MoE, and 31B Dense.
 - Apache 2.0 matters operationally because it lowers friction for commercial use, internal deployment, and fine-tuning.
 - Native support for function calling, structured JSON output, and system instructions matters more than raw benchmark rank when the target workload is an agent loop.
-- Vision, video, and audio support widen the cases where a local runtime can stay in the loop instead of escalating immediately to a hosted multimodal model.
+- Vision and video support widen the cases where a local runtime can stay in the loop instead of escalating immediately to a hosted multimodal model.
+- Native audio input on the E2B and E4B line matters because it pushes the smallest deployments closer to complete on-device agent surfaces instead of text-only assistants.
+- Google is explicitly positioning the 31B model as a top-tier open model and the 26B model as a smaller but still competitive open option; the important retrieval takeaway is not the leaderboard claim itself, but that agent-ready structured output is now bundled with serious open-model ambition.
 - The strongest design implication is that local structured-output agents are now practical enough for product workflows, not only demos.
 
 ## Qwen 3.6 Signal
@@ -36,6 +38,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Source notes claim a 1M-token context window, multimodal support, and repo-scale coding workflows.
 - The price signal is large enough to matter as policy, not trivia: roughly `$0.29` per 1M input tokens versus premium-model pricing an order of magnitude higher.
 - Official compatibility with coding-agent surfaces such as Claude Code, Cline, and OpenClaw increases deployment fit for existing agent workflows.
+- Immediate availability through Alibaba Cloud Model Studio and Bailian matters because it lowers the cost of running a real routing experiment instead of treating Qwen as a hypothetical future option.
 - The practical takeaway is that a cheap hosted reasoning layer may beat a purely local stack when the workload needs deeper synthesis across large corpora.
 - The important signal is not just price, but the combination of very long context and coding-agent compatibility.
 
@@ -63,6 +66,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the question depends on reconciling many competing signals at once
 - Escalate when multimodal evidence or full-repository coding flows would be materially weakened by local model limits.
 - Do not escalate just because a benchmark looks better; escalate when the workload shape actually matches the benchmark advantage.
+- Do not treat "1M context" as sufficient by itself; it only changes routing policy when the rest of the agent shell can actually preserve tool use, streaming, and stable repo-scale execution under that larger window.
 - Do not choose a hosted runtime if the environment requires an explicit no-fallback guarantee; if silent fallback to a vendor-hosted model would violate policy, the runtime must expose a hard offline mode instead of a best-effort preference.
 - For coding-agent shells, treat these capability gates as minimum viability checks before a runtime becomes the shared default:
   - tool calling
@@ -114,6 +118,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - existing enterprise contracts already cover the preferred model vendor
   - security policy requires explicit network and telemetry boundaries
   - local and hosted models may be swapped without retraining the operator on a different tool surface
+- Hosted long-context models are strongest when:
+  - there is a concrete need to run repo-scale coding or cross-document synthesis experiments immediately
+  - API availability and pricing make repeated routing tests cheap enough to operationalize
+  - the operator workflow already depends on tools with official compatibility rather than custom glue
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
 ## Related Pages

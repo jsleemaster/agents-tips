@@ -38,6 +38,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/init` to generate the initial project memory surface.
 - `/compact` to preserve a useful summary while dropping excess context.
 - `/clear` or `/reset` when a task boundary is complete.
+- `/model` when the task shape changes enough that a cheaper or stronger model is warranted.
 - `/mcp` for external systems, but only when the tool meaning is crisp.
 - `/plan` when the work has multiple moving parts or non-obvious tradeoffs.
 - `/context` to inspect token pressure instead of guessing.
@@ -45,6 +46,11 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/cost` when a workflow is drifting into expensive territory.
 - `/diff` when you need to inspect the current edit surface without leaving the session.
 - `/fork` or `/resume` when the value is preserving a branch of thinking, not one continuously growing session.
+- `/rewind` when the fastest recovery path is restoring an earlier state instead of talking through rollback.
+- `/security-review` when the risk surface needs a dedicated pass rather than a generic code review.
+- `/pr-comments`, `/plugin`, and `/skills` when the task is about external review state, installed capabilities, or available reusable skill surfaces.
+- `/teleport` when a cloud session should continue locally instead of being restarted from scratch.
+- `/btw` for side questions that should not pollute the main thread and `/output-style` only when explanation depth, not task execution, is the variable to tune.
 
 ## Context Management
 
@@ -57,6 +63,15 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Pipe large logs or outputs directly into the agent instead of paraphrasing them by hand.
 - Image paste and direct file references are usually cheaper than verbose re-description.
 - Use `CLAUDE.md` for stable routing rules and behavioral constraints because it is part of context assembly; ephemeral chat instructions are weaker than rules that re-enter every turn.
+
+## Execution Modes
+
+- Plan mode is the right boundary when you want a read-only proposal loop before granting execution.
+- Approval mode is operational policy, not just UI state:
+  - Normal when every side effect should still be operator-gated
+  - Auto-accept when the workflow is verified enough to trade oversight for speed
+  - Plan when read-only analysis should stay separated from execution
+- Extended thinking is usually worth the token premium on complex tasks because the total retry cost often drops even when per-turn cost rises.
 
 ## Parallelism
 
@@ -91,7 +106,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - prompt handlers for one-turn model evaluation when the rule is fuzzy
   - agent handlers when validation needs tool access or deeper inspection
 - The high-value lifecycle points are:
-  - `PreToolUse` for blocking dangerous inputs
+  - `PreToolUse` for blocking dangerous inputs, typically by returning a non-zero failure and using hard block semantics such as exit code `2` when the platform supports it
   - `PostToolUse` for formatting or local validation
   - `UserPromptSubmit` for prompt validation or context injection before work starts
   - `Stop` for end-of-turn checks and self-correction loops
@@ -119,6 +134,10 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - The default activation point is when MCP definitions exceed roughly 10 percent of context, and an aggressive mode can lower that threshold to 5 percent.
 - `serverInstructions` should describe the real task surface in operator language, not generic transport details.
 - Prefer MCP for stateful environments like Playwright and prefer CLI for stateless systems where shell commands are already strong.
+- Scope placement is part of the routing decision:
+  - `-s local` for personal local-only MCP config in `.claude/settings.local.json`
+  - `-s project` for team-shared MCP config in `.mcp.json`
+  - `-s user` for personal defaults across projects in `~/.claude/settings.json`
 - Use environment switches deliberately:
   - `ENABLE_TOOL_SEARCH=auto` for the default threshold-based behavior
   - `ENABLE_TOOL_SEARCH=auto:5` when large MCP catalogs should load even more aggressively
@@ -137,6 +156,11 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `--quiet`
   - `--format json`
 - For automation chains, use explicit output formats, turn limits, budget limits, and allowed-tool lists rather than trusting ambient defaults.
+- Keep the session entrypoint aligned with the actual control need:
+  - `claude -p` for single-shot non-interactive runs
+  - `claude -c` for continuing the most recent session
+  - `claude -r <id>` when exact session continuity matters
+  - `claude -w <name>` when the task needs isolated git state, not just a fresh conversation
 - The useful non-interactive knobs to preserve in project guidance are:
   - `--output-format json|stream-json|text`
   - `--max-turns <n>`
@@ -156,6 +180,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Session chaining is a first-class automation pattern:
   - capture the emitted session ID
   - resume that session for follow-up prompts instead of starting fresh when continuity matters
+- One-time GitHub setup is a real operator shortcut: install the GitHub app once, then pull request review and comment retrieval can be treated as normal session workflows rather than ad hoc manual setup.
 - When evaluating an agent platform, treat the local inner loop as a first-class product surface:
   - local run and remote invoke should use the same operator entrypoint when possible
   - session continuity should survive repeat debug cycles instead of forcing fresh stateless tests
