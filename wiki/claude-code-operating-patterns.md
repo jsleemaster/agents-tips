@@ -48,6 +48,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/fork` or `/resume` when the value is preserving a branch of thinking, not one continuously growing session.
 - `/rewind` when the fastest recovery path is restoring an earlier state instead of talking through rollback.
 - `/security-review` when the risk surface needs a dedicated pass rather than a generic code review.
+- `/install-github-app` once per account or repo setup when GitHub review state should become part of normal agent workflow.
 - `/pr-comments`, `/plugin`, and `/skills` when the task is about external review state, installed capabilities, or available reusable skill surfaces.
 - `/teleport` when a cloud session should continue locally instead of being restarted from scratch.
 - `/btw` for side questions that should not pollute the main thread and `/output-style` only when explanation depth, not task execution, is the variable to tune.
@@ -67,6 +68,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 ## Execution Modes
 
 - Plan mode is the right boundary when you want a read-only proposal loop before granting execution.
+- `Shift+Tab` or `Alt+M` cycles approval behavior, so the operator can move between Normal, Auto-accept, and Plan mode without leaving the main loop.
 - Approval mode is operational policy, not just UI state:
   - Normal when every side effect should still be operator-gated
   - Auto-accept when the workflow is verified enough to trade oversight for speed
@@ -81,6 +83,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 
 ## Agent Teams Vs Subagents
 
+- Agent Teams were introduced as a research-preview surface in Claude Code `v2.1.32+` with Opus `4.6+`, gated behind `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`.
 - Use subagents when the work stays inside one main session and the parent should remain the control plane.
 - Use Agent Teams only when peers need independent context, direct messaging, or long-running coordination patterns.
 - Team leader sessions should stay orchestration-focused; the source notes call out a dedicated delegate mode rather than having the leader code and coordinate at once.

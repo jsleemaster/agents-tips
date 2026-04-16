@@ -73,7 +73,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Keep trigger metadata concrete enough to match operator language:
   - user-visible nouns like file types, workflow names, or artifacts
   - phrases such as "use when" that describe the real activation situation
-- Repository-level agent definition files are useful when the team needs reusable defaults that travel with the codebase instead of with one developer profile.
+- Repository-level agent definition files such as `.agent.md` are useful when the team needs reusable defaults that travel with the codebase instead of with one developer profile.
 
 ## Design Principles
 
@@ -114,6 +114,15 @@ Skills are most useful when they are not just long prompts. They should package:
   - slash entrypoints are explicit operator commands
   - auto-triggered skills are opportunistic and context-driven
 - Per-skill model selection is only worth encoding when the workload genuinely differs from the repo default; otherwise it adds routing complexity without enough operational gain.
+- A production agent runtime should expose the operating primitives directly instead of forcing every team to rebuild them:
+  - tool invocation
+  - streaming
+  - file operations
+  - multi-turn sessions
+  - attachments
+  - permission handlers
+  - tracing hooks such as OpenTelemetry
+  - BYOK model routing
 
 ## What To Capture From New Notion Pages
 
@@ -152,6 +161,7 @@ When a new Notion page is added, extract:
   - reusable skills attached to those agents
   - permission frameworks for sensitive actions
   - distributed tracing or telemetry hooks for audit
+- Organization-level MCP allowlists are becoming a standard governance surface; discovery alone is not enough when teams need centralized approval over which external systems agents may touch.
 - Browser debugging, multimodal evidence, and customization files should be treated as part of the reusable agent surface when they materially change task completion, not as optional IDE conveniences.
 - When evaluating a skill system, treat the orchestration layer itself as part of the product:
   - can custom agents inherit team defaults predictably
@@ -180,6 +190,7 @@ When a new Notion page is added, extract:
 - Company-wide agent platforms create a new lock-in surface above the model layer:
   - orchestration ownership matters more once agents share memory, permissions, and cross-system connectivity
   - design the runtime so teams can swap or mix agents without rebuilding the policy and data-connectivity layer from scratch
+- Once enterprise platforms shift from point solutions to company-wide agents, the durable control layer is the shared runtime: permissions, memory boundaries, system connectivity, and observability matter more than any one model benchmark.
 - Cross-runtime skill packaging is more credible once open standards emerge; when a bundle can travel across multiple agent shells, the durable asset is the procedure, scripts, and policy surface rather than a vendor-specific prompt wrapper.
 
 ## Related Pages
