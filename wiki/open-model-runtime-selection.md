@@ -56,6 +56,11 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the local model repeatedly underperforms on the same decision class
   - the task genuinely benefits from repo-scale or corpus-scale context
 - Treat provider portability as a routing requirement, not a nice-to-have, when the agent shell must survive model swaps without changing operator workflow.
+- Treat ecosystem density as a routing signal too:
+  - derivative model count
+  - community maintenance speed
+  - regional language or compliance fit
+  - evidence that the model family is actually deployable in the environments you care about
 
 ## Routing Thresholds
 
@@ -73,6 +78,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - streaming
   - roughly `128k` context or better
   - consistent behavior across subagents that inherit the same provider configuration
+- For open-model adoption, treat these ecosystem gates as minimum viability checks before a family becomes the default:
+  - active derivative ecosystem rather than one isolated release
+  - enough deployment options across local, self-hosted, and cloud paths
+  - evidence that small and mid-sized variants are used in production-like workloads, not only the flagship tier
 
 ## Current Recommendation
 
@@ -92,6 +101,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - no silent fallback to vendor-hosted models
   - subagents inherit the same provider and policy boundary
   - offline mode is explicit enough to satisfy audit and cost-control requirements
+- Prefer open-model families with strong downstream ecosystems when the goal is long-lived platform leverage rather than a one-off benchmark win.
 
 ## What To Add From Future Notion Links
 
@@ -113,6 +123,11 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - coding-agent workflows need broader synthesis
   - price per million tokens materially changes viability
   - the deployment already assumes hosted APIs and official compatibility with coding-agent tools reduces integration cost
+- Open-model ecosystem-heavy families are strongest when:
+  - sovereign or region-specific deployment matters
+  - derivative variants and community fine-tunes are strategic assets, not noise
+  - the team expects to mix smaller deployment-tier models with a few larger hosted reasoners
+- Small and mid-sized open models deserve explicit routing priority when download and deployment signals show they are the real operational default, not just the benchmark undercard.
 - BYOK-capable agent shells are strongest when:
   - the team wants one agent workflow across multiple providers
   - existing enterprise contracts already cover the preferred model vendor

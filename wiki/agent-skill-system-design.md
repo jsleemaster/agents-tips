@@ -104,6 +104,11 @@ Skills are most useful when they are not just long prompts. They should package:
 - MCP or tool connectivity should have a governance surface, not just a discovery surface; an allowlist is the clean boundary when teams need centralized approval over which external systems agents may touch.
 - Traceability belongs in the runtime surface too: permission events, tool invocations, and session traces should be capturable without rebuilding the orchestration layer from scratch.
 - When MCP becomes a shared operations interface instead of a personal convenience tool, design for remote hosting, identity flow, telemetry policy, and network boundary selection up front rather than treating them as deployment afterthoughts.
+- Sandbox portability matters once skills stop being local conveniences and become shared runtime components; the durable design target is a skill surface that can run against multiple sandbox providers without redefining the workflow contract each time.
+- Durable execution belongs in the runtime, not in ad hoc glue:
+  - snapshotting and rehydration for long-running tasks
+  - explicit workspace manifests for files, outputs, and storage mounts
+  - credential isolation so generated code does not automatically inherit sensitive secrets
 
 ## Runtime Features Worth Capturing
 
@@ -123,6 +128,8 @@ Skills are most useful when they are not just long prompts. They should package:
   - permission handlers
   - tracing hooks such as OpenTelemetry
   - BYOK model routing
+- Runtime competition is moving from thin orchestration libraries to execution harnesses that bundle those primitives with policy boundaries by default.
+- Treat `MCP`, `skills`, `AGENTS.md`, and equivalent manifest files as standard contracts between domain procedure and runtime, not as vendor-specific embellishments.
 
 ## What To Capture From New Notion Pages
 
@@ -192,6 +199,14 @@ When a new Notion page is added, extract:
   - design the runtime so teams can swap or mix agents without rebuilding the policy and data-connectivity layer from scratch
 - Once enterprise platforms shift from point solutions to company-wide agents, the durable control layer is the shared runtime: permissions, memory boundaries, system connectivity, and observability matter more than any one model benchmark.
 - Cross-runtime skill packaging is more credible once open standards emerge; when a bundle can travel across multiple agent shells, the durable asset is the procedure, scripts, and policy surface rather than a vendor-specific prompt wrapper.
+- Production agent guidance is converging on the same architecture defaults:
+  - supervisor plus specialist decomposition over one giant agent
+  - deterministic code paths for retrieval, validation, and safety-critical actions
+  - open protocol boundaries for tool connectivity instead of one-off wrappers
+- Evaluate skill systems and agent runtimes like infrastructure products:
+  - how well they isolate credentials and execution
+  - whether state can survive container or session loss
+  - whether permission, telemetry, and storage boundaries are explicit enough to audit
 
 ## Related Pages
 

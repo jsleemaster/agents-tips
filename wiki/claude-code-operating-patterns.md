@@ -73,6 +73,10 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - Normal when every side effect should still be operator-gated
   - Auto-accept when the workflow is verified enough to trade oversight for speed
   - Plan when read-only analysis should stay separated from execution
+- Treat any higher-autonomy mode as a governance choice, not a convenience toggle:
+  - define which tasks may bypass approvals
+  - pair autonomy with stronger logs, retries, and rollback expectations
+  - decide whether reasoning effort should be raised or lowered for that mode instead of leaving cost and latency implicit
 - Extended thinking is usually worth the token premium on complex tasks because the total retry cost often drops even when per-turn cost rises.
 
 ## Parallelism
@@ -80,6 +84,10 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Use subagents or separate sessions for clearly separable work.
 - Use peer-style teams only when the coordination value outweighs the token cost.
 - Small, isolated tasks are better than vague parallel requests.
+- Context rot is a structural problem, not just a prompt problem; split long workflows before one giant session accumulates too much exploration debris.
+- Give each delegated agent a narrow role, explicit tool scope, and a bounded write surface.
+- Parallel reads, search, and test discovery are usually safer than parallel edits.
+- When multiple agents may edit code, assign file ownership up front or keep one writer and the rest read-only.
 
 ## Agent Teams Vs Subagents
 
@@ -96,6 +104,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Agent Teams are expensive relative to a normal session, with source notes estimating roughly 5 to 7 times the token cost.
 - Prefer smaller models for workers, close completed workers quickly, and keep tasks self-contained if using team mode.
 - Avoid Agent Teams when the same file needs concurrent edits, when you need nested teams, or when session resume matters.
+- Store reusable specialist definitions with the repo when the team needs shared defaults; user-level definitions are better for personal operating habits that should not leak into project policy.
+- Explicit specialist files beat hidden prompt tricks when the operator needs to see which role, tools, and instructions a delegated agent is actually using.
 
 ## Hooks And Guardrails
 
