@@ -32,6 +32,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Put deterministic transforms in bundled scripts instead of asking the model to re-derive them every run.
 - Treat the trigger description as product design, not decoration; it determines whether the skill is loaded at all.
 - Package instructions, scripts, and references together so the skill behaves like an operable tool surface rather than a loose prompt snippet.
+- Treat reusable skills as installable artifacts, not loose prompt text, once teams need version pinning, provenance, and explicit update policy.
 
 ## Workflow Skill vs Capability Skill
 
@@ -92,6 +93,10 @@ Skills are most useful when they are not just long prompts. They should package:
 - Restrict tool access when a skill does not need the full tool surface.
 - Prefer scripts for validation and transformation work.
 - Treat unreviewed third-party skills as executable code, not harmless text.
+- Supply-chain controls should apply to skills too:
+  - publish through immutable releases or pinned refs
+  - record repository, ref, and content identity such as tree SHA in installed metadata
+  - detect updates from real content change, not only a version label
 - Session-level approval modes are part of the skill and agent risk model. A skill that may run under bypass or autopilot-style approvals needs tighter tool scopes, clearer post-run traces, and stronger stop-boundary verification than one that always asks before side effects.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
@@ -130,6 +135,10 @@ Skills are most useful when they are not just long prompts. They should package:
   - BYOK model routing
 - Runtime competition is moving from thin orchestration libraries to execution harnesses that bundle those primitives with policy boundaries by default.
 - Treat `MCP`, `skills`, `AGENTS.md`, and equivalent manifest files as standard contracts between domain procedure and runtime, not as vendor-specific embellishments.
+- Treat protocol layering as part of runtime design rather than optional integration detail:
+  - `MCP` for tool and data access
+  - `A2A`-style protocols for agent discovery, delegation, and cross-vendor coordination
+  - signed agent identity artifacts and multi-tenant security flows once agents cross team or company boundaries
 
 ## What To Capture From New Notion Pages
 
@@ -169,6 +178,10 @@ When a new Notion page is added, extract:
   - permission frameworks for sensitive actions
   - distributed tracing or telemetry hooks for audit
 - Organization-level MCP allowlists are becoming a standard governance surface; discovery alone is not enough when teams need centralized approval over which external systems agents may touch.
+- Open standards are splitting the stack into layers instead of one monolithic agent framework:
+  - tool-use protocols reduce reintegration cost for internal systems
+  - agent-to-agent protocols reduce point-to-point glue across vendors and partner boundaries
+  - the durable lock-in surface increasingly sits in skill packaging, identity, and governance, not only in the base model
 - Browser debugging, multimodal evidence, and customization files should be treated as part of the reusable agent surface when they materially change task completion, not as optional IDE conveniences.
 - When evaluating a skill system, treat the orchestration layer itself as part of the product:
   - can custom agents inherit team defaults predictably

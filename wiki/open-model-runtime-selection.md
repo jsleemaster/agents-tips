@@ -19,6 +19,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Use a stronger hosted model when the answer depends on deeper reasoning over weakly structured evidence.
 - Separate retrieval quality from model quality; a stronger model does not fix missing citations.
 - Treat context-window pressure as a first-class routing signal, not a secondary benchmark detail.
+- Treat compliance fit as a routing signal too; a model that cannot satisfy residency or regulatory boundaries is not a viable default no matter how good its benchmark.
 
 ## Gemma 4 Signal
 
@@ -42,6 +43,15 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - The practical takeaway is that a cheap hosted reasoning layer may beat a purely local stack when the workload needs deeper synthesis across large corpora.
 - The important signal is not just price, but the combination of very long context and coding-agent compatibility.
 
+## Mistral Small 4 Signal
+
+- Mistral Small 4 reframes the open-model question from single-checkpoint quality to integrated stack efficiency.
+- The notable shape is not only the `256k` context window or Apache 2.0 license, but the claim that one model can cover reasoning, multimodal input, and agentic coding without a routing split across separate specialists.
+- `reasoning_effort` is an important control-surface signal because it exposes latency-versus-depth tradeoffs inside one runtime rather than forcing a model swap.
+- Day-0 support across serving stacks like `vLLM`, `SGLang`, `llama.cpp`, and Transformers is a deployment-fit signal, not a minor implementation detail.
+- Output efficiency matters as much as benchmark rank when the real cost driver is loop length and repeated tool turns; shorter successful completions can beat a slightly stronger but more verbose model.
+- The practical takeaway is to compare integrated-model operational simplicity against multi-model routing complexity, not just one benchmark table against another.
+
 ## Decision Rule For This Wiki
 
 - Start with a local model when:
@@ -56,6 +66,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the local model repeatedly underperforms on the same decision class
   - the task genuinely benefits from repo-scale or corpus-scale context
 - Treat provider portability as a routing requirement, not a nice-to-have, when the agent shell must survive model swaps without changing operator workflow.
+- Treat regional endpoint availability as a hard capability gate, not a paperwork detail, when residency or government procurement rules apply.
 - Treat ecosystem density as a routing signal too:
   - derivative model count
   - community maintenance speed
@@ -73,11 +84,17 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Do not escalate just because a benchmark looks better; escalate when the workload shape actually matches the benchmark advantage.
 - Do not treat "1M context" as sufficient by itself; it only changes routing policy when the rest of the agent shell can actually preserve tool use, streaming, and stable repo-scale execution under that larger window.
 - Do not choose a hosted runtime if the environment requires an explicit no-fallback guarantee; if silent fallback to a vendor-hosted model would violate policy, the runtime must expose a hard offline mode instead of a best-effort preference.
+- Do not treat a premium for compliant routing as noise; residency or regulated endpoints can change effective model cost enough to alter the default.
 - For coding-agent shells, treat these capability gates as minimum viability checks before a runtime becomes the shared default:
   - tool calling
   - streaming
   - roughly `128k` context or better
   - consistent behavior across subagents that inherit the same provider configuration
+- For enterprise rollout, treat these governance gates as minimum viability checks before a hosted default is acceptable:
+  - explicit region availability
+  - enforceable data residency policy
+  - clear compliance scope such as regulated-public-sector support
+  - visibility into which model families are excluded because the compliant endpoint does not exist
 - For open-model adoption, treat these ecosystem gates as minimum viability checks before a family becomes the default:
   - active derivative ecosystem rather than one isolated release
   - enough deployment options across local, self-hosted, and cloud paths
@@ -127,6 +144,11 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - sovereign or region-specific deployment matters
   - derivative variants and community fine-tunes are strategic assets, not noise
   - the team expects to mix smaller deployment-tier models with a few larger hosted reasoners
+- Compliance-routed hosted models are strongest when:
+  - procurement depends on region-pinned inference
+  - one platform must expose a model allowlist per residency boundary
+  - paying a small routing premium is cheaper than building and operating an internal compliant stack
+  - excluded models are acceptable if the remaining compliant set still covers the main workflows
 - Small and mid-sized open models deserve explicit routing priority when download and deployment signals show they are the real operational default, not just the benchmark undercard.
 - BYOK-capable agent shells are strongest when:
   - the team wants one agent workflow across multiple providers

@@ -34,6 +34,22 @@ This design wiki treats selected Notion pages as the human-curated source of tru
   Notion URL: `https://www.notion.so/32cc796e635e811083a9ed787671e452`
   External URL: `https://medium.com/data-science-collective/how-to-build-claude-skills-2-0-better-than-99-of-people-af4927dd5335`
 
+- `GitHub, gh skill 공개 — 코딩 에이전트 운영의 단위가 프롬프트에서 공급망 관리 가능한 스킬 패키지로 이동`
+  Notion URL: `https://www.notion.so/345c796e635e81419c86c9012d6638b4`
+  External URL: `https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli/`
+
+- `A2A Protocol 1년차 확산 — 멀티에이전트 시장의 병목이 모델 성능에서 상호운용 표준으로 이동`
+  Notion URL: `https://www.notion.so/345c796e635e814dba4ddbeb98d56943`
+  External URL: `https://www.linuxfoundation.org/press/a2a-protocol-surpasses-150-organizations-lands-in-major-cloud-platforms-and-sees-enterprise-production-use-in-first-year`
+
+- `Mistral Small 4 공개 — 오픈 모델 전략이 단일 체크포인트에서 다기능 통합형 reasoning stack으로 이동`
+  Notion URL: `https://www.notion.so/345c796e635e812b8fefde389909f25e`
+  External URL: `https://mistral.ai/news/mistral-small-4`
+
+- `GitHub Copilot 데이터 레지던시·FedRAMP 지원 — 코딩 에이전트 경쟁의 기준이 성능에서 규제 적합성으로 확장`
+  Notion URL: `https://www.notion.so/345c796e635e81108268de89140d835a`
+  External URL: `https://github.blog/changelog/2026-04-13-copilot-data-residency-in-us-eu-and-fedramp-compliance-now-available/`
+
 ## Source To Target Mapping
 
 - Source: `📐 Claude Code 팁 (2026) - Agent Optimized`
@@ -77,6 +93,22 @@ This design wiki treats selected Notion pages as the human-curated source of tru
 - Seed page: `Claude Skills 2.0 - AI 에이전트 스킬 시스템 대규모 업그레이드`
   Target:
   - `wiki/agent-skill-system-design.md`
+
+- Seed page: `GitHub, gh skill 공개 — 코딩 에이전트 운영의 단위가 프롬프트에서 공급망 관리 가능한 스킬 패키지로 이동`
+  Target:
+  - `wiki/agent-skill-system-design.md`
+
+- Seed page: `A2A Protocol 1년차 확산 — 멀티에이전트 시장의 병목이 모델 성능에서 상호운용 표준으로 이동`
+  Target:
+  - `wiki/agent-skill-system-design.md`
+
+- Seed page: `Mistral Small 4 공개 — 오픈 모델 전략이 단일 체크포인트에서 다기능 통합형 reasoning stack으로 이동`
+  Target:
+  - `wiki/open-model-runtime-selection.md`
+
+- Seed page: `GitHub Copilot 데이터 레지던시·FedRAMP 지원 — 코딩 에이전트 경쟁의 기준이 성능에서 규제 적합성으로 확장`
+  Target:
+  - `wiki/open-model-runtime-selection.md`
 
 ## Compilation Policy
 
