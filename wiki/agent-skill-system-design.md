@@ -139,6 +139,11 @@ Skills are most useful when they are not just long prompts. They should package:
   - `MCP` for tool and data access
   - `A2A`-style protocols for agent discovery, delegation, and cross-vendor coordination
   - signed agent identity artifacts and multi-tenant security flows once agents cross team or company boundaries
+- Runtime governance needs rollout granularity, not just allow-or-deny switches; enterprise agent systems should be able to phase capability access by organization, business unit, or risk tier.
+- Policy metadata and policy APIs belong in the control plane:
+  - org properties or equivalent metadata should gate who may use an agent capability
+  - rollout APIs should let platform teams enable or exclude orgs without manual console drift
+  - one-time policy evaluation needs to be called out explicitly when metadata changes do not auto-reconcile access later
 
 ## What To Capture From New Notion Pages
 
@@ -220,6 +225,10 @@ When a new Notion page is added, extract:
   - how well they isolate credentials and execution
   - whether state can survive container or session loss
   - whether permission, telemetry, and storage boundaries are explicit enough to audit
+- Governance maturity includes deployment choreography:
+  - selected-organization rollout is safer than enterprise-wide enablement when teams have different risk tolerance
+  - approval criteria should live in metadata or APIs rather than informal ticket state
+  - rollout policy is part of agent architecture because safe adoption depends on who can receive the capability and when
 
 ## Related Pages
 

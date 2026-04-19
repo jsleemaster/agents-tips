@@ -110,6 +110,14 @@ This design wiki treats selected Notion pages as the human-curated source of tru
   Target:
   - `wiki/open-model-runtime-selection.md`
 
+- Seed page: `Model selection for Claude and Codex agents on GitHub.com — 코딩 에이전트 경쟁이 모델 자체에서 라우팅 권한으로 이동`
+  Target:
+  - `wiki/open-model-runtime-selection.md`
+
+- Seed page: `Enable Copilot cloud agent via custom properties — 에이전트 도입의 병목이 기능에서 조직별 거버넌스로 이동`
+  Target:
+  - `wiki/agent-skill-system-design.md`
+
 ## Compilation Policy
 
 - Notion stays the human editing surface.

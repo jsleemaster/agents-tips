@@ -20,6 +20,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Separate retrieval quality from model quality; a stronger model does not fix missing citations.
 - Treat context-window pressure as a first-class routing signal, not a secondary benchmark detail.
 - Treat compliance fit as a routing signal too; a model that cannot satisfy residency or regulatory boundaries is not a viable default no matter how good its benchmark.
+- Treat shared agent-host model pickers as routing infrastructure, not cosmetic UI; once the same GitHub task surface can dispatch to `Claude Sonnet 4.6`, `Claude Opus 4.6`, `GPT-5.2-Codex`, `GPT-5.3-Codex`, or `GPT-5.4`, the durable decision shifts from one best model to who owns the routing policy.
 
 ## Gemma 4 Signal
 
@@ -72,6 +73,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - community maintenance speed
   - regional language or compliance fit
   - evidence that the model family is actually deployable in the environments you care about
+- Keep the routing contract explicit when one host exposes many frontier models:
+  - task type decides the default model
+  - premium tiers need a clear reliability threshold
+  - admins should be able to pre-enable only the model families the workflow is allowed to use
 
 ## Routing Thresholds
 
@@ -99,6 +104,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - active derivative ecosystem rather than one isolated release
   - enough deployment options across local, self-hosted, and cloud paths
   - evidence that small and mid-sized variants are used in production-like workloads, not only the flagship tier
+- Do not confuse model availability with policy fitness; a model is not operationally available if the shared host cannot expose it under the right repo, org, or admin policy.
 
 ## Current Recommendation
 
@@ -119,6 +125,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - subagents inherit the same provider and policy boundary
   - offline mode is explicit enough to satisfy audit and cost-control requirements
 - Prefer open-model families with strong downstream ecosystems when the goal is long-lived platform leverage rather than a one-off benchmark win.
+- When a shared agent host offers multiple frontier models, define a model-to-task matrix instead of letting every invocation pick ad hoc:
+  - lower-cost models for routine documentation, initial sweeps, or low-risk review handling
+  - stronger models for ambiguous debugging, broad refactors, or high-stakes review threads
+  - premium models only where the error-cost curve justifies the spend
 
 ## What To Add From Future Notion Links
 
@@ -159,6 +169,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - there is a concrete need to run repo-scale coding or cross-document synthesis experiments immediately
   - API availability and pricing make repeated routing tests cheap enough to operationalize
   - the operator workflow already depends on tools with official compatibility rather than custom glue
+- Shared host routing surfaces are strongest when:
+  - teams want one collaboration interface while varying model cost, latency, and reliability by task
+  - repository owners can keep model choice inside the PR or issue workflow instead of jumping to vendor consoles
+  - admins can govern which model families appear at all
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
 ## Related Pages
