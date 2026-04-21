@@ -77,6 +77,9 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - task type decides the default model
   - premium tiers need a clear reliability threshold
   - admins should be able to pre-enable only the model families the workflow is allowed to use
+- Treat host-level model pickers as gated infrastructure, not unconditional user freedom:
+  - business or enterprise policy may need to enable each vendor family first
+  - repository or organization cloud-agent settings may still block execution even when the model appears on the platform
 
 ## Routing Thresholds
 
@@ -100,6 +103,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - enforceable data residency policy
   - clear compliance scope such as regulated-public-sector support
   - visibility into which model families are excluded because the compliant endpoint does not exist
+- Do not ignore compliance pricing details; a seemingly small residency premium can still change the default routing recommendation when the workload is high-volume or always-on.
+- Treat "policy evaluates once" behavior as a real operational risk when access is granted from org properties or rollout metadata that do not auto-reconcile after later edits.
 - For open-model adoption, treat these ecosystem gates as minimum viability checks before a family becomes the default:
   - active derivative ecosystem rather than one isolated release
   - enough deployment options across local, self-hosted, and cloud paths
@@ -173,6 +178,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - teams want one collaboration interface while varying model cost, latency, and reliability by task
   - repository owners can keep model choice inside the PR or issue workflow instead of jumping to vendor consoles
   - admins can govern which model families appear at all
+- Shared host model selection is strongest when:
+  - one collaboration surface can route routine tasks to cheaper models and ambiguous work to stronger ones
+  - admins can enable only approved vendor families for the relevant repositories or organizations
+  - the platform keeps model choice inside the existing PR, issue, or agent workflow instead of sending operators to separate vendor consoles
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
 ## Related Pages

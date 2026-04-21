@@ -46,6 +46,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/cost` when a workflow is drifting into expensive territory.
 - `/diff` when you need to inspect the current edit surface without leaving the session.
 - `/fork` or `/resume` when the value is preserving a branch of thinking, not one continuously growing session.
+- `/rename` and `/export` when session continuity matters enough that naming and handoff artifacts should survive the terminal window.
 - `/rewind` when the fastest recovery path is restoring an earlier state instead of talking through rollback.
 - `/security-review` when the risk surface needs a dedicated pass rather than a generic code review.
 - `/install-github-app` once per account or repo setup when GitHub review state should become part of normal agent workflow.
@@ -181,6 +182,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `--json-schema <schema>`
   - `--allowedTools ...`
   - `--append-system-prompt ...`
+- `--dangerously-skip-permissions` belongs only in controlled container or automation contexts where approval bypass is an explicit policy decision, not a convenience default.
 - Verification should be part of the workflow, not a final optional question:
   - explain how the change will be checked
   - run the test or validation loop

@@ -33,6 +33,9 @@ Skills are most useful when they are not just long prompts. They should package:
 - Treat the trigger description as product design, not decoration; it determines whether the skill is loaded at all.
 - Package instructions, scripts, and references together so the skill behaves like an operable tool surface rather than a loose prompt snippet.
 - Treat reusable skills as installable artifacts, not loose prompt text, once teams need version pinning, provenance, and explicit update policy.
+- If the runtime supports subagents separately from skills, keep the contract explicit:
+  - agent definitions for specialist roles and tool scopes
+  - skills for reusable procedure, scripts, and reference bundles
 
 ## Workflow Skill vs Capability Skill
 
@@ -64,6 +67,7 @@ Skills are most useful when they are not just long prompts. They should package:
 
 - The minimum useful metadata is a stable `name` and a description that states when the skill should be used in plain language.
 - Trigger phrases should reflect real user requests, not internal jargon.
+- Descriptions that include concrete activation language such as "use proactively after modifying code" are stronger than vague domain labels because they change whether the runtime auto-invokes the helper at all.
 - If a skill needs strict isolation, special tools, or a distinct execution mode, that should be declared up front rather than hidden in the body.
 - Richer frontmatter is valuable only when the runtime actually enforces it; otherwise the design lesson is to keep metadata minimal and reliable.
 - When the runtime supports it, the extra fields worth using are the ones that materially change execution:
@@ -97,6 +101,7 @@ Skills are most useful when they are not just long prompts. They should package:
   - publish through immutable releases or pinned refs
   - record repository, ref, and content identity such as tree SHA in installed metadata
   - detect updates from real content change, not only a version label
+- Cross-host packaging is strategically valuable once one artifact can target `Claude Code`, `Codex`, `Cursor`, `Gemini CLI`, or similar shells without rewriting the core procedure bundle.
 - Session-level approval modes are part of the skill and agent risk model. A skill that may run under bypass or autopilot-style approvals needs tighter tool scopes, clearer post-run traces, and stronger stop-boundary verification than one that always asks before side effects.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
@@ -209,6 +214,10 @@ When a new Notion page is added, extract:
   - run evals against recurring failure cases
   - tune trigger descriptions from observed misses and false positives
   - track token cost and success rate as first-class design signals
+- Treat packaging and rollout governance as first-class design surfaces:
+  - install and update should preserve provenance
+  - release channels should be pin-friendly and auditable
+  - organization rollout should be phaseable by group, not only by enterprise-wide switches
 - Standardize the agent access layer separately from the agent choice itself:
   - centralize authentication, permissions, telemetry, and cost controls even when teams use different task-specific agents
   - treat agent selection as a portfolio decision at the workflow level, not a reason to duplicate governance for every tool
