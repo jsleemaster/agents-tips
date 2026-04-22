@@ -32,6 +32,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Vision and video support widen the cases where a local runtime can stay in the loop instead of escalating immediately to a hosted multimodal model.
 - Native audio input on the E2B and E4B line matters because it pushes the smallest deployments closer to complete on-device agent surfaces instead of text-only assistants.
 - Google is explicitly positioning the 31B model as a top-tier open model and the 26B model as a smaller but still competitive open option; the important retrieval takeaway is not the leaderboard claim itself, but that agent-ready structured output is now bundled with serious open-model ambition.
+- Ecosystem density is part of the signal too; source notes cite roughly 400 million downloads and more than 100,000 Gemma variants, which makes deployment-path breadth a practical routing input rather than vanity telemetry.
 - The strongest design implication is that local structured-output agents are now practical enough for product workflows, not only demos.
 
 ## Qwen 3.6 Signal
@@ -50,6 +51,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - The notable shape is not only the `256k` context window or Apache 2.0 license, but the claim that one model can cover reasoning, multimodal input, and agentic coding without a routing split across separate specialists.
 - `reasoning_effort` is an important control-surface signal because it exposes latency-versus-depth tradeoffs inside one runtime rather than forcing a model swap.
 - Day-0 support across serving stacks like `vLLM`, `SGLang`, `llama.cpp`, and Transformers is a deployment-fit signal, not a minor implementation detail.
+- Throughput claims matter when routing policy is driven by end-to-end loop cost; source notes highlight roughly 40 percent shorter completion time and 3 times higher throughput in optimized setups.
 - Output efficiency matters as much as benchmark rank when the real cost driver is loop length and repeated tool turns; shorter successful completions can beat a slightly stronger but more verbose model.
 - The practical takeaway is to compare integrated-model operational simplicity against multi-model routing complexity, not just one benchmark table against another.
 
@@ -77,6 +79,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - task type decides the default model
   - premium tiers need a clear reliability threshold
   - admins should be able to pre-enable only the model families the workflow is allowed to use
+- If the host keeps model choice inside the same issue, PR, or cloud-agent surface, treat that collaboration continuity as real operational value rather than UI polish.
 - Treat host-level model pickers as gated infrastructure, not unconditional user freedom:
   - business or enterprise policy may need to enable each vendor family first
   - repository or organization cloud-agent settings may still block execution even when the model appears on the platform
@@ -103,6 +106,9 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - enforceable data residency policy
   - clear compliance scope such as regulated-public-sector support
   - visibility into which model families are excluded because the compliant endpoint does not exist
+- Treat compliance surcharges and defaults as routing inputs too:
+  - a residency or regulated-endpoint premium of roughly 10 percent can still change the default for always-on workloads
+  - admin opt-in matters because a compliant path that is off by default is not the actual default runtime
 - Do not ignore compliance pricing details; a seemingly small residency premium can still change the default routing recommendation when the workload is high-volume or always-on.
 - Treat "policy evaluates once" behavior as a real operational risk when access is granted from org properties or rollout metadata that do not auto-reconcile after later edits.
 - For open-model adoption, treat these ecosystem gates as minimum viability checks before a family becomes the default:

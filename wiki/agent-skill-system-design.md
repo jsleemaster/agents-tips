@@ -33,6 +33,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Treat the trigger description as product design, not decoration; it determines whether the skill is loaded at all.
 - Package instructions, scripts, and references together so the skill behaves like an operable tool surface rather than a loose prompt snippet.
 - Treat reusable skills as installable artifacts, not loose prompt text, once teams need version pinning, provenance, and explicit update policy.
+- Treat search, install, update, and publish as first-class parts of the skill lifecycle once teams distribute skills across many agent hosts; packaging without an operational lifecycle turns reuse back into manual copy-paste.
 - If the runtime supports subagents separately from skills, keep the contract explicit:
   - agent definitions for specialist roles and tool scopes
   - skills for reusable procedure, scripts, and reference bundles
@@ -101,6 +102,7 @@ Skills are most useful when they are not just long prompts. They should package:
   - publish through immutable releases or pinned refs
   - record repository, ref, and content identity such as tree SHA in installed metadata
   - detect updates from real content change, not only a version label
+- Skill publishing should reuse existing release trust checks such as secret scanning and code scanning instead of inventing a parallel distribution path with weaker guarantees.
 - Cross-host packaging is strategically valuable once one artifact can target `Claude Code`, `Codex`, `Cursor`, `Gemini CLI`, or similar shells without rewriting the core procedure bundle.
 - Session-level approval modes are part of the skill and agent risk model. A skill that may run under bypass or autopilot-style approvals needs tighter tool scopes, clearer post-run traces, and stronger stop-boundary verification than one that always asks before side effects.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
@@ -144,11 +146,13 @@ Skills are most useful when they are not just long prompts. They should package:
   - `MCP` for tool and data access
   - `A2A`-style protocols for agent discovery, delegation, and cross-vendor coordination
   - signed agent identity artifacts and multi-tenant security flows once agents cross team or company boundaries
+- Once cross-agent standards show real multi-vendor and major-cloud adoption, treat interoperability as a near-term architecture input rather than speculative future-proofing.
 - Runtime governance needs rollout granularity, not just allow-or-deny switches; enterprise agent systems should be able to phase capability access by organization, business unit, or risk tier.
 - Policy metadata and policy APIs belong in the control plane:
   - org properties or equivalent metadata should gate who may use an agent capability
   - rollout APIs should let platform teams enable or exclude orgs without manual console drift
   - one-time policy evaluation needs to be called out explicitly when metadata changes do not auto-reconcile access later
+  - selected-organization rollout is the practical middle ground between enterprise-wide enablement and per-team manual exceptions
 
 ## What To Capture From New Notion Pages
 
