@@ -102,6 +102,7 @@ Skills are most useful when they are not just long prompts. They should package:
   - publish through immutable releases or pinned refs
   - record repository, ref, and content identity such as tree SHA in installed metadata
   - detect updates from real content change, not only a version label
+- Treat skill distribution as a package-manager problem once teams search, install, update, and publish shared skill bundles across many hosts; lifecycle commands without provenance just recreate prompt-copy drift under a nicer interface.
 - Skill publishing should reuse existing release trust checks such as secret scanning and code scanning instead of inventing a parallel distribution path with weaker guarantees.
 - Cross-host packaging is strategically valuable once one artifact can target `Claude Code`, `Codex`, `Cursor`, `Gemini CLI`, or similar shells without rewriting the core procedure bundle.
 - Session-level approval modes are part of the skill and agent risk model. A skill that may run under bypass or autopilot-style approvals needs tighter tool scopes, clearer post-run traces, and stronger stop-boundary verification than one that always asks before side effects.
@@ -117,6 +118,16 @@ Skills are most useful when they are not just long prompts. They should package:
 - Traceability belongs in the runtime surface too: permission events, tool invocations, and session traces should be capturable without rebuilding the orchestration layer from scratch.
 - When MCP becomes a shared operations interface instead of a personal convenience tool, design for remote hosting, identity flow, telemetry policy, and network boundary selection up front rather than treating them as deployment afterthoughts.
 - Sandbox portability matters once skills stop being local conveniences and become shared runtime components; the durable design target is a skill surface that can run against multiple sandbox providers without redefining the workflow contract each time.
+- Runtime governance should intercept actions before or at tool execution time, not only after the fact in logs; policy engines, trust scoring, and emergency kill switches belong in the execution path once agents can call tools, modify state, or coordinate with peer agents.
+- Plugin and skill provenance should be verifiable at runtime, not just during code review:
+  - signed manifests or equivalent source identity
+  - plugin or bundle verification before activation
+  - security gateways for high-risk tool protocols such as `MCP`
+- As agent runtimes mature, the useful governance surface starts to look kernel-like:
+  - action interception
+  - policy evaluation with portable languages such as `OPA Rego` or `Cedar`
+  - inter-agent identity and trust boundaries
+  - approval and circuit-breaker paths that can stop a bad workflow before side effects spread
 - Durable execution belongs in the runtime, not in ad hoc glue:
   - snapshotting and rehydration for long-running tasks
   - explicit workspace manifests for files, outputs, and storage mounts
@@ -185,6 +196,10 @@ When a new Notion page is added, extract:
   - tool scoping
   - hook binding
   - agent or model routing
+- Package-manager-style skill distribution is now concrete enough to design around:
+  - operators will expect search, install, update, and publish flows instead of manual copy-paste
+  - multi-host support matters because the same skill may need to land in `Claude Code`, `Codex`, `Copilot`, `Cursor`, or `Gemini CLI`
+  - lifecycle commands only help if installed metadata preserves repository, ref, and content identity such as tree SHA
 - Forked-context or isolated execution support is not just convenience. It is the clean boundary for testing risky skills, side-effect-heavy flows, and noisy intermediate work without polluting the parent session.
 - Agent platforms are converging on the same reusable control points:
   - repository-scoped agent definition files
@@ -242,6 +257,10 @@ When a new Notion page is added, extract:
   - selected-organization rollout is safer than enterprise-wide enablement when teams have different risk tolerance
   - approval criteria should live in metadata or APIs rather than informal ticket state
   - rollout policy is part of agent architecture because safe adoption depends on who can receive the capability and when
+- Runtime-governance stacks are becoming explicit architecture inputs rather than abstract security aspirations:
+  - treat policy engines, identity layers, approval workflows, and kill switches as bundled runtime surfaces
+  - prefer governance layers that can sit across multiple agent frameworks instead of being trapped inside one vendor shell
+  - use measurable execution-path guarantees, such as low-latency policy enforcement, when deciding whether governance can stay inline rather than post hoc
 
 ## Related Pages
 

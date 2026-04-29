@@ -21,6 +21,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Treat context-window pressure as a first-class routing signal, not a secondary benchmark detail.
 - Treat compliance fit as a routing signal too; a model that cannot satisfy residency or regulatory boundaries is not a viable default no matter how good its benchmark.
 - Treat shared agent-host model pickers as routing infrastructure, not cosmetic UI; once the same GitHub task surface can dispatch to `Claude Sonnet 4.6`, `Claude Opus 4.6`, `GPT-5.2-Codex`, `GPT-5.3-Codex`, or `GPT-5.4`, the durable decision shifts from one best model to who owns the routing policy.
+- Treat portfolio coverage as a routing signal too; a family that spans datacenter-scale MoE, mid-sized local tiers, and edge-capable small models can reduce platform sprawl even when one individual checkpoint is not the benchmark leader.
 
 ## Gemma 4 Signal
 
@@ -55,6 +56,24 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Output efficiency matters as much as benchmark rank when the real cost driver is loop length and repeated tool turns; shorter successful completions can beat a slightly stronger but more verbose model.
 - The practical takeaway is to compare integrated-model operational simplicity against multi-model routing complexity, not just one benchmark table against another.
 
+## DeepSeek V4 Signal
+
+- DeepSeek V4 strengthens the case for keeping ultra-long-context open models in the routing matrix even when they are not the overall benchmark leader.
+- The important signal is the bundle of `1M` context, low input pricing, and explicit agentic-coding positioning rather than any one raw leaderboard claim.
+- Very low-cost long-context tiers change workload segmentation rules: broad codebase sweeps, document fusion, and high-frequency automation may deserve a different default than ambiguous final reasoning.
+- Geopolitical or supply-chain fit can become part of runtime selection when a model family is presented as viable on alternate hardware or regional infrastructure stacks.
+- The practical takeaway is to compare total cost of execution for long-context agent loops, not only per-task intelligence.
+
+## Regulated Hosted Runtime Signal
+
+- Compliance posture is now strong enough to count as a positive routing signal, not just a blocker checklist.
+- When a frontier provider offers regulated environments such as FedRAMP-moderate managed access, the relevant question shifts from "is hosted allowed at all" to "which product surfaces and models are inside the certified boundary."
+- Certification scope should be checked at the product-surface level:
+  - chat workspace access
+  - API platform access
+  - agent surfaces such as cloud coding or Codex-style environments
+- Reusable authorization packages and shared evidence lower adoption friction, but only if the team still verifies data-boundary, logging, and responsibility split details for the exact workflow.
+
 ## Decision Rule For This Wiki
 
 - Start with a local model when:
@@ -75,6 +94,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - community maintenance speed
   - regional language or compliance fit
   - evidence that the model family is actually deployable in the environments you care about
+- Treat hardware-fit as a hard capability gate too:
+  - whether the target model can run on the actual node class you operate, not just an ideal benchmark rig
+  - whether smaller variants cover laptop, workstation, or edge deployments under the same family policy
+  - whether the serving stack and compression path are mature enough that deployment friction does not erase the benchmark win
 - Keep the routing contract explicit when one host exposes many frontier models:
   - task type decides the default model
   - premium tiers need a clear reliability threshold
@@ -111,6 +134,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - admin opt-in matters because a compliant path that is off by default is not the actual default runtime
 - Do not ignore compliance pricing details; a seemingly small residency premium can still change the default routing recommendation when the workload is high-volume or always-on.
 - Treat "policy evaluates once" behavior as a real operational risk when access is granted from org properties or rollout metadata that do not auto-reconcile after later edits.
+- Treat certification scope as a capability gate too:
+  - a regulated endpoint is only useful if the needed model family is actually inside the certified surface
+  - hosted chat approval does not automatically imply API or agent-runtime approval
+  - reusable authorization evidence speeds review, but it does not replace workflow-level boundary checks
 - For open-model adoption, treat these ecosystem gates as minimum viability checks before a family becomes the default:
   - active derivative ecosystem rather than one isolated release
   - enough deployment options across local, self-hosted, and cloud paths
@@ -148,6 +175,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - pricing thresholds
 - latency or memory implications
 - product fit: local runtime, hosted API, or hybrid
+- family-level portfolio coverage across datacenter, workstation, and edge deployments
 
 ## Current Tradeoff Snapshot
 
@@ -165,11 +193,19 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - sovereign or region-specific deployment matters
   - derivative variants and community fine-tunes are strategic assets, not noise
   - the team expects to mix smaller deployment-tier models with a few larger hosted reasoners
+- Portfolio-style open-model families are strongest when:
+  - one vendor offers a coherent ladder from small edge models to larger datacenter checkpoints
+  - the same licensing and serving assumptions can cover both local fallback and central hosted clusters
+  - platform teams want one model family policy instead of separate approvals for every deployment tier
 - Compliance-routed hosted models are strongest when:
   - procurement depends on region-pinned inference
   - one platform must expose a model allowlist per residency boundary
   - paying a small routing premium is cheaper than building and operating an internal compliant stack
   - excluded models are acceptable if the remaining compliant set still covers the main workflows
+- Certified hosted runtimes are strongest when:
+  - the organization needs government or similarly regulated procurement evidence
+  - the approved surface includes both the interaction mode and the programmable API path the workflow needs
+  - platform teams want reusable authorization packages instead of restarting security review from zero for every agent use case
 - Small and mid-sized open models deserve explicit routing priority when download and deployment signals show they are the real operational default, not just the benchmark undercard.
 - BYOK-capable agent shells are strongest when:
   - the team wants one agent workflow across multiple providers
@@ -180,6 +216,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - there is a concrete need to run repo-scale coding or cross-document synthesis experiments immediately
   - API availability and pricing make repeated routing tests cheap enough to operationalize
   - the operator workflow already depends on tools with official compatibility rather than custom glue
+- Ultra-long-context low-cost open models are strongest when:
+  - the dominant cost is repeated large-context ingestion rather than one-shot hard reasoning
+  - workload segmentation can safely route ambiguous final judgment to a stronger secondary model
+  - regional deployment or alternate hardware support is part of the procurement calculus
 - Shared host routing surfaces are strongest when:
   - teams want one collaboration interface while varying model cost, latency, and reliability by task
   - repository owners can keep model choice inside the PR or issue workflow instead of jumping to vendor consoles
