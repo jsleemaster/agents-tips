@@ -73,6 +73,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - API platform access
   - agent surfaces such as cloud coding or Codex-style environments
 - Reusable authorization packages and shared evidence lower adoption friction, but only if the team still verifies data-boundary, logging, and responsibility split details for the exact workflow.
+- Cloud-native distribution path is a routing signal too:
+  - if the model or agent runtime can run inside the organization's existing cloud IAM, billing, and audit stack, adoption friction drops materially
+  - cloud-commit alignment can matter as much as benchmark price when spend is already committed elsewhere
+  - managed-agent availability inside the host cloud changes the decision from model procurement to workflow placement
 
 ## Decision Rule For This Wiki
 
@@ -143,6 +147,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - enough deployment options across local, self-hosted, and cloud paths
   - evidence that small and mid-sized variants are used in production-like workloads, not only the flagship tier
 - Do not confuse model availability with policy fitness; a model is not operationally available if the shared host cannot expose it under the right repo, org, or admin policy.
+- For full-stack open-model portfolios, treat these deployment gates as minimum viability checks before the family becomes a serious platform candidate:
+  - one policy should be able to span datacenter, workstation, and edge tiers
+  - serving-stack maturity such as `vLLM`, compression formats, or accelerator-specific paths should exist on day one
+  - hardware-fit claims should name real node classes such as single `8xA100` or `8xH100`, not only aspirational cluster shapes
 
 ## Current Recommendation
 
@@ -228,6 +236,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - one collaboration surface can route routine tasks to cheaper models and ambiguous work to stronger ones
   - admins can enable only approved vendor families for the relevant repositories or organizations
   - the platform keeps model choice inside the existing PR, issue, or agent workflow instead of sending operators to separate vendor consoles
+- Cloud-native frontier distribution is strongest when:
+  - the organization already trusts the host cloud's IAM, billing, procurement, and audit layers
+  - the coding agent or managed-agent surface can consume that same governance stack without separate SaaS onboarding
+  - usage can count against existing cloud commitments or budget envelopes instead of opening a parallel spend channel
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
 ## Related Pages

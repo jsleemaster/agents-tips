@@ -132,6 +132,10 @@ Skills are most useful when they are not just long prompts. They should package:
   - snapshotting and rehydration for long-running tasks
   - explicit workspace manifests for files, outputs, and storage mounts
   - credential isolation so generated code does not automatically inherit sensitive secrets
+- Treat issue trackers as a plausible agent control plane once long-running coding work needs retries, observability, and human-review handoff:
+  - per-issue workspace isolation reduces cross-task contamination
+  - workflow-defined states such as human review make stop conditions explicit
+  - retry queues and restart recovery matter more than one more parallel session
 
 ## Runtime Features Worth Capturing
 
@@ -206,6 +210,10 @@ When a new Notion page is added, extract:
   - reusable skills attached to those agents
   - permission frameworks for sensitive actions
   - distributed tracing or telemetry hooks for audit
+- Shared agent libraries are becoming a team asset, not only a power-user convenience:
+  - package recurring report, routing, and review flows as reusable workflow assets
+  - keep approval policy, tool graph, and memory boundary attached to the shared agent definition
+  - prefer workflows with real handoff surfaces such as Slack, ticketing, or reporting over one-off personal helpers
 - Organization-level MCP allowlists are becoming a standard governance surface; discovery alone is not enough when teams need centralized approval over which external systems agents may touch.
 - Open standards are splitting the stack into layers instead of one monolithic agent framework:
   - tool-use protocols reduce reintegration cost for internal systems
@@ -261,6 +269,10 @@ When a new Notion page is added, extract:
   - treat policy engines, identity layers, approval workflows, and kill switches as bundled runtime surfaces
   - prefer governance layers that can sit across multiple agent frameworks instead of being trapped inside one vendor shell
   - use measurable execution-path guarantees, such as low-latency policy enforcement, when deciding whether governance can stay inline rather than post hoc
+- If the runtime exposes compliance APIs or execution analytics, treat them as required control-plane surfaces for shared agents rather than optional admin extras:
+  - creation, update, and execution history should be inspectable
+  - role-based exposure matters because shared agents become organization assets, not private prompts
+  - credit-based or usage-metered execution changes rollout policy because idle experimentation stops being free
 
 ## Related Pages
 
