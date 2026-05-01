@@ -45,6 +45,9 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Immediate availability through Alibaba Cloud Model Studio and Bailian matters because it lowers the cost of running a real routing experiment instead of treating Qwen as a hypothetical future option.
 - The practical takeaway is that a cheap hosted reasoning layer may beat a purely local stack when the workload needs deeper synthesis across large corpora.
 - The important signal is not just price, but the combination of very long context and coding-agent compatibility.
+- Treat reasoning continuity as a routing signal too; if a model explicitly preserves thinking context across iterative turns, that matters for repo-scale coding more than one more leaderboard delta.
+- Treat repository-level task completion as a separate evaluation axis from benchmark score; open coding models should be compared on multi-file continuity, not only one-shot code generation.
+- Model-plus-agent-surface co-design is a real deployment-fit signal. If the same family ships both the model and a terminal-agent workflow such as Qwen Code, adoption friction can drop even when the raw model is not the consensus frontier default.
 
 ## Mistral Small 4 Signal
 
@@ -120,6 +123,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the question depends on reconciling many competing signals at once
 - Escalate when multimodal evidence or full-repository coding flows would be materially weakened by local model limits.
 - Do not escalate just because a benchmark looks better; escalate when the workload shape actually matches the benchmark advantage.
+- Do not treat long context as enough by itself; if reasoning continuity collapses across iterative repo work, the larger window does not rescue coding-agent quality.
 - Do not treat "1M context" as sufficient by itself; it only changes routing policy when the rest of the agent shell can actually preserve tool use, streaming, and stable repo-scale execution under that larger window.
 - Do not choose a hosted runtime if the environment requires an explicit no-fallback guarantee; if silent fallback to a vendor-hosted model would violate policy, the runtime must expose a hard offline mode instead of a best-effort preference.
 - Do not treat a premium for compliant routing as noise; residency or regulated endpoints can change effective model cost enough to alter the default.
@@ -224,6 +228,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - there is a concrete need to run repo-scale coding or cross-document synthesis experiments immediately
   - API availability and pricing make repeated routing tests cheap enough to operationalize
   - the operator workflow already depends on tools with official compatibility rather than custom glue
+- Reasoning-preserving open coding models are strongest when:
+  - iterative multi-file work must survive long sessions without losing prior problem framing
+  - evaluation is based on repository task completion rather than isolated benchmark prompts
+  - the model family also ships an agent surface that lowers terminal-workflow adoption friction
 - Ultra-long-context low-cost open models are strongest when:
   - the dominant cost is repeated large-context ingestion rather than one-shot hard reasoning
   - workload segmentation can safely route ambiguous final judgment to a stronger secondary model

@@ -98,6 +98,10 @@ Skills are most useful when they are not just long prompts. They should package:
 - Restrict tool access when a skill does not need the full tool surface.
 - Prefer scripts for validation and transformation work.
 - Treat unreviewed third-party skills as executable code, not harmless text.
+- Treat product-layer defaults as part of runtime governance, not invisible tuning:
+  - default reasoning effort
+  - stale-session context retention
+  - verbosity or formatting system prompts
 - Supply-chain controls should apply to skills too:
   - publish through immutable releases or pinned refs
   - record repository, ref, and content identity such as tree SHA in installed metadata
@@ -114,6 +118,7 @@ Skills are most useful when they are not just long prompts. They should package:
   - agent-style handlers only when the check truly needs tools or extended investigation
 - Hot reload matters because it shortens the authoring loop; if a platform lacks it, bias toward smaller skills and cheaper test cycles.
 - A mature skill system should support evaluation, A/B comparison, and trigger tuning so skill quality can be improved from evidence rather than intuition.
+- Quality regressions should be decomposed by layer. Separate model or inference changes from harness-default changes such as prompt policy, cache behavior, or effort presets before concluding that "the model got worse."
 - MCP or tool connectivity should have a governance surface, not just a discovery surface; an allowlist is the clean boundary when teams need centralized approval over which external systems agents may touch.
 - Traceability belongs in the runtime surface too: permission events, tool invocations, and session traces should be capturable without rebuilding the orchestration layer from scratch.
 - When MCP becomes a shared operations interface instead of a personal convenience tool, design for remote hosting, identity flow, telemetry policy, and network boundary selection up front rather than treating them as deployment afterthoughts.
@@ -156,6 +161,7 @@ Skills are most useful when they are not just long prompts. They should package:
   - tracing hooks such as OpenTelemetry
   - BYOK model routing
 - Runtime competition is moving from thin orchestration libraries to execution harnesses that bundle those primitives with policy boundaries by default.
+- Public postmortems are high-value runtime evidence. When a vendor shows that one prompt line, an idle-session cache bug, or a default effort change can move coding quality materially, treat prompt diff audit and stale-session regression coverage as required runtime features rather than nice-to-have QA.
 - Treat `MCP`, `skills`, `AGENTS.md`, and equivalent manifest files as standard contracts between domain procedure and runtime, not as vendor-specific embellishments.
 - Treat protocol layering as part of runtime design rather than optional integration detail:
   - `MCP` for tool and data access
@@ -273,6 +279,10 @@ When a new Notion page is added, extract:
   - creation, update, and execution history should be inspectable
   - role-based exposure matters because shared agents become organization assets, not private prompts
   - credit-based or usage-metered execution changes rollout policy because idle experimentation stops being free
+- Product-quality operations belong beside runtime governance:
+  - prompt changes should be diffed and auditable
+  - default-effort changes should run through eval and gradual rollout, not silent global flips
+  - stale-session and long-idle recovery paths need their own regression coverage because long-running agents fail differently from stateless chat
 
 ## Related Pages
 
