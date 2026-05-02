@@ -125,6 +125,11 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Do not escalate just because a benchmark looks better; escalate when the workload shape actually matches the benchmark advantage.
 - Do not treat long context as enough by itself; if reasoning continuity collapses across iterative repo work, the larger window does not rescue coding-agent quality.
 - Do not treat "1M context" as sufficient by itself; it only changes routing policy when the rest of the agent shell can actually preserve tool use, streaming, and stable repo-scale execution under that larger window.
+- Escalate toward a managed hosted runtime when it adds control-plane surfaces the local path does not provide:
+  - durable background execution
+  - audit logs and trace capture
+  - explicit approval boundaries
+  - stable parity between local and cloud tool contracts
 - Do not choose a hosted runtime if the environment requires an explicit no-fallback guarantee; if silent fallback to a vendor-hosted model would violate policy, the runtime must expose a hard offline mode instead of a best-effort preference.
 - Do not treat a premium for compliant routing as noise; residency or regulated endpoints can change effective model cost enough to alter the default.
 - For coding-agent shells, treat these capability gates as minimum viability checks before a runtime becomes the shared default:

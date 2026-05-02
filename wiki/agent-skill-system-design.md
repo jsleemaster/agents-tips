@@ -218,6 +218,7 @@ When a new Notion page is added, extract:
   - distributed tracing or telemetry hooks for audit
 - Shared agent libraries are becoming a team asset, not only a power-user convenience:
   - package recurring report, routing, and review flows as reusable workflow assets
+  - keep background or managed agents on the same `MCP`, `git`, and test-runner contract as the local session whenever possible, because cloud-local parity reduces governance drift and handoff ambiguity
   - keep approval policy, tool graph, and memory boundary attached to the shared agent definition
   - prefer workflows with real handoff surfaces such as Slack, ticketing, or reporting over one-off personal helpers
 - Organization-level MCP allowlists are becoming a standard governance surface; discovery alone is not enough when teams need centralized approval over which external systems agents may touch.
