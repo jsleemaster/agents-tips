@@ -255,6 +255,9 @@ When a new Notion page is added, extract:
 - Standardize the agent access layer separately from the agent choice itself:
   - centralize authentication, permissions, telemetry, and cost controls even when teams use different task-specific agents
   - treat agent selection as a portfolio decision at the workflow level, not a reason to duplicate governance for every tool
+- Treat local IDE plugins and managed cloud-agent surfaces as one architecture decision when they share a control plane:
+  - prefer platforms that keep protocol compatibility, policy enforcement, and traceability consistent across local and hosted execution
+  - do not treat a browser or cloud-agent surface as a separate product win if it forks the governance model from the local plugin path
 - Company-wide agent platforms create a new lock-in surface above the model layer:
   - orchestration ownership matters more once agents share memory, permissions, and cross-system connectivity
   - design the runtime so teams can swap or mix agents without rebuilding the policy and data-connectivity layer from scratch
