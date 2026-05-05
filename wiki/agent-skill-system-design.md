@@ -18,6 +18,7 @@ This page compiles the reusable design lessons from the Notion pages `Claude Ski
 Skills are most useful when they are not just long prompts. They should package:
 
 - a triggerable purpose
+- a folder-shaped execution surface, not only a single markdown blob
 - a narrow operating surface
 - optional scripts or references
 - clear boundaries about when they do and do not apply
@@ -31,6 +32,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Use isolated execution for risky or noisy tasks when the platform supports it.
 - Put deterministic transforms in bundled scripts instead of asking the model to re-derive them every run.
 - Treat the trigger description as product design, not decoration; it determines whether the skill is loaded at all.
+- Treat a skill as a package of instructions, scripts, and resources; if the skill cannot survive without chat-only explanation, it is not packaged tightly enough.
 
 ## Workflow Skill vs Capability Skill
 
@@ -64,6 +66,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Trigger phrases should reflect real user requests, not internal jargon.
 - If a skill needs strict isolation, special tools, or a distinct execution mode, that should be declared up front rather than hidden in the body.
 - Richer frontmatter is valuable only when the runtime actually enforces it; otherwise the design lesson is to keep metadata minimal and reliable.
+- Trigger wording should look like operator language such as "Use when user asks..." so the runtime can match real requests instead of taxonomy terms.
 
 ## Design Principles
 
@@ -81,6 +84,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Treat unreviewed third-party skills as executable code, not harmless text.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
+- Use forked or isolated context for skill development and evaluation when a failed experiment would otherwise pollute the main session state.
 
 ## What To Capture From New Notion Pages
 
@@ -106,12 +110,9 @@ When a new Notion page is added, extract:
   - evaluation or A/B testing
   - versioned supporting artifacts
 - The wiki should preserve those design levers even when a specific source claim is tied to one vendor runtime.
+- Cross-platform skill standards matter when the same skill corpus must work across multiple agent shells; prefer portable folder conventions over runtime-specific prompt hacks when interoperability is part of the goal.
 
 ## Related Pages
 
 - [[Claude Code Operating Patterns]]
 - [[Notion Source Of Truth]]
-
-## Related Questions
-
-- 2026-04-06T16:02:13.128Z 이 프로젝트에서 Notion과 local wiki의 역할을 어떻게 나누는게 좋지?

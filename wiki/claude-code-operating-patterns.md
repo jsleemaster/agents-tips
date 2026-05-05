@@ -43,6 +43,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/context` to inspect token pressure instead of guessing.
 - `/cost` when a workflow is drifting into expensive territory.
 - `/fork` or `/resume` when the value is preserving a branch of thinking, not one continuously growing session.
+- Prefer `Shift+Tab` or `/plan` before execution when the task needs architecture review, test shape agreement, or risk checks; do not pay plan-mode overhead for straightforward local edits.
 
 ## Context Management
 
@@ -59,6 +60,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Use subagents or separate sessions for clearly separable work.
 - Use peer-style teams only when the coordination value outweighs the token cost.
 - Small, isolated tasks are better than vague parallel requests.
+- Prefer isolated git worktrees for concurrent feature lanes so each session keeps its own repo state, branch intent, and rollback surface.
 
 ## Agent Teams Vs Subagents
 
@@ -114,13 +116,11 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - explain how the change will be checked
   - run the test or validation loop
   - only then write durable memory
+- For larger changes, keep writer and reviewer passes in separate sessions or subagents so the review context is not contaminated by the implementation path.
+- When resetting after a long task, prefer a handoff note that records attempted paths, validation status, and the single next unblocker rather than a prose recap of everything learned.
 
 ## Related Pages
 
 - [[Agent Skill System Design]]
 - [[Open Model Runtime Selection]]
 - [[Notion Source Of Truth]]
-
-## Related Questions
-
-- 2026-04-06T15:59:52.344Z Claude Code를 오래 쓸 때 컨텍스트 관리는 어떻게 하는게 좋아?
