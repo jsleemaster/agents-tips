@@ -31,6 +31,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Separate workflow skills from capability uplift skills.
 - Use isolated execution for risky or noisy tasks when the platform supports it.
 - Put deterministic transforms in bundled scripts instead of asking the model to re-derive them every run.
+- Prefer file-based skills that can hot-reload during authoring; restart-heavy development loops make trigger tuning and evaluation too expensive.
 - Treat the trigger description as product design, not decoration; it determines whether the skill is loaded at all.
 - Treat a skill as a package of instructions, scripts, and resources; if the skill cannot survive without chat-only explanation, it is not packaged tightly enough.
 
@@ -67,6 +68,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - If a skill needs strict isolation, special tools, or a distinct execution mode, that should be declared up front rather than hidden in the body.
 - Richer frontmatter is valuable only when the runtime actually enforces it; otherwise the design lesson is to keep metadata minimal and reliable.
 - Trigger wording should look like operator language such as "Use when user asks..." so the runtime can match real requests instead of taxonomy terms.
+- Keep explicit slash-command flows separate from auto-triggered skills; commands are for operator intent, while skills should win only when the runtime can infer the scenario safely.
 
 ## Design Principles
 
@@ -82,6 +84,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Restrict tool access when a skill does not need the full tool surface.
 - Prefer scripts for validation and transformation work.
 - Treat unreviewed third-party skills as executable code, not harmless text.
+- Audit bundled scripts, dependencies, and frontmatter together; metadata is part of the executable surface because the runtime may inject or route on it.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
 - Use forked or isolated context for skill development and evaluation when a failed experiment would otherwise pollute the main session state.
@@ -109,6 +112,7 @@ When a new Notion page is added, extract:
   - lifecycle hooks
   - evaluation or A/B testing
   - versioned supporting artifacts
+- Skill creator and eval tooling matter once the corpus is large enough that trigger precision, token cost, and success rate need to be measured instead of guessed.
 - The wiki should preserve those design levers even when a specific source claim is tied to one vendor runtime.
 - Cross-platform skill standards matter when the same skill corpus must work across multiple agent shells; prefer portable folder conventions over runtime-specific prompt hacks when interoperability is part of the goal.
 

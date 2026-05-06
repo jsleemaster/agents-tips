@@ -38,11 +38,16 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/init` to generate the initial project memory surface.
 - `/compact` to preserve a useful summary while dropping excess context.
 - `/clear` or `/reset` when a task boundary is complete.
+- `/rewind` or `Esc Esc` to roll back a bad execution branch instead of compensating with extra cleanup edits.
+- `/diff` to inspect agent-made changes before commit, review, or handoff.
 - `/mcp` for external systems, but only when the tool meaning is crisp.
 - `/plan` when the work has multiple moving parts or non-obvious tradeoffs.
+- `/security-review` when the task needs a dedicated vulnerability pass instead of informal caution.
 - `/context` to inspect token pressure instead of guessing.
 - `/cost` when a workflow is drifting into expensive territory.
 - `/fork` or `/resume` when the value is preserving a branch of thinking, not one continuously growing session.
+- `/teleport` when a useful remote or cloud session should be continued locally instead of recreated from scratch.
+- `/pr-comments`, `/plugin`, and `/skills` are the direct surfaces for review feedback intake, plugin inventory, and skill discovery.
 - Prefer `Shift+Tab` or `/plan` before execution when the task needs architecture review, test shape agreement, or risk checks; do not pay plan-mode overhead for straightforward local edits.
 
 ## Context Management
@@ -111,6 +116,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `--yes`
   - `--quiet`
   - `--format json`
+- For scripted or chained runs, prefer explicit control flags such as `-p`, `--output-format`, `--json-schema`, `--allowedTools`, `--max-turns`, and `--max-budget-usd` so automation can validate outputs and stop predictably.
 - For automation chains, use explicit output formats, turn limits, budget limits, and allowed-tool lists rather than trusting ambient defaults.
 - Verification should be part of the workflow, not a final optional question:
   - explain how the change will be checked

@@ -26,6 +26,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - The E2B and E4B line is especially relevant for laptop-class deployment.
 - Source notes highlight four sizes: E2B, E4B, 26B MoE, and 31B Dense.
 - Apache 2.0 matters operationally because it lowers friction for commercial use, internal deployment, and fine-tuning.
+- Native structured output, function calling, and multimodal inputs are the real runtime signal; they determine whether an open model can act as an agent substrate rather than only a summarizer.
 - The strongest design implication is that local structured-output agents are now practical enough for product workflows, not only demos.
 - Gemma-class local runtimes are strongest when procurement or data-governance pressure makes self-hosting a product requirement, not just a cost preference.
 
@@ -33,6 +34,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 
 - Qwen 3.6 pushes the opposite frontier: long context, stronger coding performance, and aggressive price/performance in API form.
 - Source notes claim a 1M-token context window, multimodal support, and repo-scale coding workflows.
+- Source notes also position it as practical for design-to-code and full-repository coding lanes, not only text-heavy question answering.
 - The practical takeaway is that a cheap hosted reasoning layer may beat a purely local stack when the workload needs deeper synthesis across large corpora.
 - The important signal is not just price, but the combination of very long context and coding-agent compatibility.
 - Official compatibility with agent shells such as Claude Code, Cline, and OpenClaw is a deployment signal: ecosystem fit can matter as much as raw benchmark wins when the real question is adoption friction.
