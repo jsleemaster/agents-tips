@@ -102,6 +102,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Stateful browser-style tools are especially good MCP candidates.
 - Tool search should be on when MCP definitions are large; source notes claim it can cut schema token load by roughly 85 to 96 percent.
 - `serverInstructions` should describe the real task surface in operator language, not generic transport details.
+- Use `project` scope for team-shared MCP contracts and reserve `user` or `local` scope for personal credentials, machine-specific servers, or experiments that should not silently change the repo default.
 - Prefer MCP for stateful environments like Playwright and prefer CLI for stateless systems where shell commands are already strong.
 
 ## CLI And Automation Defaults
@@ -118,6 +119,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `--format json`
 - For scripted or chained runs, prefer explicit control flags such as `-p`, `--output-format`, `--json-schema`, `--allowedTools`, `--max-turns`, and `--max-budget-usd` so automation can validate outputs and stop predictably.
 - For automation chains, use explicit output formats, turn limits, budget limits, and allowed-tool lists rather than trusting ambient defaults.
+- When a workflow repeats, prefer a custom command that captures live context such as `git status`, `git diff`, the current branch, and recent commits instead of making the operator restate repo state by hand.
 - Verification should be part of the workflow, not a final optional question:
   - explain how the change will be checked
   - run the test or validation loop

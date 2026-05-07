@@ -29,6 +29,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Native structured output, function calling, and multimodal inputs are the real runtime signal; they determine whether an open model can act as an agent substrate rather than only a summarizer.
 - The strongest design implication is that local structured-output agents are now practical enough for product workflows, not only demos.
 - Gemma-class local runtimes are strongest when procurement or data-governance pressure makes self-hosting a product requirement, not just a cost preference.
+- Gemma 4 Multi-Token Prediction drafters shift the runtime decision from "can a local model answer?" toward "can it answer fast enough for interactive agents?" because they target latency and throughput without changing the verifier model.
+- Treat MTP drafters as an inference-architecture upgrade, not a model-quality upgrade: the main Gemma 4 model still verifies the speculative tokens, so the product question is responsiveness, battery, and local throughput.
 
 ## Qwen 3.6 Signal
 
@@ -62,6 +64,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the question depends on reconciling many competing signals at once
 - Do not escalate just because a benchmark looks better; escalate when the workload shape actually matches the benchmark advantage.
 - Prefer hosted escalation sooner when the model is already available inside the enterprise control plane or cloud platform you must use; procurement and integration friction can dominate pure token economics.
+- Prefer runtimes with native webhooks, retry semantics, and idempotent completion events when the workload includes long-running batch, research, or generation jobs; polling-heavy APIs create orchestration debt even when the base model is strong.
+- For multi-agent or long-lived sessions, compare runtimes on cache hit rate, compaction behavior, and token-per-task economics, not just price per million tokens.
 
 ## Current Recommendation
 
@@ -69,6 +73,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Treat larger or hosted models as optional final reasoners, not mandatory defaults.
 - Improve the wiki and retrieval layer before blaming the model for weak answers.
 - Treat a long-context hosted model as the fallback for codebase-wide synthesis, benchmark-sensitive coding tasks, or cases where chunking would distort the answer.
+- Prefer Gemma 4 MTP drafter support when local latency is the blocker for chat, voice, coding-assistant, or multi-step agent loops; it is less relevant when retrieval quality or reasoning depth is the limiting factor.
 
 ## What To Add From Future Notion Links
 
@@ -76,6 +81,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - deployment constraints
 - pricing thresholds
 - latency or memory implications
+- speculative decoding and drafter availability
 - product fit: local runtime, hosted API, or hybrid
 
 ## Current Tradeoff Snapshot
@@ -88,6 +94,11 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - context length is the primary bottleneck
   - coding-agent workflows need broader synthesis
   - price per million tokens materially changes viability
+- Workflow-oriented hosted runtimes are strongest when:
+  - long-running jobs should complete by callback rather than polling
+  - retries, event logging, and orchestration reliability matter as much as answer quality
+  - the provider already behaves like a workflow runtime instead of a raw inference endpoint
+- Agent runtime choice should include inference-engineering signals such as prompt caching, cache locality, speculative decoding, compaction frequency, and sub-agent fan-out cost.
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
 ## Related Pages

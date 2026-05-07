@@ -21,6 +21,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - a folder-shaped execution surface, not only a single markdown blob
 - a narrow operating surface
 - optional scripts or references
+- connector assumptions, approval boundaries, and audit expectations when the workflow touches governed enterprise data
 - clear boundaries about when they do and do not apply
 - explicit tradeoffs around tool access, context loading, and determinism
 
@@ -88,6 +89,8 @@ Skills are most useful when they are not just long prompts. They should package:
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
 - Use forked or isolated context for skill development and evaluation when a failed experiment would otherwise pollute the main session state.
+- In regulated or domain-heavy environments, the reusable unit is often a workflow package rather than a naked skill: connectors, governed data access, approval steps, and audit logs should ship with the task surface instead of being left implicit.
+- If enterprise data access is part of the workflow, package connector scope and permission expectations with the skill so the runtime can enforce the right boundary instead of improvising it at call time.
 
 ## What To Capture From New Notion Pages
 
@@ -115,6 +118,7 @@ When a new Notion page is added, extract:
 - Skill creator and eval tooling matter once the corpus is large enough that trigger precision, token cost, and success rate need to be measured instead of guessed.
 - The wiki should preserve those design levers even when a specific source claim is tied to one vendor runtime.
 - Cross-platform skill standards matter when the same skill corpus must work across multiple agent shells; prefer portable folder conventions over runtime-specific prompt hacks when interoperability is part of the goal.
+- Vertical agent adoption usually depends more on prepackaged workflow templates plus governed data access than on raw model quality; treat domain connectors and auditability as first-class skill-design inputs.
 
 ## Related Pages
 
