@@ -86,6 +86,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Hooks are valuable when a step must always happen, not when it is merely preferred.
 - Quality gates are strongest at commit or stop boundaries, not on every tiny edit.
 - Deterministic automation should live in hooks or scripts, not in hope that the model remembers.
+- The full hook surface also includes `UserPromptSubmit` for prompt validation or context injection and `Notification` for custom alerting; treat them as specialized extensions rather than the default starting point.
 - The high-value lifecycle points are:
   - `PreToolUse` for blocking dangerous inputs
   - `PostToolUse` for formatting or local validation
@@ -94,6 +95,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `SubagentStop` for verifying delegated work before merge
 - Prefer blocking at `git commit` or other durable boundaries rather than on every write.
 - A stop-hook feedback loop that checks errors and forces a repair pass is one of the strongest quality multipliers in the source material.
+- Treat secret scanning as an agent-native pre-commit guardrail, not only a PR or CI check, when the coding surface already runs through MCP or plugin tools.
+- Reuse the same repository or organization push-protection policy inside the local agent loop so secret detection does not drift between local generation, push, and server-side enforcement.
 
 ## MCP Guidance
 
@@ -103,6 +106,9 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Tool search should be on when MCP definitions are large; source notes claim it can cut schema token load by roughly 85 to 96 percent.
 - `serverInstructions` should describe the real task surface in operator language, not generic transport details.
 - Use `project` scope for team-shared MCP contracts and reserve `user` or `local` scope for personal credentials, machine-specific servers, or experiments that should not silently change the repo default.
+- `-s local` writes machine-local defaults to `.claude/settings.local.json`.
+- `-s project` writes shared MCP defaults to `.mcp.json`.
+- `-s user` writes cross-project personal defaults to `~/.claude/settings.json`.
 - Prefer MCP for stateful environments like Playwright and prefer CLI for stateless systems where shell commands are already strong.
 
 ## CLI And Automation Defaults

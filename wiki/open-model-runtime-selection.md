@@ -66,6 +66,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Prefer hosted escalation sooner when the model is already available inside the enterprise control plane or cloud platform you must use; procurement and integration friction can dominate pure token economics.
 - Prefer runtimes with native webhooks, retry semantics, and idempotent completion events when the workload includes long-running batch, research, or generation jobs; polling-heavy APIs create orchestration debt even when the base model is strong.
 - For multi-agent or long-lived sessions, compare runtimes on cache hit rate, compaction behavior, and token-per-task economics, not just price per million tokens.
+- Prefer realtime runtimes when the product is voice-first and needs session memory, interruption recovery, parallel tool calls, and live translation inside one loop rather than as separate stitched services.
 
 ## Current Recommendation
 
@@ -98,6 +99,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - long-running jobs should complete by callback rather than polling
   - retries, event logging, and orchestration reliability matter as much as answer quality
   - the provider already behaves like a workflow runtime instead of a raw inference endpoint
+- Realtime voice runtimes are strongest when:
+  - voice is the primary action surface rather than a thin UI layer
+  - session context, tool transparency, and multilingual turn-taking must stay inside one runtime
+  - pricing and latency must be evaluated in audio-token or per-minute terms, not only text-token terms
 - Agent runtime choice should include inference-engineering signals such as prompt caching, cache locality, speculative decoding, compaction frequency, and sub-agent fan-out cost.
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
