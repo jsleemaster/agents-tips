@@ -92,6 +92,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - In regulated or domain-heavy environments, the reusable unit is often a workflow package rather than a naked skill: connectors, governed data access, approval steps, and audit logs should ship with the task surface instead of being left implicit.
 - If enterprise data access is part of the workflow, package connector scope and permission expectations with the skill so the runtime can enforce the right boundary instead of improvising it at call time.
 - Enterprise rollout is increasingly a managed-distribution problem: approved plugins, default hooks, MCP allowlists, and auto-install behavior should be treated as centrally deployed platform policy rather than per-user preference.
+- When the execution surface is a managed desktop or VDI rather than a clean API, treat IAM scope, audit trails, screenshot retention, and managed MCP endpoints as part of the governed skill package instead of out-of-band platform setup.
 
 ## What To Capture From New Notion Pages
 
@@ -120,7 +121,10 @@ When a new Notion page is added, extract:
 - The wiki should preserve those design levers even when a specific source claim is tied to one vendor runtime.
 - Cross-platform skill standards matter when the same skill corpus must work across multiple agent shells; prefer portable folder conventions over runtime-specific prompt hacks when interoperability is part of the goal.
 - Vertical agent adoption usually depends more on prepackaged workflow templates plus governed data access than on raw model quality; treat domain connectors and auditability as first-class skill-design inputs.
+- For vertical operating layers, keep concrete rollout proof points with the workflow: deployment time, resolution rate, authentication-time reduction, and similar business KPIs are part of the reusable design pattern, not just go-to-market garnish.
 - A strong browser-agent pattern is a thin protected core plus an agent-writable helper workspace: let the agent generate reusable helper code and domain skills from real site interactions, but keep the orchestration layer small and reviewable.
+- Browser-agent skills should be evaluated against end-to-end session completion across DOM and non-DOM surfaces; selector stability alone is no longer enough once native dialogs, certificate pickers, browser chrome, and other OS-level prompts sit inside the same managed runtime.
+- Treat `action -> screenshot -> reaction` as the core runtime primitive for modern computer-use or browser-agent workflows: the useful abstraction is a full session loop with vision feedback, not a one-shot DOM command.
 - When standardizing a team skill stack, distribute plugin marketplace choices, always-on hooks, and MCP defaults together so the reusable unit is a governed execution surface rather than a loose prompt bundle.
 
 ## Related Pages
