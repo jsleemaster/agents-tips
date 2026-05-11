@@ -64,6 +64,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the question depends on reconciling many competing signals at once
 - Do not escalate just because a benchmark looks better; escalate when the workload shape actually matches the benchmark advantage.
 - Prefer hosted escalation sooner when the model is already available inside the enterprise control plane or cloud platform you must use; procurement and integration friction can dominate pure token economics.
+- For long-running coding or research sessions, treat sustained throughput, peak-hour throttling, and session-usage limits as routing signals; a slightly weaker model with stable capacity can beat a better benchmark that stalls mid-run.
+- Compare regional capacity, rate-limit headroom, and session continuity policies alongside price and raw model quality when choosing a hosted default.
 - Prefer runtimes with native webhooks, retry semantics, and idempotent completion events when the workload includes long-running batch, research, or generation jobs; polling-heavy APIs create orchestration debt even when the base model is strong.
 - For multi-agent or long-lived sessions, compare runtimes on cache hit rate, compaction behavior, and token-per-task economics, not just price per million tokens.
 - Prefer realtime runtimes when the product is voice-first and needs session memory, interruption recovery, parallel tool calls, and live translation inside one loop rather than as separate stitched services.
@@ -81,6 +83,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - benchmark claims only when they affect an actual design decision
 - deployment constraints
 - pricing thresholds
+- capacity policy and usage limits
 - latency or memory implications
 - speculative decoding and drafter availability
 - product fit: local runtime, hosted API, or hybrid
@@ -95,6 +98,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - context length is the primary bottleneck
   - coding-agent workflows need broader synthesis
   - price per million tokens materially changes viability
+  - the provider can sustain long sessions without severe peak-time throttling
 - Workflow-oriented hosted runtimes are strongest when:
   - long-running jobs should complete by callback rather than polling
   - retries, event logging, and orchestration reliability matter as much as answer quality

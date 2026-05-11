@@ -66,6 +66,13 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Use peer-style teams only when the coordination value outweighs the token cost.
 - Small, isolated tasks are better than vague parallel requests.
 - Prefer isolated git worktrees for concurrent feature lanes so each session keeps its own repo state, branch intent, and rollback surface.
+- Treat plan decomposition, parallel execution, and change splitting as one workflow surface; the point is reducing review and merge friction, not only generating code faster.
+
+## Review And Change Shape
+
+- Review ergonomics matter as much as code generation quality once the work leaves the main editing loop.
+- Prefer workflows that keep review threads, commit history, and file-tree context visible together so the reviewer can reason about a change without rebuilding state by hand.
+- Split oversized changes before handoff when the tool supports it; smaller PR units usually improve both human review quality and agent retry behavior.
 
 ## Agent Teams Vs Subagents
 
