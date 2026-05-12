@@ -94,6 +94,8 @@ Skills are most useful when they are not just long prompts. They should package:
 - When a skill acts on behalf of a real user in SaaS or internal systems, prefer delegated OAuth, session binding, scoped tokens, and callback separation over long-lived shared credentials.
 - Enterprise rollout is increasingly a managed-distribution problem: approved plugins, default hooks, MCP allowlists, and auto-install behavior should be treated as centrally deployed platform policy rather than per-user preference.
 - When the execution surface is a managed desktop or VDI rather than a clean API, treat IAM scope, audit trails, screenshot retention, and managed MCP endpoints as part of the governed skill package instead of out-of-band platform setup.
+- Managed AI gateways are becoming the enterprise policy plane for agents: MCP exposure, provider routing, capacity controls, guardrails, usage analytics, and audit tables increasingly ship as one surface instead of separate per-tool decisions.
+- In enterprise stacks, treat API mediation and secrets handling as part of the skill architecture itself; the reusable unit is often a governed control plane that spans tool calls, data access, and human approval boundaries.
 
 ## What To Capture From New Notion Pages
 
@@ -128,6 +130,7 @@ When a new Notion page is added, extract:
 - Treat `action -> screenshot -> reaction` as the core runtime primitive for modern computer-use or browser-agent workflows: the useful abstraction is a full session loop with vision feedback, not a one-shot DOM command.
 - When standardizing a team skill stack, distribute plugin marketplace choices, always-on hooks, and MCP defaults together so the reusable unit is a governed execution surface rather than a loose prompt bundle.
 - Production agent quality should be treated as a reusable system asset: keep trace schema, failure taxonomy, golden eval sets, A/B gates, and rollout criteria with the workflow instead of relying on ad hoc prompt edits after incidents.
+- Enterprise agent competition is shifting from assistant UX toward operating-model depth: the durable design question is whether the stack unifies SDLC actions, data access, API gateways, and ops controls under one auditable control plane.
 
 ## Related Pages
 
