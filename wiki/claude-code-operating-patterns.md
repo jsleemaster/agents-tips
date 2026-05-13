@@ -104,6 +104,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - A stop-hook feedback loop that checks errors and forces a repair pass is one of the strongest quality multipliers in the source material.
 - Treat secret scanning as an agent-native pre-commit guardrail, not only a PR or CI check, when the coding surface already runs through MCP or plugin tools.
 - Reuse the same repository or organization push-protection policy inside the local agent loop so secret detection does not drift between local generation, push, and server-side enforcement.
+- Treat AI SDKs, agent CLIs, and plugin packages as a supply-chain boundary, not a convenience dependency: pin versions, audit lockfiles and provenance, and check whether any laptop, CI runner, or image pulled a compromised release window.
+- When a vendor publishes a package advisory, rebuild dependency caches and container images from clean artifacts and rotate any credentials that may have been exposed; uninstalling the package alone is not a sufficient incident response.
 
 ## MCP Guidance
 

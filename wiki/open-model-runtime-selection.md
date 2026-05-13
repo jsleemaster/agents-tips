@@ -40,6 +40,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - The practical takeaway is that a cheap hosted reasoning layer may beat a purely local stack when the workload needs deeper synthesis across large corpora.
 - The important signal is not just price, but the combination of very long context and coding-agent compatibility.
 - Official compatibility with agent shells such as Claude Code, Cline, and OpenClaw is a deployment signal: ecosystem fit can matter as much as raw benchmark wins when the real question is adoption friction.
+- DeepSeek-V4 adds a more specific runtime test for open frontier models: a 1M-token claim only matters if FLOPs, KV cache pressure, and prefill cost stay low enough that a long agent session remains affordable.
+- Tool-call schema stability and reasoning-trace persistence are runtime signals, not trivia: if a model cannot preserve structured calls or multi-turn reasoning across tool loops, the headline context window is less meaningful.
 
 ## Decision Rule For This Wiki
 
@@ -68,6 +70,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Compare regional capacity, rate-limit headroom, and session continuity policies alongside price and raw model quality when choosing a hosted default.
 - Prefer runtimes with native webhooks, retry semantics, and idempotent completion events when the workload includes long-running batch, research, or generation jobs; polling-heavy APIs create orchestration debt even when the base model is strong.
 - For multi-agent or long-lived sessions, compare runtimes on cache hit rate, compaction behavior, and token-per-task economics, not just price per million tokens.
+- For agent workloads with repeated long prefixes, compare distributed KV cache design, prefix reuse, and cross-instance session routing before trusting raw token/sec claims; serving architecture can dominate model quality once sessions span dozens of turns.
 - Prefer realtime runtimes when the product is voice-first and needs session memory, interruption recovery, parallel tool calls, and live translation inside one loop rather than as separate stitched services.
 
 ## Current Recommendation
@@ -108,6 +111,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - session context, tool transparency, and multilingual turn-taking must stay inside one runtime
   - pricing and latency must be evaluated in audio-token or per-minute terms, not only text-token terms
 - Agent runtime choice should include inference-engineering signals such as prompt caching, cache locality, speculative decoding, compaction frequency, and sub-agent fan-out cost.
+- Long-session serving stacks are strongest when they preserve session stickiness, keep distributed cache hit rate high, and reduce TTFT for reused prefixes; otherwise a nominally strong model can still lose on agent turnaround time.
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
 ## Related Pages
