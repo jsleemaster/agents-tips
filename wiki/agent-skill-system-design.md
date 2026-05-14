@@ -66,6 +66,7 @@ Skills are most useful when they are not just long prompts. They should package:
 
 - The minimum useful metadata is a stable `name` and a description that states when the skill should be used in plain language.
 - Trigger phrases should reflect real user requests, not internal jargon.
+- For auto-routed helpers such as subagents, wording like "Use proactively after..." is a real trigger lever, not documentation garnish; the invocation path changes materially depending on whether proactive use is encoded in the description.
 - If a skill needs strict isolation, special tools, or a distinct execution mode, that should be declared up front rather than hidden in the body.
 - Richer frontmatter is valuable only when the runtime actually enforces it; otherwise the design lesson is to keep metadata minimal and reliable.
 - Trigger wording should look like operator language such as "Use when user asks..." so the runtime can match real requests instead of taxonomy terms.
@@ -96,6 +97,8 @@ Skills are most useful when they are not just long prompts. They should package:
 - When the execution surface is a managed desktop or VDI rather than a clean API, treat IAM scope, audit trails, screenshot retention, and managed MCP endpoints as part of the governed skill package instead of out-of-band platform setup.
 - Managed AI gateways are becoming the enterprise policy plane for agents: MCP exposure, provider routing, capacity controls, guardrails, usage analytics, and audit tables increasingly ship as one surface instead of separate per-tool decisions.
 - In enterprise stacks, treat API mediation and secrets handling as part of the skill architecture itself; the reusable unit is often a governed control plane that spans tool calls, data access, and human approval boundaries.
+- AI-assisted remediation should be designed as a governed closed loop rather than a loose coding helper: repo scope, patch generation, fix validation, approval records, and audit-ready evidence should stay in one control path.
+- Permission tiers are becoming part of the runtime architecture itself: keep general assistance, trusted defensive analysis, and higher-privilege patch execution behind separate access gates instead of assuming one model profile should do everything.
 
 ## What To Capture From New Notion Pages
 
@@ -133,6 +136,7 @@ When a new Notion page is added, extract:
 - When standardizing a team skill stack, distribute plugin marketplace choices, always-on hooks, and MCP defaults together so the reusable unit is a governed execution surface rather than a loose prompt bundle.
 - Production agent quality should be treated as a reusable system asset: keep trace schema, failure taxonomy, golden eval sets, A/B gates, and rollout criteria with the workflow instead of relying on ad hoc prompt edits after incidents.
 - Enterprise agent competition is shifting from assistant UX toward operating-model depth: the durable design question is whether the stack unifies SDLC actions, data access, API gateways, and ops controls under one auditable control plane.
+- Enterprise adoption bottlenecks increasingly live in workflow redesign and deployment ownership rather than model access alone; FDE-style rollout capacity, policy integration, and post-launch support are part of the architecture decision, not just vendor services packaging.
 
 ## Related Pages
 

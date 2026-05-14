@@ -129,6 +129,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `rg` over `grep`
   - `bat` over `cat`
   - `eza` over `ls`
+- Use `claude -c` to continue the most recent session, `claude -r <id>` to resume an exact thread, and `claude -w <name>` when a task deserves an isolated git worktree from the first turn instead of midstream cleanup.
 - Non-interactive flags belong in durable project guidance when the agent must avoid blocking:
   - `--json`
   - `--yes`
@@ -141,6 +142,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - explain how the change will be checked
   - run the test or validation loop
   - only then write durable memory
+- For implementation-heavy tasks, prefer a test-first loop: derive failing tests from the input/output contract, keep the tests fixed while the implementation catches up, and use a separate reviewer pass or subagent to check that the code is not merely overfitting the test cases.
 - For larger changes, keep writer and reviewer passes in separate sessions or subagents so the review context is not contaminated by the implementation path.
 - When resetting after a long task, prefer a handoff note that records attempted paths, validation status, and the single next unblocker rather than a prose recap of everything learned.
 
