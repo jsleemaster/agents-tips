@@ -27,6 +27,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 ## Working Model
 
 - Claude Code is strongest when it works as a terminal agent, not as a passive explainer.
+- If a coding agent suddenly feels worse, inspect harness-layer defaults such as reasoning effort, stale-session retention, context pruning, and prompt verbosity before assuming the base model regressed.
 - The best workflow is usually:
   - establish durable project rules
   - let the agent act on a bounded task
@@ -41,6 +42,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/rewind` or `Esc Esc` to roll back a bad execution branch instead of compensating with extra cleanup edits.
 - `/diff` to inspect agent-made changes before commit, review, or handoff.
 - `/mcp` for external systems, but only when the tool meaning is crisp.
+- `/model` when the problem is really a latency-versus-quality tradeoff; reasoning-effort defaults can materially change coding quality even without a base-model swap.
 - `/plan` when the work has multiple moving parts or non-obvious tradeoffs.
 - `/security-review` when the task needs a dedicated vulnerability pass instead of informal caution.
 - `/context` to inspect token pressure instead of guessing.
@@ -130,6 +132,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `bat` over `cat`
   - `eza` over `ls`
 - Use `claude -c` to continue the most recent session, `claude -r <id>` to resume an exact thread, and `claude -w <name>` when a task deserves an isolated git worktree from the first turn instead of midstream cleanup.
+- In scripted automation, capture the emitted `session_id` and resume it across steps instead of replaying the whole brief; session chaining preserves the working state more reliably than prompt restatement.
 - Non-interactive flags belong in durable project guidance when the agent must avoid blocking:
   - `--json`
   - `--yes`
