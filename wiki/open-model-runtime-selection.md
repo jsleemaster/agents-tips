@@ -73,6 +73,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For agent workloads with repeated long prefixes, compare distributed KV cache design, prefix reuse, and cross-instance session routing before trusting raw token/sec claims; serving architecture can dominate model quality once sessions span dozens of turns.
 - If a coding agent product suddenly degrades, check runtime defaults before swapping models: reasoning-effort changes, stale-session retention bugs, compaction policy, and prompt-layer edits can produce larger regressions than the underlying API model.
 - Prefer realtime runtimes when the product is voice-first and needs session memory, interruption recovery, parallel tool calls, and live translation inside one loop rather than as separate stitched services.
+- When a vendor runtime is distributed through an existing cloud control plane, score procurement convenience and security-boundary reality separately; shared IAM, billing, and audit logs do not automatically mean the model executes inside the same boundary.
+- For sovereign or regulated workloads, evaluate deployment topology as a first-class runtime dimension: on-prem or dedicated hardware options, local zones, private fine-tuning boundaries, operator-access guarantees, and local-language model availability can outweigh raw benchmark wins.
 
 ## Current Recommendation
 
@@ -107,6 +109,13 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - long-running jobs should complete by callback rather than polling
   - retries, event logging, and orchestration reliability matter as much as answer quality
   - the provider already behaves like a workflow runtime instead of a raw inference endpoint
+- Cloud-distributed vendor runtimes are strongest when:
+  - enterprise IAM, consolidated billing, and audit visibility must stay inside an existing hyperscaler control plane
+  - the team wants native vendor features without separate account sprawl
+  - the disclosed execution boundary still satisfies the real security review
+- Sovereign deployment paths are strongest when:
+  - residency alone is not enough and operator access, fine-tuning locality, or hardware placement are contractual requirements
+  - public-sector, finance, or regional-language constraints shape the runtime choice as much as model quality
 - Realtime voice runtimes are strongest when:
   - voice is the primary action surface rather than a thin UI layer
   - session context, tool transparency, and multilingual turn-taking must stay inside one runtime

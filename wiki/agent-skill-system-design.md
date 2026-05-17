@@ -80,6 +80,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Skills should improve future sessions, not bury every insight in chat history.
 - Split a skill once the main file becomes large enough that unrelated scenarios would load unnecessary context.
 - Keep mutually exclusive paths in separate files so one task does not drag in another task's instructions.
+- Once agents become long-running workers, question loops, session status, and elapsed-time visibility are part of the architecture, not optional UI garnish.
 
 ## Security And Reliability
 
@@ -88,6 +89,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Treat unreviewed third-party skills as executable code, not harmless text.
 - Audit bundled scripts, dependencies, and frontmatter together; metadata is part of the executable surface because the runtime may inject or route on it.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
+- When the runtime offers multiple isolation modes, treat worktree-isolated execution as the safe default and same-workspace editing as an opt-in fast path.
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
 - Use forked or isolated context for skill development and evaluation when a failed experiment would otherwise pollute the main session state.
 - In regulated or domain-heavy environments, the reusable unit is often a workflow package rather than a naked skill: connectors, governed data access, approval steps, and audit logs should ship with the task surface instead of being left implicit.
@@ -139,6 +141,7 @@ When a new Notion page is added, extract:
 - Production agent quality should be treated as a reusable system asset: keep trace schema, failure taxonomy, golden eval sets, A/B gates, and rollout criteria with the workflow instead of relying on ad hoc prompt edits after incidents.
 - Enterprise agent competition is shifting from assistant UX toward operating-model depth: the durable design question is whether the stack unifies SDLC actions, data access, API gateways, and ops controls under one auditable control plane.
 - Enterprise adoption bottlenecks increasingly live in workflow redesign and deployment ownership rather than model access alone; FDE-style rollout capacity, policy integration, and post-launch support are part of the architecture decision, not just vendor services packaging.
+- Treat cross-project agent manifests or global `.agent.md`-style defaults as a managed baseline layer above repo-local instructions; centralize stable policy there and keep repo-specific overrides narrow.
 
 ## Related Pages
 

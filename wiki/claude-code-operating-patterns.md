@@ -28,6 +28,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 
 - Claude Code is strongest when it works as a terminal agent, not as a passive explainer.
 - If a coding agent suddenly feels worse, inspect harness-layer defaults such as reasoning effort, stale-session retention, context pruning, and prompt verbosity before assuming the base model regressed.
+- Separate execution from approval: keep the repo, credentials, and permissions on the machine that owns them, and use mobile or remote surfaces mainly for status checks, questions, and approvals.
 - The best workflow is usually:
   - establish durable project rules
   - let the agent act on a bounded task
@@ -68,6 +69,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Use peer-style teams only when the coordination value outweighs the token cost.
 - Small, isolated tasks are better than vague parallel requests.
 - Prefer isolated git worktrees for concurrent feature lanes so each session keeps its own repo state, branch intent, and rollback surface.
+- For large or high-risk repos, prefer worktree-isolated agent execution as the default and treat in-place workspace editing as an explicit speed optimization.
 - Treat plan decomposition, parallel execution, and change splitting as one workflow surface; the point is reducing review and merge friction, not only generating code faster.
 
 ## Review And Change Shape
