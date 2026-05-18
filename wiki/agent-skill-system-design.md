@@ -141,6 +141,7 @@ When a new Notion page is added, extract:
 - Production agent quality should be treated as a reusable system asset: keep trace schema, failure taxonomy, golden eval sets, A/B gates, and rollout criteria with the workflow instead of relying on ad hoc prompt edits after incidents.
 - Enterprise agent competition is shifting from assistant UX toward operating-model depth: the durable design question is whether the stack unifies SDLC actions, data access, API gateways, and ops controls under one auditable control plane.
 - Enterprise adoption bottlenecks increasingly live in workflow redesign and deployment ownership rather than model access alone; FDE-style rollout capacity, policy integration, and post-launch support are part of the architecture decision, not just vendor services packaging.
+- Once rollout moves beyond pilot teams, treat training, certification, Center-of-Excellence ownership, and result-validation responsibility as part of the agent architecture itself; a strong model without a retraining and delivery layer will not scale cleanly through a large organization.
 - Treat cross-project agent manifests or global `.agent.md`-style defaults as a managed baseline layer above repo-local instructions; centralize stable policy there and keep repo-specific overrides narrow.
 
 ## Related Pages

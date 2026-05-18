@@ -75,6 +75,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Prefer realtime runtimes when the product is voice-first and needs session memory, interruption recovery, parallel tool calls, and live translation inside one loop rather than as separate stitched services.
 - When a vendor runtime is distributed through an existing cloud control plane, score procurement convenience and security-boundary reality separately; shared IAM, billing, and audit logs do not automatically mean the model executes inside the same boundary.
 - For sovereign or regulated workloads, evaluate deployment topology as a first-class runtime dimension: on-prem or dedicated hardware options, local zones, private fine-tuning boundaries, operator-access guarantees, and local-language model availability can outweigh raw benchmark wins.
+- For laptop-class or edge-local routing, compare active parameter count, mixed quantization scheme, memory bandwidth, and usable tokens/sec before assuming a hardware refresh is required; architecture changes can move the local-feasibility line faster than device cycles.
 
 ## Current Recommendation
 
@@ -100,6 +101,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - privacy and control dominate
   - the corpus is already curated
   - structured outputs and tool use matter more than frontier reasoning depth
+  - sparse MoE layouts, mixed quantization, or reasoning-tuned smaller dense models materially expand what the current hardware can run
 - Qwen-style hosted runtimes are strongest when:
   - context length is the primary bottleneck
   - coding-agent workflows need broader synthesis
@@ -123,6 +125,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Agent runtime choice should include inference-engineering signals such as prompt caching, cache locality, speculative decoding, compaction frequency, and sub-agent fan-out cost.
 - Long-session serving stacks are strongest when they preserve session stickiness, keep distributed cache hit rate high, and reduce TTFT for reused prefixes; otherwise a nominally strong model can still lose on agent turnaround time.
 - Treat the runtime as model plus serving layer plus prompt policy; context-window headlines are weaker evidence than stable tool-call schemas and reasoning-state retention across long tool loops.
+- Treat single-score community benchmark curves as routing hints, not standalone proof; they are most useful when they explain why an architecture unlocks a new deployment tier on unchanged hardware.
 - Neither model class compensates for weak retrieval, stale source curation, or vague task framing.
 
 ## Related Pages
