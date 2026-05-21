@@ -104,6 +104,22 @@ Skills are most useful when they are not just long prompts. They should package:
 - AI-assisted remediation should be designed as a governed closed loop rather than a loose coding helper: repo scope, patch generation, fix validation, approval records, and audit-ready evidence should stay in one control path.
 - Permission tiers are becoming part of the runtime architecture itself: keep general assistance, trusted defensive analysis, and higher-privilege patch execution behind separate access gates instead of assuming one model profile should do everything.
 
+## Capability Governance
+
+- Treat skill installation as supply-chain ingestion, not as prompt paste: review owner, license, dependencies, requested access, operating limits, and verification status before letting a skill into a shared registry.
+- Prefer machine-readable skill cards or equivalent metadata so provenance, policy checks, and approval status survive outside the original marketplace UI.
+- Runtime sandboxing is not enough once skills move across teams or marketplaces; keep explicit promotion stages such as catalog review, risk scanning, signature or provenance verification, and registry sync.
+- Scan skill bundles for agent-specific failure modes as well as normal dependency risk: hidden instructions, prompt injection payloads, risky scripts, credential access, excessive agency, and tool poisoning should all be install-time checks.
+- If the platform supports signatures or detached provenance, verify them at install or sync time rather than assuming a trusted download URL is sufficient.
+
+## Safety As Repo Artifact
+
+- Treat agent safety as an engineering artifact that lives in the repo, not as a separate compliance memo.
+- Encode threat-model scenarios as repeatable CI tests so prompt injection, privilege misuse, or unsafe tool chains regress visibly during PR review.
+- For stochastic agent behavior, prefer multi-trial or threshold-based safety checks over single-run pass/fail gates; one green run is often too noisy to trust.
+- Keep design intent, alternatives, failure analysis, and safety decisions in diffable project artifacts such as a dedicated protocol directory instead of slideware or meeting notes.
+- Use central review or red teaming as escalation, but make pull requests and regression tests the default loop for everyday agent-safety enforcement.
+
 ## What To Capture From New Notion Pages
 
 When a new Notion page is added, extract:

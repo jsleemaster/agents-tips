@@ -76,6 +76,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - When a vendor runtime is distributed through an existing cloud control plane, score procurement convenience and security-boundary reality separately; shared IAM, billing, and audit logs do not automatically mean the model executes inside the same boundary.
 - For sovereign or regulated workloads, evaluate deployment topology as a first-class runtime dimension: on-prem or dedicated hardware options, local zones, private fine-tuning boundaries, operator-access guarantees, and local-language model availability can outweigh raw benchmark wins.
 - For laptop-class or edge-local routing, compare active parameter count, mixed quantization scheme, memory bandwidth, and usable tokens/sec before assuming a hardware refresh is required; architecture changes can move the local-feasibility line faster than device cycles.
+- For enterprise coding agents, treat data-plane proximity as a runtime signal: hybrid or on-prem placement near existing code, documents, and systems of record can matter more than a benchmark delta if SaaS egress or policy boundaries would block adoption.
+- When agents may buy tools, APIs, or MCP-backed resources during execution, compare runtimes on spend governance, wallet or identity binding, transaction observability, and approval hooks rather than treating payment as app-layer glue.
 
 ## Current Recommendation
 
@@ -115,6 +117,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - enterprise IAM, consolidated billing, and audit visibility must stay inside an existing hyperscaler control plane
   - the team wants native vendor features without separate account sprawl
   - the disclosed execution boundary still satisfies the real security review
+- Enterprise data-plane runtimes are strongest when:
+  - sensitive code, documents, or operational systems must stay near existing hybrid or on-prem infrastructure
+  - system-of-record connectivity and audit boundaries matter more than IDE-side convenience
+  - the adoption blocker is data movement or governance, not model availability
 - Sovereign deployment paths are strongest when:
   - residency alone is not enough and operator access, fine-tuning locality, or hardware placement are contractual requirements
   - public-sector, finance, or regional-language constraints shape the runtime choice as much as model quality
@@ -122,6 +128,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - voice is the primary action surface rather than a thin UI layer
   - session context, tool transparency, and multilingual turn-taking must stay inside one runtime
   - pricing and latency must be evaluated in audio-token or per-minute terms, not only text-token terms
+- Payment-native agent runtimes are strongest when:
+  - agents need to purchase data feeds, APIs, or MCP services inside the execution loop
+  - budget limits, transaction traces, and wallet scope should be enforced by the runtime rather than handwritten into each app
+  - pay-per-call ecosystems are part of the product design, not an edge case
 - Agent runtime choice should include inference-engineering signals such as prompt caching, cache locality, speculative decoding, compaction frequency, and sub-agent fan-out cost.
 - Long-session serving stacks are strongest when they preserve session stickiness, keep distributed cache hit rate high, and reduce TTFT for reused prefixes; otherwise a nominally strong model can still lose on agent turnaround time.
 - Treat the runtime as model plus serving layer plus prompt policy; context-window headlines are weaker evidence than stable tool-call schemas and reasoning-state retention across long tool loops.
