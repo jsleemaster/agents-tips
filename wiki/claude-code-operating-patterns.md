@@ -142,12 +142,14 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `--format json`
 - For scripted or chained runs, prefer explicit control flags such as `-p`, `--output-format`, `--json-schema`, `--allowedTools`, `--max-turns`, and `--max-budget-usd` so automation can validate outputs and stop predictably.
 - For automation chains, use explicit output formats, turn limits, budget limits, and allowed-tool lists rather than trusting ambient defaults.
+- If a task starts in plan mode, freeze the approved plan into a GitHub issue or markdown artifact before execution so later sessions can detect drift instead of re-deriving intent from chat alone.
 - When a workflow repeats, prefer a custom command that captures live context such as `git status`, `git diff`, the current branch, and recent commits instead of making the operator restate repo state by hand.
 - Verification should be part of the workflow, not a final optional question:
   - explain how the change will be checked
   - run the test or validation loop
   - only then write durable memory
 - For implementation-heavy tasks, prefer a test-first loop: derive failing tests from the input/output contract, keep the tests fixed while the implementation catches up, and use a separate reviewer pass or subagent to check that the code is not merely overfitting the test cases.
+- In a strict TDD lane, commit or otherwise lock the failing tests before implementation so the contract cannot quietly drift during the coding pass.
 - For larger changes, keep writer and reviewer passes in separate sessions or subagents so the review context is not contaminated by the implementation path.
 - When resetting after a long task, prefer a handoff note that records attempted paths, validation status, and the single next unblocker rather than a prose recap of everything learned.
 
