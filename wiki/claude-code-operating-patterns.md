@@ -148,6 +148,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - explain how the change will be checked
   - run the test or validation loop
   - only then write durable memory
+- For browser-facing changes, do not stop at static lint or unit tests when runtime quality is the real risk; include agent-callable browser checks such as Lighthouse, viewport emulation, CPU or network throttling, and accessibility inspection in the verification loop or PR gate.
 - For implementation-heavy tasks, prefer a test-first loop: derive failing tests from the input/output contract, keep the tests fixed while the implementation catches up, and use a separate reviewer pass or subagent to check that the code is not merely overfitting the test cases.
 - In a strict TDD lane, commit or otherwise lock the failing tests before implementation so the contract cannot quietly drift during the coding pass.
 - For larger changes, keep writer and reviewer passes in separate sessions or subagents so the review context is not contaminated by the implementation path.

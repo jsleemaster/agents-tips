@@ -154,14 +154,19 @@ When a new Notion page is added, extract:
 - Treat `action -> screenshot -> reaction` as the core runtime primitive for modern computer-use or browser-agent workflows: the useful abstraction is a full session loop with vision feedback, not a one-shot DOM command.
 - Browser-agent stacks increasingly need a standard debug surface for WebMCP registration, extension/background-script behavior, browser dialogs, and full accessibility trees; agent readiness is becoming a first-class browser-tooling concern rather than a custom harness add-on.
 - When evaluating browser skills or agent-ready sites, look for compatibility audits or equivalent diagnostics for callable surfaces and dialog flows; DOM selector success alone is too narrow once the browser itself exposes agent-aware tooling.
+- Treat runtime browser debugging as a first-class skill surface, not only a fallback after DOM automation fails: agent-callable DevTools or equivalent should expose Lighthouse audits, device and geolocation emulation, CPU or network throttling, and runtime inspection as reusable verification tools.
 - When standardizing a team skill stack, distribute plugin marketplace choices, always-on hooks, and MCP defaults together so the reusable unit is a governed execution surface rather than a loose prompt bundle.
 - Production agent quality should be treated as a reusable system asset: keep trace schema, failure taxonomy, golden eval sets, A/B gates, and rollout criteria with the workflow instead of relying on ad hoc prompt edits after incidents.
+- Standardize observability over LLM calls, tool invocations, agent handoffs, and downstream side effects; OpenTelemetry-style `gen_ai.*` semantic conventions or an equivalent trace schema should be treated as architecture, not optional logging polish.
+- Investigation should be skillized before rollout: trace reconstruction, hypothesis generation, and remediation playbooks belong in the reusable workflow package rather than in ad hoc incident chat.
 - For agent memory or state layers, evaluate task completion, repeated-run reliability, and token efficiency instead of retrieval hit rate alone; read-only recall benchmarks under-measure production quality.
 - Include state-mutating tasks in agent evals whenever memory or workflow state is part of the product, because "remembered the fact" is weaker evidence than "repeatedly finished the job without losing state."
 - Enterprise agent competition is shifting from assistant UX toward operating-model depth: the durable design question is whether the stack unifies SDLC actions, data access, API gateways, and ops controls under one auditable control plane.
 - Enterprise adoption bottlenecks increasingly live in workflow redesign and deployment ownership rather than model access alone; FDE-style rollout capacity, policy integration, and post-launch support are part of the architecture decision, not just vendor services packaging.
 - Once rollout moves beyond pilot teams, treat training, certification, Center-of-Excellence ownership, and result-validation responsibility as part of the agent architecture itself; a strong model without a retraining and delivery layer will not scale cleanly through a large organization.
 - Treat cross-project agent manifests or global `.agent.md`-style defaults as a managed baseline layer above repo-local instructions; centralize stable policy there and keep repo-specific overrides narrow.
+- Enterprise agent platforms should ship local sandboxing, base-image provenance, trusted package sets, and runtime parity together; secure local experimentation without a production-valid build path is an incomplete platform.
+- Vulnerability triage for AI-generated code should prioritize runtime reachability and exploitability over raw CVE volume, because generated dependencies inflate noise faster than they change actual risk.
 
 ## Related Pages
 
