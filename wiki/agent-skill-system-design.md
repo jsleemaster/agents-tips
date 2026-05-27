@@ -101,6 +101,8 @@ Skills are most useful when they are not just long prompts. They should package:
 - Managed AI gateways are becoming the enterprise policy plane for agents: MCP exposure, provider routing, capacity controls, guardrails, usage analytics, and audit tables increasingly ship as one surface instead of separate per-tool decisions.
 - When a data platform already owns permissions, OAuth, and audit, evaluate whether agent routing and MCP exposure should live in that same gateway rather than in a separate model router plus app-side allowlists.
 - In enterprise stacks, treat API mediation and secrets handling as part of the skill architecture itself; the reusable unit is often a governed control plane that spans tool calls, data access, and human approval boundaries.
+- Treat connector generation as part of the skill architecture, not downstream tooling glue: spec-first pipelines should emit SDKs, CLIs, and MCP surfaces from the same contract so agent reach does not drift by language or interface.
+- Connector supply chains need the same discipline as model releases: versioned schemas, breaking-change detection, and synchronized rollout of generated client surfaces can determine agent success rates more than another increment of reasoning quality.
 - AI-assisted remediation should be designed as a governed closed loop rather than a loose coding helper: repo scope, patch generation, fix validation, approval records, and audit-ready evidence should stay in one control path.
 - Permission tiers are becoming part of the runtime architecture itself: keep general assistance, trusted defensive analysis, and higher-privilege patch execution behind separate access gates instead of assuming one model profile should do everything.
 

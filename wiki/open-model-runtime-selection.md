@@ -68,6 +68,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Prefer hosted escalation sooner when the model is already available inside the enterprise control plane or cloud platform you must use; procurement and integration friction can dominate pure token economics.
 - For long-running coding or research sessions, treat sustained throughput, peak-hour throttling, and session-usage limits as routing signals; a slightly weaker model with stable capacity can beat a better benchmark that stalls mid-run.
 - Compare regional capacity, rate-limit headroom, and session continuity policies alongside price and raw model quality when choosing a hosted default.
+- For enterprise coding suites, score model lifecycle policy before headline quality: LTS duration, default-model pinning, fallback behavior, deprecation windows, and premium-request multipliers can matter more than one benchmark tier when approval latency and cost control dominate adoption.
 - For large-scale agent products, treat reserved capacity, power availability, and accelerator-architecture lock-in as runtime signals alongside model quality; a nominally better model can still lose if procurement or regional supply cannot hold the workload.
 - Prefer runtimes with native webhooks, retry semantics, and idempotent completion events when the workload includes long-running batch, research, or generation jobs; polling-heavy APIs create orchestration debt even when the base model is strong.
 - For multi-agent or long-lived sessions, compare runtimes on cache hit rate, compaction behavior, and token-per-task economics, not just price per million tokens.
@@ -135,6 +136,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - agents need to purchase data feeds, APIs, or MCP services inside the execution loop
   - budget limits, transaction traces, and wallet scope should be enforced by the runtime rather than handwritten into each app
   - pay-per-call ecosystems are part of the product design, not an edge case
+- Framework-centered runtimes are strongest when:
+  - the same model artifact must move from training into serving without backend-specific forks
+  - export paths, graph capture, and quantization formats stay portable across multiple accelerator targets
+  - runtime choice should reduce authoring-to-deployment friction, not just maximize benchmark speed on one stack
 - Agent runtime choice should include inference-engineering signals such as prompt caching, cache locality, speculative decoding, compaction frequency, and sub-agent fan-out cost.
 - Long-session serving stacks are strongest when they preserve session stickiness, keep distributed cache hit rate high, and reduce TTFT for reused prefixes; otherwise a nominally strong model can still lose on agent turnaround time.
 - Treat the runtime as model plus serving layer plus prompt policy; context-window headlines are weaker evidence than stable tool-call schemas and reasoning-state retention across long tool loops.
