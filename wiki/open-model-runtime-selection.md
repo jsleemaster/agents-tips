@@ -73,6 +73,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Prefer runtimes with native webhooks, retry semantics, and idempotent completion events when the workload includes long-running batch, research, or generation jobs; polling-heavy APIs create orchestration debt even when the base model is strong.
 - For multi-agent or long-lived sessions, compare runtimes on cache hit rate, compaction behavior, and token-per-task economics, not just price per million tokens.
 - For agent workloads with repeated long prefixes, compare distributed KV cache design, prefix reuse, and cross-instance session routing before trusting raw token/sec claims; serving architecture can dominate model quality once sessions span dozens of turns.
+- Compare managed execution surfaces, not only model APIs, when the product is agent-heavy: sandbox isolation, persistent sessions, file or state resume, observability, and local-to-cloud or IDE-to-mobile handoff paths can dominate adoption more than a small model-quality delta.
+- When a vendor exposes declarative agent manifests such as `AGENTS.md` or `SKILL.md`-style runtime customization, treat that as a runtime signal rather than documentation polish; versionable execution defaults usually scale better than prompt-only setup once agents move across desktop, CLI, mobile, and cloud surfaces.
 - If a coding agent product suddenly degrades, check runtime defaults before swapping models: reasoning-effort changes, stale-session retention bugs, compaction policy, and prompt-layer edits can produce larger regressions than the underlying API model.
 - Prefer realtime runtimes when the product is voice-first and needs session memory, interruption recovery, parallel tool calls, and live translation inside one loop rather than as separate stitched services.
 - When a vendor runtime is distributed through an existing cloud control plane, score procurement convenience and security-boundary reality separately; shared IAM, billing, and audit logs do not automatically mean the model executes inside the same boundary.
@@ -82,6 +84,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - When agents may buy tools, APIs, or MCP-backed resources during execution, compare runtimes on spend governance, wallet or identity binding, transaction observability, and approval hooks rather than treating payment as app-layer glue.
 - For open-weight deployment, compare structural safety scans, checkpoint provenance, and release-gate automation alongside benchmark quality; prompt-response evals alone are too slow and too gameable for supply-chain screening.
 - When choosing a quantized local runtime, measure whether safety or refusal fingerprints drift materially after quantization instead of assuming smaller weights automatically break the deployment gate.
+- For agent infrastructure planning, score control-plane CPU throughput, memory bandwidth, sandbox density, and energy efficiency alongside accelerator specs; orchestration, tool calling, and long-context state management can bottleneck on CPU or memory systems before raw GPU inference does.
 
 ## Current Recommendation
 
