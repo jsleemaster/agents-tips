@@ -82,11 +82,13 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For sovereign or regulated workloads, evaluate deployment topology as a first-class runtime dimension: on-prem or dedicated hardware options, local zones, private fine-tuning boundaries, operator-access guarantees, and local-language model availability can outweigh raw benchmark wins.
 - For laptop-class or edge-local routing, compare active parameter count, mixed quantization scheme, memory bandwidth, and usable tokens/sec before assuming a hardware refresh is required; architecture changes can move the local-feasibility line faster than device cycles.
 - For enterprise coding agents, treat data-plane proximity as a runtime signal: hybrid or on-prem placement near existing code, documents, and systems of record can matter more than a benchmark delta if SaaS egress or policy boundaries would block adoption.
+- For hybrid agent runtimes, compare step-level routing policy rather than only the presence of local mode: sensitive or repetitive steps should be able to stay local with privacy-aware escalation, offline fallback, and measurable cloud-token reduction.
 - When agents may buy tools, APIs, or MCP-backed resources during execution, compare runtimes on spend governance, wallet or identity binding, transaction observability, and approval hooks rather than treating payment as app-layer glue.
 - For open-weight deployment, compare structural safety scans, checkpoint provenance, and release-gate automation alongside benchmark quality; prompt-response evals alone are too slow and too gameable for supply-chain screening.
 - When choosing a quantized local runtime, measure whether safety or refusal fingerprints drift materially after quantization instead of assuming smaller weights automatically break the deployment gate.
 - For agent infrastructure planning, score control-plane CPU throughput, memory bandwidth, sandbox density, and energy efficiency alongside accelerator specs; orchestration, tool calling, and long-context state management can bottleneck on CPU or memory systems before raw GPU inference does.
 - When a vendor promises autonomous improvement, compare how fast production traces can turn into evals, rollback signals, and post-training updates; a short training-to-inference feedback loop can matter more than a marginal inference-price win once the agent is live.
+- In regulated or high-risk domains, evaluate whether the runtime ships as a mission-governed deployment program rather than a generic SKU: trusted-access gates, partner vetting, allowed-workflow scope, and domain safeguards can matter more than raw model capability.
 
 ## Current Recommendation
 
