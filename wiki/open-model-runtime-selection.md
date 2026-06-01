@@ -76,6 +76,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For agent workloads with repeated long prefixes, compare distributed KV cache design, prefix reuse, and cross-instance session routing before trusting raw token/sec claims; serving architecture can dominate model quality once sessions span dozens of turns.
 - Compare managed execution surfaces, not only model APIs, when the product is agent-heavy: sandbox isolation, persistent sessions, file or state resume, observability, and local-to-cloud or IDE-to-mobile handoff paths can dominate adoption more than a small model-quality delta.
 - For coding or browser agents, score long-running workflow reliability alongside headline benchmark quality: session endurance, self-correction rate, tool-step efficiency, and end-to-end task completion often predict operating cost better than a one-shot coding score.
+- For hybrid runtimes, compare measured cloud-token reduction, PII-masking quality, and offline-local fallback instead of accepting `local-first` as a marketing label.
 - When a vendor exposes declarative agent manifests such as `AGENTS.md` or `SKILL.md`-style runtime customization, treat that as a runtime signal rather than documentation polish; versionable execution defaults usually scale better than prompt-only setup once agents move across desktop, CLI, mobile, and cloud surfaces.
 - If a coding agent product suddenly degrades, check runtime defaults before swapping models: reasoning-effort changes, stale-session retention bugs, compaction policy, and prompt-layer edits can produce larger regressions than the underlying API model.
 - Prefer realtime runtimes when the product is voice-first and needs session memory, interruption recovery, parallel tool calls, and live translation inside one loop rather than as separate stitched services.
@@ -117,6 +118,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the corpus is already curated
   - structured outputs and tool use matter more than frontier reasoning depth
   - sparse MoE layouts, mixed quantization, or reasoning-tuned smaller dense models materially expand what the current hardware can run
+- Orchestration-heavy local stacks are strongest when:
+  - skill persistence and contained sub-agents let smaller open models stay coherent over long sessions
+  - the main bottleneck is long-running stability or tool-loop organization rather than one-shot benchmark quality
+  - local hardware can sustain the active-parameter footprint even if the headline model family sounds smaller than a cloud frontier option
 - Qwen-style hosted runtimes are strongest when:
   - context length is the primary bottleneck
   - coding-agent workflows need broader synthesis

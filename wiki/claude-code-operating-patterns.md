@@ -28,6 +28,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 
 - Claude Code is strongest when it works as a terminal agent, not as a passive explainer.
 - If a coding agent suddenly feels worse, inspect harness-layer defaults such as reasoning effort, stale-session retention, context pruning, and prompt verbosity before assuming the base model regressed.
+- Claude Code already assembles current date, git state, working-tree context, project memory, and tool inventory before it answers; improve those surfaces first instead of restating the same background in chat.
 - Separate execution from approval: keep the repo, credentials, and permissions on the machine that owns them, and use mobile or remote surfaces mainly for status checks, questions, and approvals.
 - The best workflow is usually:
   - establish durable project rules
@@ -116,6 +117,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - A few strong MCP entrypoints beat a huge catalog of thin wrappers.
 - Tool names and `serverInstructions` should be explicit enough that the agent can choose them without loading the whole schema.
 - Stateful browser-style tools are especially good MCP candidates.
+- When exposing CI or build systems over CLI or MCP, design auth scope, remote-run permissions, log visibility, and audit traces before treating them like ordinary agent tools.
 - Tool search should be on when MCP definitions are large; source notes claim it can cut schema token load by roughly 85 to 96 percent.
 - Treat roughly 10 percent of context consumed by MCP definitions as the default threshold where tool search should auto-engage, and lower it with `ENABLE_TOOL_SEARCH=auto:5` when the repo regularly works against especially heavy MCP catalogs.
 - `serverInstructions` should describe the real task surface in operator language, not generic transport details.

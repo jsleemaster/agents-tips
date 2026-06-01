@@ -86,6 +86,10 @@ Skills are most useful when they are not just long prompts. They should package:
 
 - Restrict tool access when a skill does not need the full tool surface.
 - Prefer scripts for validation and transformation work.
+- For hook-based enforcement, use the cheapest surface that works:
+  - command handlers for deterministic blocking and formatting
+  - prompt handlers for model-judgment validation
+  - agent handlers only when file-aware investigation or tool access is required
 - Treat unreviewed third-party skills as executable code, not harmless text.
 - Audit bundled scripts, dependencies, and frontmatter together; metadata is part of the executable surface because the runtime may inject or route on it.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
@@ -101,6 +105,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Managed AI gateways are becoming the enterprise policy plane for agents: MCP exposure, provider routing, capacity controls, guardrails, usage analytics, and audit tables increasingly ship as one surface instead of separate per-tool decisions.
 - When a data platform already owns permissions, OAuth, and audit, evaluate whether agent routing and MCP exposure should live in that same gateway rather than in a separate model router plus app-side allowlists.
 - In enterprise stacks, treat API mediation and secrets handling as part of the skill architecture itself; the reusable unit is often a governed control plane that spans tool calls, data access, and human approval boundaries.
+- If a skill can inspect or trigger CI/CD systems, package remote-run scope, log visibility, rerun permissions, and patch-level security expectations with the workflow; build control planes are high-risk tool surfaces.
 - Treat connector generation as part of the skill architecture, not downstream tooling glue: spec-first pipelines should emit SDKs, CLIs, and MCP surfaces from the same contract so agent reach does not drift by language or interface.
 - Connector supply chains need the same discipline as model releases: versioned schemas, breaking-change detection, and synchronized rollout of generated client surfaces can determine agent success rates more than another increment of reasoning quality.
 - Treat retrieval as its own governed architecture layer rather than a hidden helper under generation: indexed corpora, live source-of-truth connectors, and answer synthesis should expose separate contracts, boundaries, and failure signals.
@@ -154,6 +159,7 @@ When a new Notion page is added, extract:
 - Vertical agent adoption usually depends more on prepackaged workflow templates plus governed data access than on raw model quality; treat domain connectors and auditability as first-class skill-design inputs.
 - For vertical operating layers, keep concrete rollout proof points with the workflow: deployment time, resolution rate, authentication-time reduction, and similar business KPIs are part of the reusable design pattern, not just go-to-market garnish.
 - A strong browser-agent pattern is a thin protected core plus an agent-writable helper workspace: let the agent generate reusable helper code and domain skills from real site interactions, but keep the orchestration layer small and reviewable.
+- Skill persistence and contained sub-agents matter more as local stacks shrink: a smaller open model can stay useful if the orchestration layer stores learned corrections and isolates short-lived workers instead of bloating one shared context.
 - Browser-agent skills should be evaluated against end-to-end session completion across DOM and non-DOM surfaces; selector stability alone is no longer enough once native dialogs, certificate pickers, browser chrome, and other OS-level prompts sit inside the same managed runtime.
 - Treat agent-callable browser surfaces as a first-class interface, not a hidden implementation detail: explicit tool schemas, shared state, permission policy, and confirmation boundaries can outperform pure DOM heuristics on long multi-step flows.
 - Treat `action -> screenshot -> reaction` as the core runtime primitive for modern computer-use or browser-agent workflows: the useful abstraction is a full session loop with vision feedback, not a one-shot DOM command.
