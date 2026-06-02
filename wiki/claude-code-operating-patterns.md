@@ -54,6 +54,13 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/pr-comments`, `/plugin`, and `/skills` are the direct surfaces for review feedback intake, plugin inventory, and skill discovery.
 - Prefer `Shift+Tab` or `/plan` before execution when the task needs architecture review, test shape agreement, or risk checks; do not pay plan-mode overhead for straightforward local edits.
 
+## Interaction Ergonomics
+
+- Use `Esc` to interrupt a bad generation or tool loop early; recovery is cheaper than waiting for a wrong branch to finish.
+- Use `Alt+T` or the equivalent thinking toggle for genuinely hard planning, debugging, or architecture turns, not as a blanket default for every small edit.
+- Use `Ctrl+V` to paste screenshots or UI captures directly when visual state matters; direct image input is usually cheaper and clearer than rewriting the scene in prose.
+- Use `!` for one-off shell execution and `@` path completion to keep prompts short when the real task is grounded in local files or terminal output.
+
 ## Context Management
 
 - Context is a degrading asset, not a free buffer.
