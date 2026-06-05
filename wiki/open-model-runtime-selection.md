@@ -95,6 +95,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - When a vendor promises autonomous improvement, compare how fast production traces can turn into evals, rollback signals, and post-training updates; a short training-to-inference feedback loop can matter more than a marginal inference-price win once the agent is live.
 - For enterprise coding-agent selection, compare review latency, handoff quality, CI or rollback fit, and governance compatibility alongside benchmark quality; adoption often fails on orchestration economics before it fails on model capability.
 - In regulated or high-risk domains, evaluate whether the runtime ships as a mission-governed deployment program rather than a generic SKU: trusted-access gates, partner vetting, allowed-workflow scope, and domain safeguards can matter more than raw model capability.
+- If agent failures mostly come from stale state, fragmented retrieval, or token-heavy context stitching, treat the context runtime as the selection problem before changing models: governed structured access, durable memory, freshness, and cache reuse can move task completion more than another benchmark tier.
 
 ## Current Recommendation
 
@@ -146,6 +147,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - sensitive code, documents, or operational systems must stay near existing hybrid or on-prem infrastructure
   - system-of-record connectivity and audit boundaries matter more than IDE-side convenience
   - the adoption blocker is data movement or governance, not model availability
+- Context-engine runtimes are strongest when:
+  - the real bottleneck is fragmented retrieval, stale state, or ad hoc text-to-SQL glue rather than one-shot reasoning quality
+  - structured entities, relationships, and access rules need to become a governed retrieval surface instead of prompt-time improvisation
+  - token caching, session memory, and fresh operational data should share one low-latency runtime layer
 - Sovereign deployment paths are strongest when:
   - residency alone is not enough and operator access, fine-tuning locality, or hardware placement are contractual requirements
   - public-sector, finance, or regional-language constraints shape the runtime choice as much as model quality
