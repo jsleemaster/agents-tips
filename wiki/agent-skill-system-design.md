@@ -80,6 +80,8 @@ Skills are most useful when they are not just long prompts. They should package:
 - Skills should improve future sessions, not bury every insight in chat history.
 - Split a skill once the main file becomes large enough that unrelated scenarios would load unnecessary context.
 - Keep mutually exclusive paths in separate files so one task does not drag in another task's instructions.
+- Keep skills and custom commands distinct: commands are explicit operator entrypoints, while skills are reusable capability packages that should load only when the runtime can infer relevance from metadata.
+- Treat plugins as higher-order packages when they bundle skills, hooks, subagents, and MCP servers together; the install unit should describe the whole execution surface, not only the prompt text.
 - Once agents become long-running workers, question loops, session status, and elapsed-time visibility are part of the architecture, not optional UI garnish.
 
 ## Security And Reliability
@@ -125,6 +127,9 @@ Skills are most useful when they are not just long prompts. They should package:
 - Runtime sandboxing is not enough once skills move across teams or marketplaces; keep explicit promotion stages such as catalog review, risk scanning, signature or provenance verification, and registry sync.
 - Scan skill bundles for agent-specific failure modes as well as normal dependency risk: hidden instructions, prompt injection payloads, risky scripts, credential access, excessive agency, and tool poisoning should all be install-time checks.
 - If the platform supports signatures or detached provenance, verify them at install or sync time rather than assuming a trusted download URL is sufficient.
+- Treat skill package managers as dependency managers: record source repository, ref, and tree hash or equivalent integrity metadata so installed guidance can be audited and reproduced.
+- Prefer tag or commit pinning, immutable releases, secret scanning, and code scanning for shared skill repositories before allowing team-wide installation.
+- A skill registry should support search, install, update, publish, and verification as separate operations; conflating them makes it hard to distinguish discovery from approval.
 
 ## Safety As Repo Artifact
 

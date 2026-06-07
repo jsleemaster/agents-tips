@@ -144,6 +144,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - `eza` over `ls`
 - Use `claude -c` to continue the most recent session, `claude -r <id>` to resume an exact thread, and `claude -w <name>` when a task deserves an isolated git worktree from the first turn instead of midstream cleanup.
 - In scripted automation, capture the emitted `session_id` and resume it across steps instead of replaying the whole brief; session chaining preserves the working state more reliably than prompt restatement.
+- Store reusable custom commands in `.claude/commands/` when they are project-shared and `~/.claude/commands/` when they are personal; use `$ARGUMENTS` for the variable part instead of baking one-off issue IDs or filenames into the command.
+- Let command frontmatter constrain tools when the command is allowed to run shell or Git operations; a command that can inspect status, diff, branch, and recent commits is useful, but it should not silently widen into every tool.
 - Non-interactive flags belong in durable project guidance when the agent must avoid blocking:
   - `--json`
   - `--yes`

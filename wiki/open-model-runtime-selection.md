@@ -31,6 +31,9 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Gemma-class local runtimes are strongest when procurement or data-governance pressure makes self-hosting a product requirement, not just a cost preference.
 - Gemma 4 Multi-Token Prediction drafters shift the runtime decision from "can a local model answer?" toward "can it answer fast enough for interactive agents?" because they target latency and throughput without changing the verifier model.
 - Treat MTP drafters as an inference-architecture upgrade, not a model-quality upgrade: the main Gemma 4 model still verifies the speculative tokens, so the product question is responsiveness, battery, and local throughput.
+- Gemma 4 12B adds a more concrete edge-deployment threshold: if a multimodal agent can run inside roughly 16GB of VRAM or unified memory, laptop and field-device workflows should be evaluated before defaulting to a hosted vision or audio stack.
+- Unified multimodal designs change the architecture question from "which encoder should we bolt on?" to "does one compact backbone reduce latency, memory pressure, and integration cost enough for the workflow?"
+- Treat ecosystem availability as part of the runtime signal: Hugging Face, Kaggle, Ollama, llama.cpp, MLX, vLLM, and SGLang support makes a local model more testable across laptop, server, and edge prototypes.
 
 ## Qwen 3.6 Signal
 
@@ -42,6 +45,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Official compatibility with agent shells such as Claude Code, Cline, and OpenClaw is a deployment signal: ecosystem fit can matter as much as raw benchmark wins when the real question is adoption friction.
 - DeepSeek-V4 adds a more specific runtime test for open frontier models: a 1M-token claim only matters if FLOPs, KV cache pressure, and prefill cost stay low enough that a long agent session remains affordable.
 - Tool-call schema stability and reasoning-trace persistence are runtime signals, not trivia: if a model cannot preserve structured calls or multi-turn reasoning across tool loops, the headline context window is less meaningful.
+- Qwen3.6 open-weight releases add another coding-agent signal beyond the Plus API: compare repository-level reasoning, front-end workflow completion, and long-session thinking preservation before treating leaderboard score as the main adoption criterion.
+- When a model family ships its own terminal agent surface, such as Qwen Code, evaluate model and host together; adoption friction can drop when the runtime, prompts, tool loop, and workflow assumptions are co-designed.
 
 ## Decision Rule For This Wiki
 
@@ -68,6 +73,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Prefer hosted escalation sooner when the model is already available inside the enterprise control plane or cloud platform you must use; procurement and integration friction can dominate pure token economics.
 - For long-running coding or research sessions, treat sustained throughput, peak-hour throttling, and session-usage limits as routing signals; a slightly weaker model with stable capacity can beat a better benchmark that stalls mid-run.
 - Compare regional capacity, rate-limit headroom, and session continuity policies alongside price and raw model quality when choosing a hosted default.
+- For internet-exposed AI endpoints, compare per-request abuse defense, anomaly telemetry, and cost caps alongside model price; session-level auth is too weak when an attacker can resell high-cost inference through many accounts or proxies.
+- Prefer runtimes or gateways that can verify the current request inside the route handler, not only at login time, when prompts, model choice, or token volume are user-controlled.
 - For enterprise coding suites, score model lifecycle policy before headline quality: LTS duration, default-model pinning, fallback behavior, deprecation windows, and premium-request multipliers can matter more than one benchmark tier when approval latency and cost control dominate adoption.
 - For large-scale agent products, treat reserved capacity, power availability, and accelerator-architecture lock-in as runtime signals alongside model quality; a nominally better model can still lose if procurement or regional supply cannot hold the workload.
 - For large-scale hosted deployment, score grid-connected power, site readiness, cooling density, and data-center execution partners alongside reserved capacity; AI-factory rollout speed can matter more than nominal accelerator access.
@@ -87,6 +94,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - When a vendor runtime is distributed through an existing cloud control plane, score procurement convenience and security-boundary reality separately; shared IAM, billing, and audit logs do not automatically mean the model executes inside the same boundary.
 - For sovereign or regulated workloads, evaluate deployment topology as a first-class runtime dimension: on-prem or dedicated hardware options, local zones, private fine-tuning boundaries, operator-access guarantees, and local-language model availability can outweigh raw benchmark wins.
 - For laptop-class or edge-local routing, compare active parameter count, mixed quantization scheme, memory bandwidth, and usable tokens/sec before assuming a hardware refresh is required; architecture changes can move the local-feasibility line faster than device cycles.
+- For local multimodal agents, compare the full pipeline footprint, not just model weights: separate image or audio encoders can erase the memory and latency advantage of a small backbone.
 - For enterprise coding agents, treat data-plane proximity as a runtime signal: hybrid or on-prem placement near existing code, documents, and systems of record can matter more than a benchmark delta if SaaS egress or policy boundaries would block adoption.
 - For hybrid agent runtimes, compare step-level routing policy rather than only the presence of local mode: sensitive or repetitive steps should be able to stay local with privacy-aware escalation, offline fallback, and measurable cloud-token reduction.
 - When agents may buy tools, APIs, or MCP-backed resources during execution, compare runtimes on spend governance, wallet or identity binding, transaction observability, and approval hooks rather than treating payment as app-layer glue.
@@ -106,6 +114,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Improve the wiki and retrieval layer before blaming the model for weak answers.
 - Treat a long-context hosted model as the fallback for codebase-wide synthesis, benchmark-sensitive coding tasks, or cases where chunking would distort the answer.
 - Prefer Gemma 4 MTP drafter support when local latency is the blocker for chat, voice, coding-assistant, or multi-step agent loops; it is less relevant when retrieval quality or reasoning depth is the limiting factor.
+- Test Gemma 4 12B-class runtimes when multimodal local execution or offline operation is the blocker; the decision should be based on end-to-end pipeline footprint, not only whether text generation is fast.
 
 ## What To Add From Future Notion Links
 
@@ -168,6 +177,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the same model artifact must move from training into serving without backend-specific forks
   - export paths, graph capture, and quantization formats stay portable across multiple accelerator targets
   - runtime choice should reduce authoring-to-deployment friction, not just maximize benchmark speed on one stack
+- Abuse-aware API runtimes are strongest when:
+  - high-cost inference is reachable from public routes
+  - attackers can control prompts, token volume, or model choice
+  - per-request verification, spend ceilings, and abuse traces are available in the same control plane as routing
 - Agent runtime choice should include inference-engineering signals such as prompt caching, cache locality, speculative decoding, compaction frequency, and sub-agent fan-out cost.
 - Long-session serving stacks are strongest when they preserve session stickiness, keep distributed cache hit rate high, and reduce TTFT for reused prefixes; otherwise a nominally strong model can still lose on agent turnaround time.
 - Treat the runtime as model plus serving layer plus prompt policy; context-window headlines are weaker evidence than stable tool-call schemas and reasoning-state retention across long tool loops.
