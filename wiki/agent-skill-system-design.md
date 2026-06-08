@@ -124,12 +124,14 @@ Skills are most useful when they are not just long prompts. They should package:
 
 - Treat skill installation as supply-chain ingestion, not as prompt paste: review owner, license, dependencies, requested access, operating limits, and verification status before letting a skill into a shared registry.
 - Prefer machine-readable skill cards or equivalent metadata so provenance, policy checks, and approval status survive outside the original marketplace UI.
+- A useful skill card should preserve owner, license, dependency, limitation, verification-status, and provenance fields so registry approval can be audited without opening the marketplace page.
 - Runtime sandboxing is not enough once skills move across teams or marketplaces; keep explicit promotion stages such as catalog review, risk scanning, signature or provenance verification, and registry sync.
 - Scan skill bundles for agent-specific failure modes as well as normal dependency risk: hidden instructions, prompt injection payloads, risky scripts, credential access, excessive agency, and tool poisoning should all be install-time checks.
 - If the platform supports signatures or detached provenance, verify them at install or sync time rather than assuming a trusted download URL is sufficient.
 - Treat skill package managers as dependency managers: record source repository, ref, and tree hash or equivalent integrity metadata so installed guidance can be audited and reproduced.
 - Prefer tag or commit pinning, immutable releases, secret scanning, and code scanning for shared skill repositories before allowing team-wide installation.
 - A skill registry should support search, install, update, publish, and verification as separate operations; conflating them makes it hard to distinguish discovery from approval.
+- Treat verified-skill catalogs as capability supply-chain infrastructure: the important boundary is not only what the runtime can sandbox, but whether a team can prove which skill artifact was reviewed, scanned, signed, installed, and later updated.
 
 ## Safety As Repo Artifact
 

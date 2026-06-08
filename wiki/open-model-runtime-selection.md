@@ -95,6 +95,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For sovereign or regulated workloads, evaluate deployment topology as a first-class runtime dimension: on-prem or dedicated hardware options, local zones, private fine-tuning boundaries, operator-access guarantees, and local-language model availability can outweigh raw benchmark wins.
 - For laptop-class or edge-local routing, compare active parameter count, mixed quantization scheme, memory bandwidth, and usable tokens/sec before assuming a hardware refresh is required; architecture changes can move the local-feasibility line faster than device cycles.
 - For local multimodal agents, compare the full pipeline footprint, not just model weights: separate image or audio encoders can erase the memory and latency advantage of a small backbone.
+- For local open-model deployment, score runtime portability alongside model quality: GGUF compatibility, llama.cpp integration, and Vulkan-backed GPU paths can matter more than a small benchmark delta when AMD, Intel, and NVIDIA hardware coexist.
+- Treat Ollama-style runtime updates as deployment-surface signals when they widen model-family support, quantization paths, or default GPU acceleration; they reduce switching cost even when they do not change the underlying model.
 - For enterprise coding agents, treat data-plane proximity as a runtime signal: hybrid or on-prem placement near existing code, documents, and systems of record can matter more than a benchmark delta if SaaS egress or policy boundaries would block adoption.
 - For hybrid agent runtimes, compare step-level routing policy rather than only the presence of local mode: sensitive or repetitive steps should be able to stay local with privacy-aware escalation, offline fallback, and measurable cloud-token reduction.
 - When agents may buy tools, APIs, or MCP-backed resources during execution, compare runtimes on spend governance, wallet or identity binding, transaction observability, and approval hooks rather than treating payment as app-layer glue.
@@ -177,6 +179,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the same model artifact must move from training into serving without backend-specific forks
   - export paths, graph capture, and quantization formats stay portable across multiple accelerator targets
   - runtime choice should reduce authoring-to-deployment friction, not just maximize benchmark speed on one stack
+- Hardware-portable local runtimes are strongest when:
+  - the team has mixed AMD, Intel, NVIDIA, Apple, or edge hardware
+  - GGUF or equivalent package formats let one model chain move across devices
+  - common runtime support matters more than a vendor-specific peak-throughput path
 - Abuse-aware API runtimes are strongest when:
   - high-cost inference is reachable from public routes
   - attackers can control prompts, token volume, or model choice

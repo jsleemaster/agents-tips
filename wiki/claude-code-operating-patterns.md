@@ -90,6 +90,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 
 - Use subagents when the work stays inside one main session and the parent should remain the control plane.
 - Use Agent Teams only when peers need independent context, direct messaging, or long-running coordination patterns.
+- Treat Delegate Mode as a coordination-only surface: useful when the lead should assign, monitor, and synthesize instead of doing implementation work in the same context.
+- Shared task lists and JSON-style mailboxes are part of the team runtime contract; use them to avoid file-lock contention and invisible cross-agent handoffs.
 - Team topology should be chosen deliberately:
   - hub-and-spoke for central orchestration
   - task queue when workers can self-assign
@@ -99,6 +101,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Agent Teams are expensive relative to a normal session, with source notes estimating roughly 5 to 7 times the token cost.
 - Prefer smaller models for workers, close completed workers quickly, and keep tasks self-contained if using team mode.
 - Avoid Agent Teams when the same file needs concurrent edits, when you need nested teams, or when session resume matters.
+- For dynamic or large-scale subagent workflows, evaluate the orchestration loop itself: planning quality, task fan-out, verification coverage, and the lead agent's ability to avoid declaring completion before worker evidence is checked.
 
 ## Hooks And Guardrails
 
@@ -164,6 +167,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - In a strict TDD lane, commit or otherwise lock the failing tests before implementation so the contract cannot quietly drift during the coding pass.
 - For larger changes, keep writer and reviewer passes in separate sessions or subagents so the review context is not contaminated by the implementation path.
 - When resetting after a long task, prefer a handoff note that records attempted paths, validation status, and the single next unblocker rather than a prose recap of everything learned.
+- For long-running coding or browser-agent workflows, track session endurance, self-correction rate, tool-step efficiency, and end-to-end completion rather than relying on a one-shot model benchmark.
 
 ## Related Pages
 
