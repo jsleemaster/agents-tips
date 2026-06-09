@@ -131,6 +131,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Tool search should be on when MCP definitions are large; source notes claim it can cut schema token load by roughly 85 to 96 percent.
 - Treat roughly 10 percent of context consumed by MCP definitions as the default threshold where tool search should auto-engage, and lower it with `ENABLE_TOOL_SEARCH=auto:5` when the repo regularly works against especially heavy MCP catalogs.
 - `serverInstructions` should describe the real task surface in operator language, not generic transport details.
+- Prefer HTTP transport for OAuth-backed SaaS MCP servers and stdio for local tools, local credentials, or environment-bound services.
 - Use `project` scope for team-shared MCP contracts and reserve `user` or `local` scope for personal credentials, machine-specific servers, or experiments that should not silently change the repo default.
 - `-s local` writes machine-local defaults to `.claude/settings.local.json`.
 - `-s project` writes shared MCP defaults to `.mcp.json`.

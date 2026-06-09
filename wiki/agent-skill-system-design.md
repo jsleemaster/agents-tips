@@ -82,6 +82,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Keep mutually exclusive paths in separate files so one task does not drag in another task's instructions.
 - Keep skills and custom commands distinct: commands are explicit operator entrypoints, while skills are reusable capability packages that should load only when the runtime can infer relevance from metadata.
 - Treat plugins as higher-order packages when they bundle skills, hooks, subagents, and MCP servers together; the install unit should describe the whole execution surface, not only the prompt text.
+- Prefer standards-compatible folder shapes when the same skill corpus must run across multiple agent shells; isolate runtime-specific assumptions in narrow adapters instead of the core skill.
 - Once agents become long-running workers, question loops, session status, and elapsed-time visibility are part of the architecture, not optional UI garnish.
 
 ## Security And Reliability
@@ -109,6 +110,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - When a data platform already owns permissions, OAuth, and audit, evaluate whether agent routing and MCP exposure should live in that same gateway rather than in a separate model router plus app-side allowlists.
 - In enterprise stacks, treat API mediation and secrets handling as part of the skill architecture itself; the reusable unit is often a governed control plane that spans tool calls, data access, and human approval boundaries.
 - Prefer identity-aware MCP gateways and verified connector libraries over free-form connector sprawl when the workflow touches SaaS or internal systems; connector provenance, discovery policy, and approval semantics should be governed at the same layer as access control.
+- Treat MCP connector count as a weak success metric; the stronger design question is whether discovery, authorization, policy enforcement, and audit trails are governed as one action path.
 - If a skill can inspect or trigger CI/CD systems, package remote-run scope, log visibility, rerun permissions, and patch-level security expectations with the workflow; build control planes are high-risk tool surfaces.
 - Treat connector generation as part of the skill architecture, not downstream tooling glue: spec-first pipelines should emit SDKs, CLIs, and MCP surfaces from the same contract so agent reach does not drift by language or interface.
 - Connector supply chains need the same discipline as model releases: versioned schemas, breaking-change detection, and synchronized rollout of generated client surfaces can determine agent success rates more than another increment of reasoning quality.
@@ -138,6 +140,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Treat agent safety as an engineering artifact that lives in the repo, not as a separate compliance memo.
 - Encode threat-model scenarios as repeatable CI tests so prompt injection, privilege misuse, or unsafe tool chains regress visibly during PR review.
 - For stochastic agent behavior, prefer multi-trial or threshold-based safety checks over single-run pass/fail gates; one green run is often too noisy to trust.
+- For high-risk system-of-record agents, make pre-deployment validation explicit against standards such as OWASP LLM Top 10, NIST AI RMF, MITRE ATLAS, or an equivalent internal control set.
 - Keep design intent, alternatives, failure analysis, and safety decisions in diffable project artifacts such as a dedicated protocol directory instead of slideware or meeting notes.
 - Use central review or red teaming as escalation, but make pull requests and regression tests the default loop for everyday agent-safety enforcement.
 
