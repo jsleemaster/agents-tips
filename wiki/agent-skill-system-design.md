@@ -84,6 +84,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - Treat plugins as higher-order packages when they bundle skills, hooks, subagents, and MCP servers together; the install unit should describe the whole execution surface, not only the prompt text.
 - Prefer standards-compatible folder shapes when the same skill corpus must run across multiple agent shells; isolate runtime-specific assumptions in narrow adapters instead of the core skill.
 - Once agents become long-running workers, question loops, session status, and elapsed-time visibility are part of the architecture, not optional UI garnish.
+- Treat `AGENTS.md`, `SKILL.md`, manifests, and workspace declarations as versioned runtime contracts when the same workflow must move across desktop, CLI, SDK, mobile approval, and cloud execution surfaces.
 
 ## Security And Reliability
 
@@ -97,6 +98,8 @@ Skills are most useful when they are not just long prompts. They should package:
 - Audit bundled scripts, dependencies, and frontmatter together; metadata is part of the executable surface because the runtime may inject or route on it.
 - If the platform supports forked context or isolated execution, use it for high-risk testing, side-effect-heavy exploration, or noisy intermediate work.
 - When the runtime offers multiple isolation modes, treat worktree-isolated execution as the safe default and same-workspace editing as an opt-in fast path.
+- For managed agent platforms, treat sandbox ownership, egress policy, file persistence, state snapshotting, and restart recovery as part of the reusable workflow package rather than a vendor footnote.
+- When private MCP servers are exposed through tunnels, package the outbound gateway, reachable resources, delegation scope, and audit path with the skill so internal connectivity does not become an implicit trust boundary.
 - Agent-scoped hooks are useful when the invariant belongs to the skill itself rather than the whole repo.
 - Use forked or isolated context for skill development and evaluation when a failed experiment would otherwise pollute the main session state.
 - In regulated or domain-heavy environments, the reusable unit is often a workflow package rather than a naked skill: connectors, governed data access, approval steps, and audit logs should ship with the task surface instead of being left implicit.
