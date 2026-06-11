@@ -205,6 +205,10 @@ When a new Notion page is added, extract:
 - Treat cross-project agent manifests or global `.agent.md`-style defaults as a managed baseline layer above repo-local instructions; centralize stable policy there and keep repo-specific overrides narrow.
 - Enterprise agent platforms should ship local sandboxing, base-image provenance, trusted package sets, and runtime parity together; secure local experimentation without a production-valid build path is an incomplete platform.
 - Vulnerability triage for AI-generated code should prioritize runtime reachability and exploitability over raw CVE volume, because generated dependencies inflate noise faster than they change actual risk.
+- When AI coding adoption depends on delivery speed, package the workflow around the full execution path: build tool, test runner, bundler, deploy target, and data-service provisioning should be visible to the agent contract rather than left as post-generation handoff work.
+- Intent-based infrastructure provisioning is a skill-design boundary, not just a platform feature; the package must declare which resources an agent may create, how those resources are named, and where human approval interrupts the path to production.
+- For broad enterprise assistant rollouts, start with workflow-specific adoption surfaces rather than a generic "AI for everyone" skill: writing, summarization, meeting follow-up, policy drafts, and communication-heavy tasks have clearer success signals than fully autonomous workflows.
+- Segment enterprise skills by role and output artifact, because large usage logs can be broad but uneven; rollout proof should compare value density by workflow instead of assuming one assistant behavior fits every job family.
 
 ## Related Pages
 

@@ -171,6 +171,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - For larger changes, keep writer and reviewer passes in separate sessions or subagents so the review context is not contaminated by the implementation path.
 - When resetting after a long task, prefer a handoff note that records attempted paths, validation status, and the single next unblocker rather than a prose recap of everything learned.
 - For long-running coding or browser-agent workflows, track session endurance, self-correction rate, tool-step efficiency, and end-to-end completion rather than relying on a one-shot model benchmark.
+- For AI-assisted delivery, treat generation, tests, bundling, deployment, and backing-resource provisioning as one execution path; an editor plugin alone is not the adoption unit when the agent is expected to reach production-ready state.
+- Before standardizing an AI coding stack, verify whether the toolchain can connect local dev, test runner, edge or server runtime, and storage/database provisioning without hidden manual bridges; otherwise the agent's coding speed just moves the bottleneck downstream.
 
 ## Related Pages
 
