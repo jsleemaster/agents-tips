@@ -29,6 +29,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Claude Code is strongest when it works as a terminal agent, not as a passive explainer.
 - If a coding agent suddenly feels worse, inspect harness-layer defaults such as reasoning effort, stale-session retention, context pruning, and prompt verbosity before assuming the base model regressed.
 - Claude Code already assembles current date, git state, working-tree context, project memory, and tool inventory before it answers; improve those surfaces first instead of restating the same background in chat.
+- Treat code intelligence as part of the agent runtime: language servers, build metadata, fresh indexes, type resolution, definition jumps, reference search, and hover docs can matter more than another context-length increase for large repos.
+- If a CLI coding agent falls back to unpacking dependencies or grepping generated files, fix the LSP/build-graph connection before blaming the model; semantic navigation is a prerequisite for reliable refactors and API integrations.
 - Separate execution from approval: keep the repo, credentials, and permissions on the machine that owns them, and use mobile or remote surfaces mainly for status checks, questions, and approvals.
 - The best workflow is usually:
   - establish durable project rules
@@ -173,6 +175,10 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - For long-running coding or browser-agent workflows, track session endurance, self-correction rate, tool-step efficiency, and end-to-end completion rather than relying on a one-shot model benchmark.
 - For AI-assisted delivery, treat generation, tests, bundling, deployment, and backing-resource provisioning as one execution path; an editor plugin alone is not the adoption unit when the agent is expected to reach production-ready state.
 - Before standardizing an AI coding stack, verify whether the toolchain can connect local dev, test runner, edge or server runtime, and storage/database provisioning without hidden manual bridges; otherwise the agent's coding speed just moves the bottleneck downstream.
+- Treat GitHub-native or CI-native agent workflows as operations automation, not only coding assistance: triage, docs maintenance, dependency hygiene, and CI failure analysis need policy constraints, runner placement, and audit evidence before broad rollout.
+- Prefer workflow specs that compile into the team's existing CI/CD control plane when they can reuse runner groups, read-only defaults, sandboxed containers, threat detection, and safe-output validation instead of adding a parallel bot stack.
+- Avoid long-lived PATs for agent automation when the platform can use built-in workflow identity such as `GITHUB_TOKEN`, organization billing, and explicit permission scopes; credential shape is part of the operating pattern, not an implementation detail.
+- Add AI-brand impersonation to rollout checklists for agent tools: sanctioned installers, billing or renewal mail, plugin download paths, model-download sources, and account-appeal flows need allowlists and user guidance before adoption scales.
 
 ## Related Pages
 

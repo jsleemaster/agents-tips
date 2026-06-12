@@ -124,6 +124,10 @@ Skills are most useful when they are not just long prompts. They should package:
 - Evaluate retrieval independently from generation with relevance metrics or task-level eval sets; otherwise teams cannot tell whether agent failures come from search quality, connector freshness, or model reasoning.
 - AI-assisted remediation should be designed as a governed closed loop rather than a loose coding helper: repo scope, patch generation, fix validation, approval records, and audit-ready evidence should stay in one control path.
 - Permission tiers are becoming part of the runtime architecture itself: keep general assistance, trusted defensive analysis, and higher-privilege patch execution behind separate access gates instead of assuming one model profile should do everything.
+- Agentic SDLC workflows should package natural-language intent, compiled CI/CD execution, runner policy, default permissions, sandboxing, output validation, threat detection, and billing ownership together; a markdown task spec alone is not a governed workflow.
+- Prefer platform-native workflow identity over personal tokens for reusable agents: built-in tokens, scoped permissions, organization billing, and policy constraints make the skill package auditable without spreading long-lived credentials through automation.
+- Semantic code intelligence belongs in the reusable workflow contract for coding agents: language-server setup, index freshness, build metadata, and dependency symbol access should be declared alongside tools and tests so refactor quality is reproducible across CLI, IDE, and CI surfaces.
+- Treat AI-brand trust paths as part of skill rollout security: installer distribution, plugin marketplaces, account appeals, billing notices, and model-download links need sanctioned routes because users may be phished through the agent ecosystem before any model or MCP layer is attacked.
 
 ## Capability Governance
 
