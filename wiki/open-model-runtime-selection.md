@@ -114,6 +114,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For enterprise coding-agent selection, compare review latency, handoff quality, CI or rollback fit, and governance compatibility alongside benchmark quality; adoption often fails on orchestration economics before it fails on model capability.
 - In regulated or high-risk domains, evaluate whether the runtime ships as a mission-governed deployment program rather than a generic SKU: trusted-access gates, partner vetting, allowed-workflow scope, and domain safeguards can matter more than raw model capability.
 - If agent failures mostly come from stale state, fragmented retrieval, or token-heavy context stitching, treat the context runtime as the selection problem before changing models: governed structured access, durable memory, freshness, and cache reuse can move task completion more than another benchmark tier.
+- For ML-heavy agent workflows, score whether the runtime can provision burst GPU or TPU capacity from the local terminal, execute scripts remotely, stream logs, recover artifacts, and clean up sessions without a separate MLOps bridge.
+- For reliability-sensitive products, compare harness strength before model size: deterministic validators, dataset checks, citations, audit trails, fallback rules, and correction-loop latency can let weaker or local models satisfy workflows that frontier-only routing would make too expensive.
 
 ## Current Recommendation
 
@@ -185,6 +187,14 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the same model artifact must move from training into serving without backend-specific forks
   - export paths, graph capture, and quantization formats stay portable across multiple accelerator targets
   - runtime choice should reduce authoring-to-deployment friction, not just maximize benchmark speed on one stack
+- Burst accelerator runtimes are strongest when:
+  - agents need short-lived GPU or TPU jobs for fine-tuning, evaluation, preprocessing, or artifact generation
+  - local repo context must stay connected to remote execution, logs, and downloadable outputs
+  - fixed accelerator clusters would add more procurement and idle-capacity cost than the workflow justifies
+- Validation-harness runtimes are strongest when:
+  - answer correctness can be mechanically checked against source data, calculations, or policy rules
+  - citations, lineage, and audit trails are product requirements rather than nice-to-have explanations
+  - reducing model burden with deterministic checks matters more than buying a stronger first-pass reasoner
 - Hardware-portable local runtimes are strongest when:
   - the team has mixed AMD, Intel, NVIDIA, Apple, or edge hardware
   - GGUF or equivalent package formats let one model chain move across devices
