@@ -123,6 +123,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - When retrieval must traverse structured business state, model entities, relationships, and access rules explicitly enough that the runtime can expose a controlled retrieval or MCP surface from the schema instead of relying on ad hoc text-to-SQL or prompt-only joins.
 - Evaluate retrieval independently from generation with relevance metrics or task-level eval sets; otherwise teams cannot tell whether agent failures come from search quality, connector freshness, or model reasoning.
 - For precision-sensitive workflows, package deterministic validators, citations, audit trails, and correction loops with the skill; a stronger model is weaker evidence than a reproducible path from input data to accepted answer.
+- For physical-world or lab-connected agents, package the whole closed loop: hypothesis generation, experiment or assay design, automated execution, result ingestion, expert steering, independent replication, scope limits, and misuse controls. Do not label the workflow autonomous if proposal selection, plan correction, lab operation, or final validation still depends on human experts.
 - AI-assisted remediation should be designed as a governed closed loop rather than a loose coding helper: repo scope, patch generation, fix validation, approval records, and audit-ready evidence should stay in one control path.
 - Permission tiers are becoming part of the runtime architecture itself: keep general assistance, trusted defensive analysis, and higher-privilege patch execution behind separate access gates instead of assuming one model profile should do everything.
 - Agentic SDLC workflows should package natural-language intent, compiled CI/CD execution, runner policy, default permissions, sandboxing, output validation, threat detection, and billing ownership together; a markdown task spec alone is not a governed workflow.
@@ -216,6 +217,7 @@ When a new Notion page is added, extract:
 - Intent-based infrastructure provisioning is a skill-design boundary, not just a platform feature; the package must declare which resources an agent may create, how those resources are named, and where human approval interrupts the path to production.
 - For broad enterprise assistant rollouts, start with workflow-specific adoption surfaces rather than a generic "AI for everyone" skill: writing, summarization, meeting follow-up, policy drafts, and communication-heavy tasks have clearer success signals than fully autonomous workflows.
 - Segment enterprise skills by role and output artifact, because large usage logs can be broad but uneven; rollout proof should compare value density by workflow instead of assuming one assistant behavior fits every job family.
+- For public-facing or broadly deployed AI products, treat social license as a design constraint: document privacy controls, child-safety boundaries, incident response, liability ownership, human escalation, user education, and workforce-impact handling alongside the technical workflow, because adoption risk can come from trust and governance gaps even when capability is strong.
 
 ## Related Pages
 
