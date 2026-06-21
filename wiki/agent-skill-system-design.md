@@ -105,6 +105,7 @@ Skills are most useful when they are not just long prompts. They should package:
 - In regulated or domain-heavy environments, the reusable unit is often a workflow package rather than a naked skill: connectors, governed data access, approval steps, and audit logs should ship with the task surface instead of being left implicit.
 - If enterprise data access is part of the workflow, package connector scope and permission expectations with the skill so the runtime can enforce the right boundary instead of improvising it at call time.
 - For system-of-record workflows, exposing MCP or API access is not enough; the action surface should inherit delegation scope, process control, and audit trail from the underlying business system.
+- For customer-service agents, do not evaluate the package only on deflection rate; require resolution evidence, customer consent capture, escalation policy, channel-consistent rules, CRM record updates, and data-quality checks.
 - When a skill acts on behalf of a real user in SaaS or internal systems, prefer delegated OAuth, session binding, scoped tokens, and callback separation over long-lived shared credentials.
 - Treat shadow-agent detection and inventory as part of skill architecture, not only security operations: local agents, cloud agents, MCP endpoints, linked identities, and reachable resources should be mappable per workflow.
 - Enterprise rollout is increasingly a managed-distribution problem: approved plugins, default hooks, MCP allowlists, and auto-install behavior should be treated as centrally deployed platform policy rather than per-user preference.
@@ -218,6 +219,7 @@ When a new Notion page is added, extract:
 - For broad enterprise assistant rollouts, start with workflow-specific adoption surfaces rather than a generic "AI for everyone" skill: writing, summarization, meeting follow-up, policy drafts, and communication-heavy tasks have clearer success signals than fully autonomous workflows.
 - Segment enterprise skills by role and output artifact, because large usage logs can be broad but uneven; rollout proof should compare value density by workflow instead of assuming one assistant behavior fits every job family.
 - For public-facing or broadly deployed AI products, treat social license as a design constraint: document privacy controls, child-safety boundaries, incident response, liability ownership, human escalation, user education, and workforce-impact handling alongside the technical workflow, because adoption risk can come from trust and governance gaps even when capability is strong.
+- For education agents, package age-tiered access, teacher-supervised modes, answer-generation limits, source or citation discipline, assessment separation, and learning-process logs; school adoption depends on protecting learning stages as much as model quality.
 
 ## Related Pages
 
