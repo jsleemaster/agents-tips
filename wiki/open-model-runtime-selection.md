@@ -120,6 +120,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - If agent failures mostly come from stale state, fragmented retrieval, or token-heavy context stitching, treat the context runtime as the selection problem before changing models: governed structured access, durable memory, freshness, and cache reuse can move task completion more than another benchmark tier.
 - For ML-heavy agent workflows, score whether the runtime can provision burst GPU or TPU capacity from the local terminal, execute scripts remotely, stream logs, recover artifacts, and clean up sessions without a separate MLOps bridge.
 - For reliability-sensitive products, compare harness strength before model size: deterministic validators, dataset checks, citations, audit trails, fallback rules, and correction-loop latency can let weaker or local models satisfy workflows that frontier-only routing would make too expensive.
+- For coding agents, treat low-batch latency and model-runtime co-design as selection criteria, not only benchmark score; small coding models can be useful as fast review, candidate-generation, or test-fix substrates when single-request turnaround dominates total workflow time.
+- For latency-first coding models, verify serving topology before adoption: synchronization overhead, warm-start behavior, tokenizer or license constraints, inference-engine dependency, and tokens/sec/request under batch-size-one conditions can decide whether the model actually improves the agent loop.
+- For MoE fine-tuning, compare post-training infrastructure before headline parameter count: expert parallelism, communication overlap, memory pressure, checkpoint export format, and vLLM or SGLang deployment compatibility decide whether customization remains operable after training.
+- For modality-specific models, require acceptance gates that mirror the product environment: image generation needs style-control, prompt-expansion, reference-leakage, text-rendering, license, and fine-tuning checks, while voice agents need target-room acoustics, noise, overlap speech, latency, and real-time-factor tests rather than clean benchmark scores alone.
 
 ## Current Recommendation
 
@@ -203,6 +207,18 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the team has mixed AMD, Intel, NVIDIA, Apple, or edge hardware
   - GGUF or equivalent package formats let one model chain move across devices
   - common runtime support matters more than a vendor-specific peak-throughput path
+- Latency-first coding runtimes are strongest when:
+  - the workflow makes many small model calls inside review, edit, test, or repair loops
+  - single-user or low-batch responsiveness matters more than maximum leaderboard quality
+  - the architecture and serving engine were co-designed enough to reduce synchronization and cold-path overhead
+- MoE post-training stacks are strongest when:
+  - domain adaptation or safety tuning is required on open MoE checkpoints
+  - expert routing, sharding, and communication overlap are already supported by the training stack
+  - the resulting checkpoint can move into the intended inference runtime without backend-specific rewrites
+- Modality-specific model runtimes are strongest when:
+  - the product failure mode is environmental mismatch rather than generic reasoning weakness
+  - public leaderboards are used only for shortlist selection
+  - launch gates measure the target deployment conditions directly, such as far-field audio or brand-specific image-control requirements
 - Abuse-aware API runtimes are strongest when:
   - high-cost inference is reachable from public routes
   - attackers can control prompts, token volume, or model choice
