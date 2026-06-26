@@ -104,6 +104,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Prefer smaller models for workers, close completed workers quickly, and keep tasks self-contained if using team mode.
 - Avoid Agent Teams when the same file needs concurrent edits, when you need nested teams, or when session resume matters.
 - For dynamic or large-scale subagent workflows, evaluate the orchestration loop itself: planning quality, task fan-out, verification coverage, and the lead agent's ability to avoid declaring completion before worker evidence is checked.
+- For Slack-native or channel-native agents, design the shared workspace before rollout: channel taxonomy, memory isolation, tool and data scope, token budgets, activity logs, requester tracking, and human approval rules decide whether the agent is a team actor or a risky bot.
 
 ## Hooks And Guardrails
 
@@ -142,6 +143,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `-s user` writes cross-project personal defaults to `~/.claude/settings.json`.
 - Use `/doctor` for server-by-server MCP token inspection and `/context` to confirm whether on-demand loading is actually reducing session pressure.
 - Prefer MCP for stateful environments like Playwright and prefer CLI for stateless systems where shell commands are already strong.
+- Do not treat `localhost`, origin allowlists, or unauthenticated WebSockets as safe defaults for agent control planes; browser-capable agents need authenticated MCP endpoints, command allowlists, sandboxing, telemetry, and explicit blocking of untrusted web content reaching privileged local services.
 
 ## CLI And Automation Defaults
 

@@ -48,6 +48,13 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Qwen3.6 open-weight releases add another coding-agent signal beyond the Plus API: compare repository-level reasoning, front-end workflow completion, and long-session thinking preservation before treating leaderboard score as the main adoption criterion.
 - When a model family ships its own terminal agent surface, such as Qwen Code, evaluate model and host together; adoption friction can drop when the runtime, prompts, tool loop, and workflow assumptions are co-designed.
 
+## GLM-5.2 Signal
+
+- GLM-5.2 adds an open-weight long-context adoption gate: a 1M-token window should be judged by long-horizon coding benchmarks, compaction-aware rollout behavior, serving throughput, and cost-per-task, not by context size alone.
+- Sparse attention and speculative decoding claims are runtime evidence only if they lower prefill, KV-cache, and batch-size-one latency enough for real repo-scale agent loops.
+- Agentic RL releases need reward-hacking and tool-use guards in the acceptance checklist; risky tool calls should be detected, blocked, logged, and tested without collapsing the whole rollout.
+- MIT-licensed long-context weights are most useful when local or self-hosted deployment, data residency, vLLM or SGLang compatibility, and auditability are product requirements rather than nice-to-have options.
+
 ## Decision Rule For This Wiki
 
 - Start with a local model when:
@@ -219,6 +226,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the product failure mode is environmental mismatch rather than generic reasoning weakness
   - public leaderboards are used only for shortlist selection
   - launch gates measure the target deployment conditions directly, such as far-field audio or brand-specific image-control requirements
+- Long-context open-weight runtimes are strongest when:
+  - repository or corpus-scale context genuinely reduces task failure instead of hiding weak retrieval
+  - context packing, compaction, tool-call audit, reward-hacking controls, and cost-per-task are measured in the target agent loop
+  - self-hosting, license, and data-residency constraints matter enough to justify operating the serving stack
 - Abuse-aware API runtimes are strongest when:
   - high-cost inference is reachable from public routes
   - attackers can control prompts, token volume, or model choice
