@@ -126,11 +126,14 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - In regulated or high-risk domains, evaluate whether the runtime ships as a mission-governed deployment program rather than a generic SKU: trusted-access gates, partner vetting, allowed-workflow scope, and domain safeguards can matter more than raw model capability.
 - If agent failures mostly come from stale state, fragmented retrieval, or token-heavy context stitching, treat the context runtime as the selection problem before changing models: governed structured access, durable memory, freshness, and cache reuse can move task completion more than another benchmark tier.
 - For ML-heavy agent workflows, score whether the runtime can provision burst GPU or TPU capacity from the local terminal, execute scripts remotely, stream logs, recover artifacts, and clean up sessions without a separate MLOps bridge.
+- For short-lived model evaluation, separate ephemeral serving lanes from production serving: pay-per-second OpenAI-compatible endpoints can speed benchmark, prompt-regression, synthetic-data, and batch-labeling loops, but service traffic still needs auth, quota, autoscaling, observability, latency SLOs, and cost guardrails.
 - For reliability-sensitive products, compare harness strength before model size: deterministic validators, dataset checks, citations, audit trails, fallback rules, and correction-loop latency can let weaker or local models satisfy workflows that frontier-only routing would make too expensive.
 - For coding agents, treat low-batch latency and model-runtime co-design as selection criteria, not only benchmark score; small coding models can be useful as fast review, candidate-generation, or test-fix substrates when single-request turnaround dominates total workflow time.
 - For latency-first coding models, verify serving topology before adoption: synchronization overhead, warm-start behavior, tokenizer or license constraints, inference-engine dependency, and tokens/sec/request under batch-size-one conditions can decide whether the model actually improves the agent loop.
 - For MoE fine-tuning, compare post-training infrastructure before headline parameter count: expert parallelism, communication overlap, memory pressure, checkpoint export format, and vLLM or SGLang deployment compatibility decide whether customization remains operable after training.
 - For modality-specific models, require acceptance gates that mirror the product environment: image generation needs style-control, prompt-expansion, reference-leakage, text-rendering, license, and fine-tuning checks, while voice agents need target-room acoustics, noise, overlap speech, latency, and real-time-factor tests rather than clean benchmark scores alone.
+- For on-device LLM adoption, verify NPU graph coverage before treating a small model as product-ready: prefill, decode, embeddings, and lm-head should stay on the target accelerator, with explicit CPU-fallback policy, quantization path, power profile, thermal behavior, and device QA matrix.
+- For action or world-model startups, evaluate the training substrate separately from video-generation quality: action-label fidelity, environment diversity, simulator-to-real transfer, evaluation tasks, API availability, safety boundaries, and compute economics decide whether the model can operate tools, robots, browsers, or enterprise workflows.
 
 ## Current Recommendation
 
@@ -206,6 +209,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - agents need short-lived GPU or TPU jobs for fine-tuning, evaluation, preprocessing, or artifact generation
   - local repo context must stay connected to remote execution, logs, and downloadable outputs
   - fixed accelerator clusters would add more procurement and idle-capacity cost than the workflow justifies
+- Ephemeral serving runtimes are strongest when:
+  - teams need disposable OpenAI-compatible endpoints for tests, evals, batch generation, or prompt regression
+  - GPU cost should be metered by short job lifetime rather than reserved serving capacity
+  - production traffic can stay on a separate managed endpoint with stronger auth, quotas, observability, and SLOs
 - Validation-harness runtimes are strongest when:
   - answer correctness can be mechanically checked against source data, calculations, or policy rules
   - citations, lineage, and audit trails are product requirements rather than nice-to-have explanations
@@ -214,6 +221,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the team has mixed AMD, Intel, NVIDIA, Apple, or edge hardware
   - GGUF or equivalent package formats let one model chain move across devices
   - common runtime support matters more than a vendor-specific peak-throughput path
+- On-device NPU runtimes are strongest when:
+  - privacy, offline operation, thermal limits, and interaction latency matter more than frontier benchmark quality
+  - the full inference path can stay on the target accelerator without hidden CPU fallback
+  - the vendor or model provider ships model-specific runtime artifacts and regression tests for the target silicon
 - Latency-first coding runtimes are strongest when:
   - the workflow makes many small model calls inside review, edit, test, or repair loops
   - single-user or low-batch responsiveness matters more than maximum leaderboard quality
@@ -226,6 +237,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the product failure mode is environmental mismatch rather than generic reasoning weakness
   - public leaderboards are used only for shortlist selection
   - launch gates measure the target deployment conditions directly, such as far-field audio or brand-specific image-control requirements
+- Action-model runtimes are strongest when:
+  - the workflow depends on choosing actions across state transitions, not only generating text, image, or video
+  - gameplay, simulation, robotics, browser, or enterprise-workflow trajectories provide reliable action/reward labels
+  - rollout safety can be tested before tool calls, actuators, or workflow side effects reach production systems
 - Long-context open-weight runtimes are strongest when:
   - repository or corpus-scale context genuinely reduces task failure instead of hiding weak retrieval
   - context packing, compaction, tool-call audit, reward-hacking controls, and cost-per-task are measured in the target agent loop
