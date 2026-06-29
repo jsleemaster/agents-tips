@@ -62,6 +62,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Use `Alt+T` or the equivalent thinking toggle for genuinely hard planning, debugging, or architecture turns, not as a blanket default for every small edit.
 - Use `Ctrl+V` to paste screenshots or UI captures directly when visual state matters; direct image input is usually cheaper and clearer than rewriting the scene in prose.
 - Use `!` for one-off shell execution and `@` path completion to keep prompts short when the real task is grounded in local files or terminal output.
+- When a source cannot be exported cleanly, full-select copy can be a practical capture path; preserve links by round-tripping through a markdown-capable surface such as Notion instead of manually reconstructing references.
 
 ## Context Management
 
@@ -170,10 +171,12 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - run the test or validation loop
   - only then write durable memory
 - For browser-facing changes, do not stop at static lint or unit tests when runtime quality is the real risk; include agent-callable browser checks such as Lighthouse, viewport emulation, CPU or network throttling, and accessibility inspection in the verification loop or PR gate.
+- For CI failure triage, prefer a custom command that fetches the failing run, extracts logs, identifies the failing step, and proposes a patch path; CI debugging should be repeatable rather than a one-off scroll through logs.
 - For implementation-heavy tasks, prefer a test-first loop: derive failing tests from the input/output contract, keep the tests fixed while the implementation catches up, and use a separate reviewer pass or subagent to check that the code is not merely overfitting the test cases.
 - In a strict TDD lane, commit or otherwise lock the failing tests before implementation so the contract cannot quietly drift during the coding pass.
 - For larger changes, keep writer and reviewer passes in separate sessions or subagents so the review context is not contaminated by the implementation path.
 - When resetting after a long task, prefer a handoff note that records attempted paths, validation status, and the single next unblocker rather than a prose recap of everything learned.
+- Mine session history only for recurring failure patterns that can become durable rules, tests, hooks, or commands; do not turn raw transcript residue into canonical project guidance.
 - For long-running coding or browser-agent workflows, track session endurance, self-correction rate, tool-step efficiency, and end-to-end completion rather than relying on a one-shot model benchmark.
 - Evaluate proactive coding agents on insight policy as well as patch completion: the agent should choose when to notify, ask, draft, or stay silent based on evidence such as bug clusters, flaky-test history, incidents, dependency risk, and reviewer-comment trends.
 - For AI-assisted delivery, treat generation, tests, bundling, deployment, and backing-resource provisioning as one execution path; an editor plugin alone is not the adoption unit when the agent is expected to reach production-ready state.

@@ -197,6 +197,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - voice is the primary action surface rather than a thin UI layer
   - session context, tool transparency, and multilingual turn-taking must stay inside one runtime
   - pricing and latency must be evaluated in audio-token or per-minute terms, not only text-token terms
+- Computer-use runtimes are strongest when:
+  - screen-driving is integrated with the same model/tool loop as function calling, search grounding, identity, and enterprise policy
+  - browser, mobile, and desktop action traces can be audited with confirmation thresholds, screenshot retention, PII controls, and rollback expectations
+  - legacy or UI-only workflows matter enough to justify the higher state-tracking and security cost versus structured APIs
 - Payment-native agent runtimes are strongest when:
   - agents need to purchase data feeds, APIs, or MCP services inside the execution loop
   - budget limits, transaction traces, and wallet scope should be enforced by the runtime rather than handwritten into each app
