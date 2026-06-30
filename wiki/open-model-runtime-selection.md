@@ -55,6 +55,12 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Agentic RL releases need reward-hacking and tool-use guards in the acceptance checklist; risky tool calls should be detected, blocked, logged, and tested without collapsing the whole rollout.
 - MIT-licensed long-context weights are most useful when local or self-hosted deployment, data residency, vLLM or SGLang compatibility, and auditability are product requirements rather than nice-to-have options.
 
+## OlmoLogic Signal
+
+- OlmoLogic adds a verifier-trained reasoning signal for open models: domain-specific reward sources such as interpreters, solvers, simulators, compilers, theorem provers, or rule engines can matter more than scaling a general assistant when the workflow has mechanically checkable answers.
+- Treat verifier-backed RLVR checkpoints as task-specialized runtimes, not general replacements; route symbolic logic, policy-rule, SQL, security reproduction, or simulation-heavy work to them only when the product can preserve the same oracle in evaluation.
+- Require reward-hacking checks, general-chat regression tests, and checkpoint separation before promoting a verifier-trained model into a broad assistant lane.
+
 ## Decision Rule For This Wiki
 
 - Start with a local model when:
@@ -245,6 +251,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the workflow depends on choosing actions across state transitions, not only generating text, image, or video
   - gameplay, simulation, robotics, browser, or enterprise-workflow trajectories provide reliable action/reward labels
   - rollout safety can be tested before tool calls, actuators, or workflow side effects reach production systems
+- Verifier-trained reasoning runtimes are strongest when:
+  - the task has an executable oracle such as Prolog, SQL, a compiler, a simulator, a solver, or an exploit reproduction harness
+  - model improvement can be measured by execution results instead of judge-model preference or explanation quality
+  - task-specialized checkpoints can stay separate from the general assistant runtime and carry reward-hacking regression tests
 - Long-context open-weight runtimes are strongest when:
   - repository or corpus-scale context genuinely reduces task failure instead of hiding weak retrieval
   - context packing, compaction, tool-call audit, reward-hacking controls, and cost-per-task are measured in the target agent loop
