@@ -54,12 +54,19 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Sparse attention and speculative decoding claims are runtime evidence only if they lower prefill, KV-cache, and batch-size-one latency enough for real repo-scale agent loops.
 - Agentic RL releases need reward-hacking and tool-use guards in the acceptance checklist; risky tool calls should be detected, blocked, logged, and tested without collapsing the whole rollout.
 - MIT-licensed long-context weights are most useful when local or self-hosted deployment, data residency, vLLM or SGLang compatibility, and auditability are product requirements rather than nice-to-have options.
+- Cyber or security-specific benchmark wins should be routed as harness signals, not general model superiority claims; require the prompt-only setup, exploitability criteria, affected-version evidence, and false-positive handling to match the target security workflow before switching the default runtime.
 
 ## OlmoLogic Signal
 
 - OlmoLogic adds a verifier-trained reasoning signal for open models: domain-specific reward sources such as interpreters, solvers, simulators, compilers, theorem provers, or rule engines can matter more than scaling a general assistant when the workflow has mechanically checkable answers.
 - Treat verifier-backed RLVR checkpoints as task-specialized runtimes, not general replacements; route symbolic logic, policy-rule, SQL, security reproduction, or simulation-heavy work to them only when the product can preserve the same oracle in evaluation.
 - Require reward-hacking checks, general-chat regression tests, and checkpoint separation before promoting a verifier-trained model into a broad assistant lane.
+
+## Evaluation Metadata Signal
+
+- Treat benchmark results as structured evidence, not screenshots: record benchmark ID, model version, source, evaluator relationship, prompt template, generation config, metric direction, aggregate score, and sample-level traces when a result influences runtime selection.
+- Prefer evaluation stores or schemas that make provenance queryable across provider claims, third-party reproductions, local evals, and leaderboard imports; this reduces cherry-picking risk and makes later audits possible.
+- When internal evals become part of model routing, require reproducible metadata such as temperature, top-p, max tokens, run date, harness version, and lower-is-better semantics before comparing two runtimes.
 
 ## Decision Rule For This Wiki
 
@@ -89,6 +96,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For internet-exposed AI endpoints, compare per-request abuse defense, anomaly telemetry, and cost caps alongside model price; session-level auth is too weak when an attacker can resell high-cost inference through many accounts or proxies.
 - Prefer runtimes or gateways that can verify the current request inside the route handler, not only at login time, when prompts, model choice, or token volume are user-controlled.
 - For enterprise coding suites, score model lifecycle policy before headline quality: LTS duration, default-model pinning, fallback behavior, deprecation windows, and premium-request multipliers can matter more than one benchmark tier when approval latency and cost control dominate adoption.
+- Treat identity verification, export-control vetting, and account-level model eligibility as runtime availability signals; a frontier model that can disappear behind user or jurisdiction checks needs a documented fallback lane, especially for automation and global teams.
 - For large-scale agent products, treat reserved capacity, power availability, and accelerator-architecture lock-in as runtime signals alongside model quality; a nominally better model can still lose if procurement or regional supply cannot hold the workload.
 - For large-scale hosted deployment, score grid-connected power, site readiness, cooling density, and data-center execution partners alongside reserved capacity; AI-factory rollout speed can matter more than nominal accelerator access.
 - For AI-factory or sovereign capacity plans, include rack-level supply, liquid-cooling readiness, power-distribution gear, energy-price exposure, carbon reporting, and data-localization constraints; cloud region availability alone under-describes deployment risk.
@@ -124,6 +132,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - When agents may buy tools, APIs, or MCP-backed resources during execution, compare runtimes on spend governance, wallet or identity binding, transaction observability, and approval hooks rather than treating payment as app-layer glue.
 - For open-weight deployment, compare structural safety scans, checkpoint provenance, and release-gate automation alongside benchmark quality; prompt-response evals alone are too slow and too gameable for supply-chain screening.
 - When choosing a quantized local runtime, measure whether safety or refusal fingerprints drift materially after quantization instead of assuming smaller weights automatically break the deployment gate.
+- For vertical app-builder or coding platforms, compare domain-owned models against frontier-model wrappers on total task economics: latency, inference cost, app-generation completion rate, code portability, data-flywheel rights, reviewability, and vendor lock-in matter more than a generic coding score.
 - For agent infrastructure planning, score control-plane CPU throughput, memory bandwidth, sandbox density, and energy efficiency alongside accelerator specs; orchestration, tool calling, and long-context state management can bottleneck on CPU or memory systems before raw GPU inference does.
 - For private or enterprise inference clusters, capacity-plan agent workloads against host CPU saturation, NIC or east-west traffic limits, session memory pressure, rack power density, and throughput per watt; GPU utilization alone can hide the real bottleneck.
 - For campaign-operation or bidding workloads, compare inference latency, data locality, attribution quality, auditability, and GPU-hour efficiency alongside model quality; revenue-linked agent loops fail when serving cost or real-time constraints are treated as creative-tool afterthoughts.
@@ -227,6 +236,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - answer correctness can be mechanically checked against source data, calculations, or policy rules
   - citations, lineage, and audit trails are product requirements rather than nice-to-have explanations
   - reducing model burden with deterministic checks matters more than buying a stronger first-pass reasoner
+- Eval-metadata runtimes are strongest when:
+  - model choice depends on comparing many benchmark sources with different evaluator incentives
+  - provenance, generation config, metric semantics, and sample-level traces are needed for audit
+  - the team needs to debug whether a routing change came from model quality, harness settings, or benchmark drift
 - Hardware-portable local runtimes are strongest when:
   - the team has mixed AMD, Intel, NVIDIA, Apple, or edge hardware
   - GGUF or equivalent package formats let one model chain move across devices

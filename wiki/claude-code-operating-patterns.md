@@ -137,6 +137,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `serverInstructions` should describe the real task surface in operator language, not generic transport details.
 - Prefer HTTP transport for OAuth-backed SaaS MCP servers and stdio for local tools, local credentials, or environment-bound services.
 - For private internal MCP tools, prefer outbound-only tunnel patterns over public endpoints or inbound firewall openings when the platform supports them.
+- Treat vendor-hosted MCP endpoints as product surfaces, not only transport shortcuts: check OAuth scope, token cache location, rate limits, write permissions, and audit logs before letting a social, SaaS, or data-platform MCP server into the default tool set.
+- Split read-only MCP access from user-context write access when a platform offers both; search, docs, and trend reads can often use narrower app credentials, while posting, bookmark, account, or mutation actions need explicit user delegation and abuse controls.
 - Before adopting a managed agent runtime for day-to-day work, check where tool execution runs, where files persist, how secrets are injected, and which audit log owns the action.
 - Use `project` scope for team-shared MCP contracts and reserve `user` or `local` scope for personal credentials, machine-specific servers, or experiments that should not silently change the repo default.
 - `-s local` writes machine-local defaults to `.claude/settings.local.json`.
