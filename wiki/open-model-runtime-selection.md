@@ -145,6 +145,9 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For reliability-sensitive products, compare harness strength before model size: deterministic validators, dataset checks, citations, audit trails, fallback rules, and correction-loop latency can let weaker or local models satisfy workflows that frontier-only routing would make too expensive.
 - For coding agents, treat low-batch latency and model-runtime co-design as selection criteria, not only benchmark score; small coding models can be useful as fast review, candidate-generation, or test-fix substrates when single-request turnaround dominates total workflow time.
 - For latency-first coding models, verify serving topology before adoption: synchronization overhead, warm-start behavior, tokenizer or license constraints, inference-engine dependency, and tokens/sec/request under batch-size-one conditions can decide whether the model actually improves the agent loop.
+- For privacy-native hosted platforms, verify data-retention policy, logging surface, model-routing path, subcontractor exposure, payment or token economics, abuse controls, and API isolation before treating the provider as a safer alternative to enterprise gateways or self-hosted open models.
+- Treat privacy claims as runtime contracts rather than brand positioning; API customers need retention, routing, audit, and abuse-monitoring guarantees that can be mapped to SLA and compliance obligations.
+- When a new hosted model tier is summarized only as "stronger" or "best for coding", do not change the default runtime until availability, pricing, context limits, latency, eligibility gates, tool compatibility, and workflow evals are concrete.
 - For MoE fine-tuning, compare post-training infrastructure before headline parameter count: expert parallelism, communication overlap, memory pressure, checkpoint export format, and vLLM or SGLang deployment compatibility decide whether customization remains operable after training.
 - For modality-specific models, require acceptance gates that mirror the product environment: image generation needs style-control, prompt-expansion, reference-leakage, text-rendering, license, and fine-tuning checks, while voice agents need target-room acoustics, noise, overlap speech, latency, and real-time-factor tests rather than clean benchmark scores alone.
 - For on-device LLM adoption, verify NPU graph coverage before treating a small model as product-ready: prefill, decode, embeddings, and lm-head should stay on the target accelerator, with explicit CPU-fallback policy, quantization path, power profile, thermal behavior, and device QA matrix.
@@ -228,6 +231,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - agents need short-lived GPU or TPU jobs for fine-tuning, evaluation, preprocessing, or artifact generation
   - local repo context must stay connected to remote execution, logs, and downloadable outputs
   - fixed accelerator clusters would add more procurement and idle-capacity cost than the workflow justifies
+- Capacity-resale runtimes are strongest when:
+  - large AI infrastructure holders can expose unused GPU capacity or model access as an external cloud product
+  - workload portability, multi-cloud inference, egress cost, and contract flexibility are measured alongside model quality
+  - vendor concentration risk is tracked across both the model API provider and the underlying compute supplier
 - Ephemeral serving runtimes are strongest when:
   - teams need disposable OpenAI-compatible endpoints for tests, evals, batch generation, or prompt regression
   - GPU cost should be metered by short job lifetime rather than reserved serving capacity

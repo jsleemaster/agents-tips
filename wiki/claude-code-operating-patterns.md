@@ -125,6 +125,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - Reuse the same repository or organization push-protection policy inside the local agent loop so secret detection does not drift between local generation, push, and server-side enforcement.
 - Treat AI SDKs, agent CLIs, and plugin packages as a supply-chain boundary, not a convenience dependency: pin versions, audit lockfiles and provenance, and check whether any laptop, CI runner, or image pulled a compromised release window.
 - When a vendor publishes a package advisory, rebuild dependency caches and container images from clean artifacts and rotate any credentials that may have been exposed; uninstalling the package alone is not a sufficient incident response.
+- For privacy-sensitive Claude Code diagnostics, distinguish verified vendor telemetry from community observations about request markers or fingerprints; inspect the current binary, version, configured API base URL, timezone, logs, and documented telemetry before turning a claim into policy.
+- Treat request fingerprinting and hidden-marker reports as anti-abuse and privacy-review signals, not as day-to-day evasion instructions; the durable action is to document what metadata leaves the machine and choose the appropriate official, proxy, or self-hosted boundary for the workflow.
 
 ## MCP Guidance
 
