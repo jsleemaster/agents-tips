@@ -98,6 +98,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For enterprise coding suites, score model lifecycle policy before headline quality: LTS duration, default-model pinning, fallback behavior, deprecation windows, and premium-request multipliers can matter more than one benchmark tier when approval latency and cost control dominate adoption.
 - Treat identity verification, export-control vetting, and account-level model eligibility as runtime availability signals; a frontier model that can disappear behind user or jurisdiction checks needs a documented fallback lane, especially for automation and global teams.
 - For large-scale agent products, treat reserved capacity, power availability, and accelerator-architecture lock-in as runtime signals alongside model quality; a nominally better model can still lose if procurement or regional supply cannot hold the workload.
+- For dedicated inference clusters, compare workload mix, prefill/decode ratio, memory movement, toolchain lock-in, supply risk, cooling, and GPU-baseline migration cost before treating a transformer ASIC or rack-scale accelerator as a runtime upgrade.
 - For large-scale hosted deployment, score grid-connected power, site readiness, cooling density, and data-center execution partners alongside reserved capacity; AI-factory rollout speed can matter more than nominal accelerator access.
 - For AI-factory or sovereign capacity plans, include rack-level supply, liquid-cooling readiness, power-distribution gear, energy-price exposure, carbon reporting, and data-localization constraints; cloud region availability alone under-describes deployment risk.
 - Prefer runtimes with native webhooks, retry semantics, and idempotent completion events when the workload includes long-running batch, research, or generation jobs; polling-heavy APIs create orchestration debt even when the base model is strong.
@@ -124,6 +125,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For local multimodal agents, compare the full pipeline footprint, not just model weights: separate image or audio encoders can erase the memory and latency advantage of a small backbone.
 - For high-volume AI products, evaluate the routing layer as a control plane rather than a convenience wrapper: task-class routing, fallback policy, outage handling, latency envelopes, and spend ceilings can matter as much as the default model choice.
 - Treat model marketplaces and routers as runtime candidates when they expose enough cost observability, provider health, and governance to prevent a single-model dependency from turning into an outage or margin risk.
+- Treat standalone model-catalog APIs as deprecation-prone integration points unless brownout windows, migration targets, BYOK continuity, request logging, fallback routing, and cost controls are documented outside the vendor UI.
 - For agentic products with many subcalls per user request, optimize routing economics before fine-tuning prompts endlessly; cheaper intermediate models, expensive final reasoners, and explicit fallback ladders can change unit economics more than a small benchmark gain.
 - For local open-model deployment, score runtime portability alongside model quality: GGUF compatibility, llama.cpp integration, and Vulkan-backed GPU paths can matter more than a small benchmark delta when AMD, Intel, and NVIDIA hardware coexist.
 - Treat Ollama-style runtime updates as deployment-surface signals when they widen model-family support, quantization paths, or default GPU acceleration; they reduce switching cost even when they do not change the underlying model.
@@ -151,6 +153,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For MoE fine-tuning, compare post-training infrastructure before headline parameter count: expert parallelism, communication overlap, memory pressure, checkpoint export format, and vLLM or SGLang deployment compatibility decide whether customization remains operable after training.
 - For modality-specific models, require acceptance gates that mirror the product environment: image generation needs style-control, prompt-expansion, reference-leakage, text-rendering, license, and fine-tuning checks, while voice agents need target-room acoustics, noise, overlap speech, latency, and real-time-factor tests rather than clean benchmark scores alone.
 - For on-device LLM adoption, verify NPU graph coverage before treating a small model as product-ready: prefill, decode, embeddings, and lm-head should stay on the target accelerator, with explicit CPU-fallback policy, quantization path, power profile, thermal behavior, and device QA matrix.
+- For mobile or sideloaded AI runtimes, treat app-store verification, signing-key registration, country rollout, installer UX, telemetry exposure, and execution blocking as runtime availability signals, not only distribution policy.
 - For action or world-model startups, evaluate the training substrate separately from video-generation quality: action-label fidelity, environment diversity, simulator-to-real transfer, evaluation tasks, API availability, safety boundaries, and compute economics decide whether the model can operate tools, robots, browsers, or enterprise workflows.
 
 ## Current Recommendation
@@ -235,6 +238,14 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - large AI infrastructure holders can expose unused GPU capacity or model access as an external cloud product
   - workload portability, multi-cloud inference, egress cost, and contract flexibility are measured alongside model quality
   - vendor concentration risk is tracked across both the model API provider and the underlying compute supplier
+- Dedicated accelerator runtimes are strongest when:
+  - traffic traces show stable transformer-inference demand rather than broad model-architecture churn
+  - prefill, decode, memory bandwidth, interconnect, cooling, and power density are measured as one rack-level system
+  - compiler/runtime integration, observability, support response, supply schedule, and fallback GPU capacity are validated before migration
+- Model-catalog API runtimes are strongest when:
+  - the product needs fast evaluation or prototypes more than durable production coupling
+  - provider abstraction, BYOK handling, brownout testing, and retirement migration are already owned by an internal gateway
+  - Copilot-style workflow surfaces or cloud AI platforms are evaluated separately from raw endpoint convenience
 - Ephemeral serving runtimes are strongest when:
   - teams need disposable OpenAI-compatible endpoints for tests, evals, batch generation, or prompt regression
   - GPU cost should be metered by short job lifetime rather than reserved serving capacity
