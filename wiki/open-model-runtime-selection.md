@@ -99,6 +99,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Treat identity verification, export-control vetting, and account-level model eligibility as runtime availability signals; a frontier model that can disappear behind user or jurisdiction checks needs a documented fallback lane, especially for automation and global teams.
 - For large-scale agent products, treat reserved capacity, power availability, and accelerator-architecture lock-in as runtime signals alongside model quality; a nominally better model can still lose if procurement or regional supply cannot hold the workload.
 - For dedicated inference clusters, compare workload mix, prefill/decode ratio, memory movement, toolchain lock-in, supply risk, cooling, and GPU-baseline migration cost before treating a transformer ASIC or rack-scale accelerator as a runtime upgrade.
+- For first-party custom inference chips, separate strategic supply control from product runtime value: memory bandwidth, serving-engine integration, workload stability, fallback GPU capacity, benchmark transparency, and vendor lock-in determine whether a custom ASIC improves the agent loop.
 - For large-scale hosted deployment, score grid-connected power, site readiness, cooling density, and data-center execution partners alongside reserved capacity; AI-factory rollout speed can matter more than nominal accelerator access.
 - For AI-factory or sovereign capacity plans, include rack-level supply, liquid-cooling readiness, power-distribution gear, energy-price exposure, carbon reporting, and data-localization constraints; cloud region availability alone under-describes deployment risk.
 - Prefer runtimes with native webhooks, retry semantics, and idempotent completion events when the workload includes long-running batch, research, or generation jobs; polling-heavy APIs create orchestration debt even when the base model is strong.
@@ -152,6 +153,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - When a new hosted model tier is summarized only as "stronger" or "best for coding", do not change the default runtime until availability, pricing, context limits, latency, eligibility gates, tool compatibility, and workflow evals are concrete.
 - For MoE fine-tuning, compare post-training infrastructure before headline parameter count: expert parallelism, communication overlap, memory pressure, checkpoint export format, and vLLM or SGLang deployment compatibility decide whether customization remains operable after training.
 - For modality-specific models, require acceptance gates that mirror the product environment: image generation needs style-control, prompt-expansion, reference-leakage, text-rendering, license, and fine-tuning checks, while voice agents need target-room acoustics, noise, overlap speech, latency, and real-time-factor tests rather than clean benchmark scores alone.
+- For document-AI models, route on ingestion fidelity as much as model quality: block classification, bounding boxes, confidence scores, language coverage, self-hosting availability, and cost per 1,000 pages decide whether the runtime can support grounded RAG or regulated document workflows.
 - For on-device LLM adoption, verify NPU graph coverage before treating a small model as product-ready: prefill, decode, embeddings, and lm-head should stay on the target accelerator, with explicit CPU-fallback policy, quantization path, power profile, thermal behavior, and device QA matrix.
 - For mobile or sideloaded AI runtimes, treat app-store verification, signing-key registration, country rollout, installer UX, telemetry exposure, and execution blocking as runtime availability signals, not only distribution policy.
 - For action or world-model startups, evaluate the training substrate separately from video-generation quality: action-label fidelity, environment diversity, simulator-to-real transfer, evaluation tasks, API availability, safety boundaries, and compute economics decide whether the model can operate tools, robots, browsers, or enterprise workflows.
@@ -278,6 +280,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the product failure mode is environmental mismatch rather than generic reasoning weakness
   - public leaderboards are used only for shortlist selection
   - launch gates measure the target deployment conditions directly, such as far-field audio or brand-specific image-control requirements
+- Document-ingestion runtimes are strongest when:
+  - downstream retrieval depends on layout, tables, signatures, formulas, or citation precision
+  - confidence and bounding metadata can trigger review, redaction, or source-grounded answer checks
+  - deployment needs include self-hosting, enterprise file formats, predictable page pricing, and schema-compatible output
 - Action-model runtimes are strongest when:
   - the workflow depends on choosing actions across state transitions, not only generating text, image, or video
   - gameplay, simulation, robotics, browser, or enterprise-workflow trajectories provide reliable action/reward labels

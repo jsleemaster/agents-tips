@@ -175,6 +175,10 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
   - run the test or validation loop
   - only then write durable memory
 - For browser-facing changes, do not stop at static lint or unit tests when runtime quality is the real risk; include agent-callable browser checks such as Lighthouse, viewport emulation, CPU or network throttling, and accessibility inspection in the verification loop or PR gate.
+- For IDE-embedded browser agents, require evidence from the live surface rather than only a code diff: scripted flows, console errors, screenshots, dialog handling, and permission prompts should be captured or summarized when they decide whether a change works.
+- Treat browser-agent access as a governed workspace setting: user-opened tabs should require explicit sharing, agent-opened tabs should run in isolated sessions, sensitive browser permissions need approval, and enterprise domain allow/deny rules should be documented before using the tool on internal apps.
+- For framework migration or legacy-modernization work, do not accept "builds" or agent-reported completion as the oracle; require build, deploy/startup, smoke, and behavior-preserving regression tests before calling the migration slice done.
+- Classify migration failures by layer, such as build config, dependency injection, persistence, runtime descriptor, deployment, and behavior, so repeated agent failures become test or tooling investments rather than prompt tweaks.
 - For CI failure triage, prefer a custom command that fetches the failing run, extracts logs, identifies the failing step, and proposes a patch path; CI debugging should be repeatable rather than a one-off scroll through logs.
 - For implementation-heavy tasks, prefer a test-first loop: derive failing tests from the input/output contract, keep the tests fixed while the implementation catches up, and use a separate reviewer pass or subagent to check that the code is not merely overfitting the test cases.
 - In a strict TDD lane, commit or otherwise lock the failing tests before implementation so the contract cannot quietly drift during the coding pass.
