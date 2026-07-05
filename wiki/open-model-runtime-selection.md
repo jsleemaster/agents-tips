@@ -55,6 +55,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Agentic RL releases need reward-hacking and tool-use guards in the acceptance checklist; risky tool calls should be detected, blocked, logged, and tested without collapsing the whole rollout.
 - MIT-licensed long-context weights are most useful when local or self-hosted deployment, data residency, vLLM or SGLang compatibility, and auditability are product requirements rather than nice-to-have options.
 - Cyber or security-specific benchmark wins should be routed as harness signals, not general model superiority claims; require the prompt-only setup, exploitability criteria, affected-version evidence, and false-positive handling to match the target security workflow before switching the default runtime.
+- GLM-class open-weight serving on non-NVIDIA accelerators should be evaluated as model plus software stack: ROCm image maturity, SGLang or vLLM support, quantization fidelity, speculative-decode enablement, MoE kernel selection, cache hit ratio, TTFT, RPS, and multi-node stability decide whether lower hardware cost is real.
 
 ## OlmoLogic Signal
 
@@ -138,6 +139,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For vertical app-builder or coding platforms, compare domain-owned models against frontier-model wrappers on total task economics: latency, inference cost, app-generation completion rate, code portability, data-flywheel rights, reviewability, and vendor lock-in matter more than a generic coding score.
 - For agent infrastructure planning, score control-plane CPU throughput, memory bandwidth, sandbox density, and energy efficiency alongside accelerator specs; orchestration, tool calling, and long-context state management can bottleneck on CPU or memory systems before raw GPU inference does.
 - For private or enterprise inference clusters, capacity-plan agent workloads against host CPU saturation, NIC or east-west traffic limits, session memory pressure, rack power density, and throughput per watt; GPU utilization alone can hide the real bottleneck.
+- For AMD or other CUDA-alternative inference lanes, treat single-node benchmark wins as trial evidence rather than fleet readiness; require multi-node networking, observability, failure recovery, framework patch ownership, and workload-specific cache and quantization tests before routing production agent traffic.
 - For campaign-operation or bidding workloads, compare inference latency, data locality, attribution quality, auditability, and GPU-hour efficiency alongside model quality; revenue-linked agent loops fail when serving cost or real-time constraints are treated as creative-tool afterthoughts.
 - When a vendor promises autonomous improvement, compare how fast production traces can turn into evals, rollback signals, and post-training updates; a short training-to-inference feedback loop can matter more than a marginal inference-price win once the agent is live.
 - For enterprise coding-agent selection, compare review latency, handoff quality, CI or rollback fit, and governance compatibility alongside benchmark quality; adoption often fails on orchestration economics before it fails on model capability.
@@ -264,6 +266,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the team has mixed AMD, Intel, NVIDIA, Apple, or edge hardware
   - GGUF or equivalent package formats let one model chain move across devices
   - common runtime support matters more than a vendor-specific peak-throughput path
+- CUDA-alternative serving runtimes are strongest when:
+  - open-weight or self-hosted workloads are cache-friendly enough for tuned ROCm or equivalent stacks to matter
+  - quantization, speculative decoding, and MoE kernels preserve task quality under the target prompt and output mix
+  - the team can own framework patches, fallback capacity, and multi-node operations instead of treating lower accelerator price as the whole business case
 - On-device NPU runtimes are strongest when:
   - privacy, offline operation, thermal limits, and interaction latency matter more than frontier benchmark quality
   - the full inference path can stay on the target accelerator without hidden CPU fallback
