@@ -63,11 +63,18 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Treat verifier-backed RLVR checkpoints as task-specialized runtimes, not general replacements; route symbolic logic, policy-rule, SQL, security reproduction, or simulation-heavy work to them only when the product can preserve the same oracle in evaluation.
 - Require reward-hacking checks, general-chat regression tests, and checkpoint separation before promoting a verifier-trained model into a broad assistant lane.
 
+## Formal Proof-Engineering Signal
+
+- Open proof-engineering models matter when the model is coupled to the theorem prover, repository files, compiler or LSP feedback, and long proof-search loop rather than only a math leaderboard.
+- Compare proof success with property quality: a model can prove the wrong invariant, miss the useful invariant, or produce a failed proof that is still a valuable reviewer signal.
+- Start formal-verification runtimes on narrow code with clear invariants such as parsers, serialization, arithmetic, crypto-adjacent utilities, and payment calculations before treating them as broad coding-agent replacements.
+
 ## Evaluation Metadata Signal
 
 - Treat benchmark results as structured evidence, not screenshots: record benchmark ID, model version, source, evaluator relationship, prompt template, generation config, metric direction, aggregate score, and sample-level traces when a result influences runtime selection.
 - Prefer evaluation stores or schemas that make provenance queryable across provider claims, third-party reproductions, local evals, and leaderboard imports; this reduces cherry-picking risk and makes later audits possible.
 - When internal evals become part of model routing, require reproducible metadata such as temperature, top-p, max tokens, run date, harness version, and lower-is-better semantics before comparing two runtimes.
+- Domain research benchmarks are most useful when they test messy data, target estimands, analysis-path choice, structured final answers, deterministic scoring, and expert-reviewed examples; low pass rates should be routed as automation-boundary evidence, not as a reason to replace expert review.
 
 ## Decision Rule For This Wiki
 
@@ -121,6 +128,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - When a vendor exposes declarative agent manifests such as `AGENTS.md` or `SKILL.md`-style runtime customization, treat that as a runtime signal rather than documentation polish; versionable execution defaults usually scale better than prompt-only setup once agents move across desktop, CLI, mobile, and cloud surfaces.
 - If a coding agent product suddenly degrades, check runtime defaults before swapping models: reasoning-effort changes, stale-session retention bugs, compaction policy, and prompt-layer edits can produce larger regressions than the underlying API model.
 - Prefer realtime runtimes when the product is voice-first and needs session memory, interruption recovery, parallel tool calls, and live translation inside one loop rather than as separate stitched services.
+- For gateway-mediated voice agents, require short-lived client tokens, provider-key separation, session lifecycle controls, audio-token or per-minute cost attribution, observability, BYOK or fallback behavior, and spend limits in the same routing plane as text calls.
 - When a vendor runtime is distributed through an existing cloud control plane, score procurement convenience and security-boundary reality separately; shared IAM, billing, and audit logs do not automatically mean the model executes inside the same boundary.
 - For sovereign or regulated workloads, evaluate deployment topology as a first-class runtime dimension: on-prem or dedicated hardware options, local zones, private fine-tuning boundaries, operator-access guarantees, and local-language model availability can outweigh raw benchmark wins.
 - For laptop-class or edge-local routing, compare active parameter count, mixed quantization scheme, memory bandwidth, and usable tokens/sec before assuming a hardware refresh is required; architecture changes can move the local-feasibility line faster than device cycles.
@@ -222,6 +230,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - voice is the primary action surface rather than a thin UI layer
   - session context, tool transparency, and multilingual turn-taking must stay inside one runtime
   - pricing and latency must be evaluated in audio-token or per-minute terms, not only text-token terms
+  - browser credentials, provider keys, spend controls, and realtime observability can be kept in one governed control plane
 - Computer-use runtimes are strongest when:
   - screen-driving is integrated with the same model/tool loop as function calling, search grounding, identity, and enterprise policy
   - browser, mobile, and desktop action traces can be audited with confirmation thresholds, screenshot retention, PII controls, and rollback expectations
@@ -258,6 +267,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - answer correctness can be mechanically checked against source data, calculations, or policy rules
   - citations, lineage, and audit trails are product requirements rather than nice-to-have explanations
   - reducing model burden with deterministic checks matters more than buying a stronger first-pass reasoner
+  - the domain task can preserve dataset QC, target estimand, allowed tools, analysis-path trace, and expert review as part of the harness
 - Eval-metadata runtimes are strongest when:
   - model choice depends on comparing many benchmark sources with different evaluator incentives
   - provenance, generation config, metric semantics, and sample-level traces are needed for audit
@@ -298,6 +308,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the task has an executable oracle such as Prolog, SQL, a compiler, a simulator, a solver, or an exploit reproduction harness
   - model improvement can be measured by execution results instead of judge-model preference or explanation quality
   - task-specialized checkpoints can stay separate from the general assistant runtime and carry reward-hacking regression tests
+- Proof-engineering runtimes are strongest when:
+  - correctness properties are small enough for humans to inspect before they become gates
+  - theorem-prover feedback, file edits, compiler output, and counterexample evidence remain attached to the run
+  - proof failures are treated as review signals until the property source, false-positive rate, and maintenance burden are understood
 - Long-context open-weight runtimes are strongest when:
   - repository or corpus-scale context genuinely reduces task failure instead of hiding weak retrieval
   - context packing, compaction, tool-call audit, reward-hacking controls, and cost-per-task are measured in the target agent loop
