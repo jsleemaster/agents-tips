@@ -56,6 +56,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - MIT-licensed long-context weights are most useful when local or self-hosted deployment, data residency, vLLM or SGLang compatibility, and auditability are product requirements rather than nice-to-have options.
 - Cyber or security-specific benchmark wins should be routed as harness signals, not general model superiority claims; require the prompt-only setup, exploitability criteria, affected-version evidence, and false-positive handling to match the target security workflow before switching the default runtime.
 - GLM-class open-weight serving on non-NVIDIA accelerators should be evaluated as model plus software stack: ROCm image maturity, SGLang or vLLM support, quantization fidelity, speculative-decode enablement, MoE kernel selection, cache hit ratio, TTFT, RPS, and multi-node stability decide whether lower hardware cost is real.
+- Disk-streamed MoE demos on consumer machines should be treated as feasibility probes, not production-ready local routing: measure SSD random-read pressure, expert paging behavior, cache hit rate, TTFT, usable tokens/sec, context-length degradation, thermal limits, and recovery from interrupted generation before comparing them with in-memory local runtimes or hosted APIs.
 
 ## OlmoLogic Signal
 
