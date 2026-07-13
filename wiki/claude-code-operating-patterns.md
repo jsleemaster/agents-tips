@@ -86,6 +86,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 ## Review And Change Shape
 
 - Review ergonomics matter as much as code generation quality once the work leaves the main editing loop.
+- Treat LLM-output fatigue as an operating constraint: ask for verdict-first answers, changed-file anchors, evidence snippets, and explicit open questions instead of accepting long generic prose that the operator must re-read and classify.
+- When a session keeps producing padded or templated summaries, tighten the requested output shape before changing models; shorter review units, concrete citations, and clear accept/reject decisions reduce operator burnout more reliably than novelty in tone.
 - Prefer workflows that keep review threads, commit history, and file-tree context visible together so the reviewer can reason about a change without rebuilding state by hand.
 - Split oversized changes before handoff when the tool supports it; smaller PR units usually improve both human review quality and agent retry behavior.
 

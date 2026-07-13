@@ -67,6 +67,8 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 ## Formal Proof-Engineering Signal
 
 - Open proof-engineering models matter when the model is coupled to the theorem prover, repository files, compiler or LSP feedback, and long proof-search loop rather than only a math leaderboard.
+- Treat claimed AI-generated proof breakthroughs as proof-review workloads, not model-selection proof by headline: require the artifact, exact theorem statement, checker or expert-review status, reproducible prompt/tool trace, wall-clock budget, and failed-attempt policy before changing runtime defaults.
+- Long proof or research harnesses need explicit elapsed-time and timeout semantics; if the agent cannot observe wall-clock time, subprocess duration, or stop conditions, "spent enough time" is not reliable evaluation evidence.
 - Compare proof success with property quality: a model can prove the wrong invariant, miss the useful invariant, or produce a failed proof that is still a valuable reviewer signal.
 - Start formal-verification runtimes on narrow code with clear invariants such as parsers, serialization, arithmetic, crypto-adjacent utilities, and payment calculations before treating them as broad coding-agent replacements.
 
