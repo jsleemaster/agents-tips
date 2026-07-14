@@ -116,6 +116,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Prefer runtimes with native webhooks, retry semantics, and idempotent completion events when the workload includes long-running batch, research, or generation jobs; polling-heavy APIs create orchestration debt even when the base model is strong.
 - For multi-agent or long-lived sessions, compare runtimes on cache hit rate, compaction behavior, and token-per-task economics, not just price per million tokens.
 - For coding-agent suites with usage-based billing, model cost as token volume plus adjacent automation meters such as CI or code-review minutes; require pooled budgets, admin caps, model-routing policy, and heavy-user guardrails before expanding autonomous workflows.
+- When comparing coding-agent CLIs or harnesses, measure the actual pre-prompt payload at the API boundary before changing defaults; command files, MCP schemas, subagent fan-out, gateway wrappers, cache writes, and reasoning toggles can dominate token cost independently of model quality.
 - For coding assistants that span IDE, CLI, mobile, web chat, PR review, and issue triage surfaces, route by surface and risk: small purpose-built coding models fit repetitive local edits, short questions, and lightweight reviews, while architecture decisions, security-sensitive code, repo-scale reasoning, and long task execution still need stronger models plus verification loops.
 - For enterprise AI suites with credit-based usage, require product/model/user attribution, workspace defaults, group limits, individual overrides, user-visible remaining budget, exception-request context, and Cost API or warehouse export before treating rollout cost as governed.
 - For agent workloads with repeated long prefixes, compare distributed KV cache design, prefix reuse, and cross-instance session routing before trusting raw token/sec claims; serving architecture can dominate model quality once sessions span dozens of turns.
@@ -157,6 +158,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - When a vendor promises autonomous improvement, compare how fast production traces can turn into evals, rollback signals, and post-training updates; a short training-to-inference feedback loop can matter more than a marginal inference-price win once the agent is live.
 - For enterprise coding-agent selection, compare review latency, handoff quality, CI or rollback fit, and governance compatibility alongside benchmark quality; adoption often fails on orchestration economics before it fails on model capability.
 - In regulated or high-risk domains, evaluate whether the runtime ships as a mission-governed deployment program rather than a generic SKU: trusted-access gates, partner vetting, allowed-workflow scope, and domain safeguards can matter more than raw model capability.
+- For defense, public-safety, industrial, or other physical-system AI, route on deployment constraints as much as model capability: data sovereignty, offline or edge operation, network-loss behavior, hardware integration, procurement security, human final approval, audit logs, and supply-chain assurance should be requirements from the first architecture pass.
 - If agent failures mostly come from stale state, fragmented retrieval, or token-heavy context stitching, treat the context runtime as the selection problem before changing models: governed structured access, durable memory, freshness, and cache reuse can move task completion more than another benchmark tier.
 - For ML-heavy agent workflows, score whether the runtime can provision burst GPU or TPU capacity from the local terminal, execute scripts remotely, stream logs, recover artifacts, and clean up sessions without a separate MLOps bridge.
 - For short-lived model evaluation, separate ephemeral serving lanes from production serving: pay-per-second OpenAI-compatible endpoints can speed benchmark, prompt-regression, synthetic-data, and batch-labeling loops, but service traffic still needs auth, quota, autoscaling, observability, latency SLOs, and cost guardrails.
@@ -168,6 +170,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - When a new hosted model tier is summarized only as "stronger" or "best for coding", do not change the default runtime until availability, pricing, context limits, latency, eligibility gates, tool compatibility, and workflow evals are concrete.
 - For MoE fine-tuning, compare post-training infrastructure before headline parameter count: expert parallelism, communication overlap, memory pressure, checkpoint export format, and vLLM or SGLang deployment compatibility decide whether customization remains operable after training.
 - For modality-specific models, require acceptance gates that mirror the product environment: image generation needs style-control, prompt-expansion, reference-leakage, text-rendering, license, and fine-tuning checks, while voice agents need target-room acoustics, noise, overlap speech, latency, and real-time-factor tests rather than clean benchmark scores alone.
+- For tool-using media-generation runtimes, compare the whole inference loop: search grounding, code execution isolation, test-time compute budget, retry strategy, provenance or watermark preservation, edit history, and prompt-to-asset latency matter more than a single leaderboard rank.
 - For document-AI models, route on ingestion fidelity as much as model quality: block classification, bounding boxes, confidence scores, language coverage, self-hosting availability, and cost per 1,000 pages decide whether the runtime can support grounded RAG or regulated document workflows.
 - For on-device LLM adoption, verify NPU graph coverage before treating a small model as product-ready: prefill, decode, embeddings, and lm-head should stay on the target accelerator, with explicit CPU-fallback policy, quantization path, power profile, thermal behavior, and device QA matrix.
 - For mobile or sideloaded AI runtimes, treat app-store verification, signing-key registration, country rollout, installer UX, telemetry exposure, and execution blocking as runtime availability signals, not only distribution policy.
@@ -240,6 +243,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - screen-driving is integrated with the same model/tool loop as function calling, search grounding, identity, and enterprise policy
   - browser, mobile, and desktop action traces can be audited with confirmation thresholds, screenshot retention, PII controls, and rollback expectations
   - legacy or UI-only workflows matter enough to justify the higher state-tracking and security cost versus structured APIs
+  - the runtime exposes interruption, retry, and failure-state evidence instead of reporting only a nominal GUI-task success rate
 - Payment-native agent runtimes are strongest when:
   - agents need to purchase data feeds, APIs, or MCP services inside the execution loop
   - budget limits, transaction traces, and wallet scope should be enforced by the runtime rather than handwritten into each app
@@ -301,6 +305,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the product failure mode is environmental mismatch rather than generic reasoning weakness
   - public leaderboards are used only for shortlist selection
   - launch gates measure the target deployment conditions directly, such as far-field audio or brand-specific image-control requirements
+  - the generation loop can preserve provenance, watermark, tool-call, and retry evidence through editing and distribution
 - Document-ingestion runtimes are strongest when:
   - downstream retrieval depends on layout, tables, signatures, formulas, or citation precision
   - confidence and bounding metadata can trigger review, redaction, or source-grounded answer checks

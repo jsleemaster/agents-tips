@@ -51,6 +51,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - `/security-review` when the task needs a dedicated vulnerability pass instead of informal caution.
 - `/context` to inspect token pressure instead of guessing.
 - `/cost` when a workflow is drifting into expensive territory.
+- When cost or latency suddenly looks wrong, inspect the request envelope rather than only the visible prompt: command files, MCP schemas, subagent lanes, gateway wrappers, cache writes, and hidden harness defaults can all add pre-prompt token load.
+- Treat third-party token-overhead comparisons as prompts for local measurement, not direct policy; reproduce with current versions, the same model, a calibrated gateway baseline, and confirmed reasoning/cache settings before changing the default CLI.
 - `/fork` or `/resume` when the value is preserving a branch of thinking, not one continuously growing session.
 - `/teleport` when a useful remote or cloud session should be continued locally instead of recreated from scratch.
 - `/pr-comments`, `/plugin`, and `/skills` are the direct surfaces for review feedback intake, plugin inventory, and skill discovery.
@@ -129,6 +131,8 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - When a vendor publishes a package advisory, rebuild dependency caches and container images from clean artifacts and rotate any credentials that may have been exposed; uninstalling the package alone is not a sufficient incident response.
 - For privacy-sensitive Claude Code diagnostics, distinguish verified vendor telemetry from community observations about request markers or fingerprints; inspect the current binary, version, configured API base URL, timezone, logs, and documented telemetry before turning a claim into policy.
 - Treat request fingerprinting and hidden-marker reports as anti-abuse and privacy-review signals, not as day-to-day evasion instructions; the durable action is to document what metadata leaves the machine and choose the appropriate official, proxy, or self-hosted boundary for the workflow.
+- For GitHub or repo-hosted agent workflows, separate public instruction channels from private code access: untrusted public issues, comments, or PR text should not be allowed to trigger private-repo reads without an allowlist, redaction boundary, and explicit cross-repo data policy.
+- Prompt-injection tests for coding agents should include cross-boundary exfiltration attempts, not only malicious files inside the target repo; the failure mode is often an apparently normal workflow that quotes private context back into a lower-trust surface.
 
 ## MCP Guidance
 
