@@ -110,6 +110,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Treat identity verification, export-control vetting, and account-level model eligibility as runtime availability signals; a frontier model that can disappear behind user or jurisdiction checks needs a documented fallback lane, especially for automation and global teams.
 - For large-scale agent products, treat reserved capacity, power availability, and accelerator-architecture lock-in as runtime signals alongside model quality; a nominally better model can still lose if procurement or regional supply cannot hold the workload.
 - For dedicated inference clusters, compare workload mix, prefill/decode ratio, memory movement, toolchain lock-in, supply risk, cooling, and GPU-baseline migration cost before treating a transformer ASIC or rack-scale accelerator as a runtime upgrade.
+- For secure on-prem inference systems, validate rack-level usable model capacity, tail latency, data-residency boundary, operations API, observability, serviceability, supply guarantees, change-control fit, and exit path before replacing cloud API routing with a dedicated vendor stack.
 - For first-party custom inference chips, separate strategic supply control from product runtime value: memory bandwidth, serving-engine integration, workload stability, fallback GPU capacity, benchmark transparency, and vendor lock-in determine whether a custom ASIC improves the agent loop.
 - For large-scale hosted deployment, score grid-connected power, site readiness, cooling density, and data-center execution partners alongside reserved capacity; AI-factory rollout speed can matter more than nominal accelerator access.
 - For AI-factory or sovereign capacity plans, include rack-level supply, liquid-cooling readiness, power-distribution gear, energy-price exposure, carbon reporting, and data-localization constraints; cloud region availability alone under-describes deployment risk.
@@ -169,6 +170,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Treat privacy claims as runtime contracts rather than brand positioning; API customers need retention, routing, audit, and abuse-monitoring guarantees that can be mapped to SLA and compliance obligations.
 - When a new hosted model tier is summarized only as "stronger" or "best for coding", do not change the default runtime until availability, pricing, context limits, latency, eligibility gates, tool compatibility, and workflow evals are concrete.
 - For MoE fine-tuning, compare post-training infrastructure before headline parameter count: expert parallelism, communication overlap, memory pressure, checkpoint export format, and vLLM or SGLang deployment compatibility decide whether customization remains operable after training.
+- For large MoE serving, split prefill and decode measurements by concurrency and topology: KV-cache placement, expert routing metadata, collective latency, HBM pressure, shardability constraints such as GQA head count, and portability into vLLM or SGLang decide whether accelerator-specific tuning is reusable or only a one-off benchmark win.
 - For modality-specific models, require acceptance gates that mirror the product environment: image generation needs style-control, prompt-expansion, reference-leakage, text-rendering, license, and fine-tuning checks, while voice agents need target-room acoustics, noise, overlap speech, latency, and real-time-factor tests rather than clean benchmark scores alone.
 - For tool-using media-generation runtimes, compare the whole inference loop: search grounding, code execution isolation, test-time compute budget, retry strategy, provenance or watermark preservation, edit history, and prompt-to-asset latency matter more than a single leaderboard rank.
 - For document-AI models, route on ingestion fidelity as much as model quality: block classification, bounding boxes, confidence scores, language coverage, self-hosting availability, and cost per 1,000 pages decide whether the runtime can support grounded RAG or regulated document workflows.
@@ -264,6 +266,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - traffic traces show stable transformer-inference demand rather than broad model-architecture churn
   - prefill, decode, memory bandwidth, interconnect, cooling, and power density are measured as one rack-level system
   - compiler/runtime integration, observability, support response, supply schedule, and fallback GPU capacity are validated before migration
+- Secure on-prem inference runtimes are strongest when:
+  - regulated or sovereign workloads need low-latency serving without sending sensitive prompts to shared cloud APIs
+  - procurement, supply-chain, serviceability, audit logging, and model-change control are evaluated with the same weight as tokens/sec
+  - the team can operate capacity planning, incident response, and fallback routing for a dedicated system lifecycle
 - Model-catalog API runtimes are strongest when:
   - the product needs fast evaluation or prototypes more than durable production coupling
   - provider abstraction, BYOK handling, brownout testing, and retirement migration are already owned by an internal gateway
