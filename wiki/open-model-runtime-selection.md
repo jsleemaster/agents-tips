@@ -173,10 +173,13 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For large MoE serving, split prefill and decode measurements by concurrency and topology: KV-cache placement, expert routing metadata, collective latency, HBM pressure, shardability constraints such as GQA head count, and portability into vLLM or SGLang decide whether accelerator-specific tuning is reusable or only a one-off benchmark win.
 - For modality-specific models, require acceptance gates that mirror the product environment: image generation needs style-control, prompt-expansion, reference-leakage, text-rendering, license, and fine-tuning checks, while voice agents need target-room acoustics, noise, overlap speech, latency, and real-time-factor tests rather than clean benchmark scores alone.
 - For tool-using media-generation runtimes, compare the whole inference loop: search grounding, code execution isolation, test-time compute budget, retry strategy, provenance or watermark preservation, edit history, and prompt-to-asset latency matter more than a single leaderboard rank.
+- For generated advertising or commercial creative, treat disclosure as a runtime output requirement: channel-level label support, watermark or provenance preservation, asset metadata, advertiser controls, claim-review hooks, brand-safety approval, and distribution logs should survive through serving and optimization.
 - For document-AI models, route on ingestion fidelity as much as model quality: block classification, bounding boxes, confidence scores, language coverage, self-hosting availability, and cost per 1,000 pages decide whether the runtime can support grounded RAG or regulated document workflows.
 - For on-device LLM adoption, verify NPU graph coverage before treating a small model as product-ready: prefill, decode, embeddings, and lm-head should stay on the target accelerator, with explicit CPU-fallback policy, quantization path, power profile, thermal behavior, and device QA matrix.
 - For mobile or sideloaded AI runtimes, treat app-store verification, signing-key registration, country rollout, installer UX, telemetry exposure, and execution blocking as runtime availability signals, not only distribution policy.
 - For action or world-model startups, evaluate the training substrate separately from video-generation quality: action-label fidelity, environment diversity, simulator-to-real transfer, evaluation tasks, API availability, safety boundaries, and compute economics decide whether the model can operate tools, robots, browsers, or enterprise workflows.
+- For wet-lab discovery or antibody-design runtimes, do not route on in-silico scores alone; compare hit-to-lead conversion, assay feedback latency, developability failure rate, experiment-data ingestion, model-update cadence, design-rationale traceability, and regulatory evidence preservation.
+- For agentic RL platforms, evaluate the environment and post-training loop as part of the runtime: task sandbox fidelity, verifier quality, reward-hacking controls, deployment telemetry, rollback signals, cost per production trace, and reproducibility should matter as much as model size or pretraining lineage.
 
 ## Current Recommendation
 
@@ -312,6 +315,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - public leaderboards are used only for shortlist selection
   - launch gates measure the target deployment conditions directly, such as far-field audio or brand-specific image-control requirements
   - the generation loop can preserve provenance, watermark, tool-call, and retry evidence through editing and distribution
+  - disclosure labels, claim review, and brand-safety approval must follow generated assets into ads, commerce, or other regulated channels
 - Document-ingestion runtimes are strongest when:
   - downstream retrieval depends on layout, tables, signatures, formulas, or citation precision
   - confidence and bounding metadata can trigger review, redaction, or source-grounded answer checks
@@ -320,6 +324,10 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - the workflow depends on choosing actions across state transitions, not only generating text, image, or video
   - gameplay, simulation, robotics, browser, or enterprise-workflow trajectories provide reliable action/reward labels
   - rollout safety can be tested before tool calls, actuators, or workflow side effects reach production systems
+- Domain-experiment runtimes are strongest when:
+  - lab, simulator, or production feedback can be converted into trusted evals and post-training data without losing provenance
+  - stage gates measure real-world conversion, failure modes, and expert review instead of only model-predicted scores
+  - experiment rationale, result lineage, and regulatory evidence stay attached to each candidate or action
 - Verifier-trained reasoning runtimes are strongest when:
   - the task has an executable oracle such as Prolog, SQL, a compiler, a simulator, a solver, or an exploit reproduction harness
   - model improvement can be measured by execution results instead of judge-model preference or explanation quality
