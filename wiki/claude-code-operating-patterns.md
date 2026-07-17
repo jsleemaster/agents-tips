@@ -92,6 +92,7 @@ This page is the compiled operating guide from the Notion pages `Claude Code 팁
 - When a session keeps producing padded or templated summaries, tighten the requested output shape before changing models; shorter review units, concrete citations, and clear accept/reject decisions reduce operator burnout more reliably than novelty in tone.
 - Prefer workflows that keep review threads, commit history, and file-tree context visible together so the reviewer can reason about a change without rebuilding state by hand.
 - Split oversized changes before handoff when the tool supports it; smaller PR units usually improve both human review quality and agent retry behavior.
+- For AI code-review agents, anchor exploration in the PR diff, measure cost per accepted finding, false positives, first-review latency, review-cycle count, and tool-trace relevance, and avoid copying diff-focused instructions into broad interactive CLI workflows where wide exploration may be necessary.
 
 ## Agent Teams Vs Subagents
 

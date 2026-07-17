@@ -142,6 +142,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For local multimodal agents, compare the full pipeline footprint, not just model weights: separate image or audio encoders can erase the memory and latency advantage of a small backbone.
 - For high-volume AI products, evaluate the routing layer as a control plane rather than a convenience wrapper: task-class routing, fallback policy, outage handling, latency envelopes, and spend ceilings can matter as much as the default model choice.
 - Treat model marketplaces and routers as runtime candidates when they expose enough cost observability, provider health, and governance to prevent a single-model dependency from turning into an outage or margin risk.
+- For custom-model platforms, compare closed frontier APIs, fine-tuned models, and open-weight serving by workload TCO rather than headline unit price: quality threshold, latency, GPU utilization, data boundary, model-update cost, evaluation set, rollback criteria, adapter or checkpoint lineage, routing rules, and production-feedback capture decide whether specialization is real.
 - Treat standalone model-catalog APIs as deprecation-prone integration points unless brownout windows, migration targets, BYOK continuity, request logging, fallback routing, and cost controls are documented outside the vendor UI.
 - For agentic products with many subcalls per user request, optimize routing economics before fine-tuning prompts endlessly; cheaper intermediate models, expensive final reasoners, and explicit fallback ladders can change unit economics more than a small benchmark gain.
 - For local open-model deployment, score runtime portability alongside model quality: GGUF compatibility, llama.cpp integration, and Vulkan-backed GPU paths can matter more than a small benchmark delta when AMD, Intel, and NVIDIA hardware coexist.
@@ -178,6 +179,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - For on-device LLM adoption, verify NPU graph coverage before treating a small model as product-ready: prefill, decode, embeddings, and lm-head should stay on the target accelerator, with explicit CPU-fallback policy, quantization path, power profile, thermal behavior, and device QA matrix.
 - For mobile or sideloaded AI runtimes, treat app-store verification, signing-key registration, country rollout, installer UX, telemetry exposure, and execution blocking as runtime availability signals, not only distribution policy.
 - For action or world-model startups, evaluate the training substrate separately from video-generation quality: action-label fidelity, environment diversity, simulator-to-real transfer, evaluation tasks, API availability, safety boundaries, and compute economics decide whether the model can operate tools, robots, browsers, or enterprise workflows.
+- For embodied-navigation runtimes, treat single-sensor benchmark gains as a deployment hypothesis, not proof: site tests should measure task success, intervention rate, near misses, route deviation, fail-safe activation, recovery time, sensor latency, lighting or crowd domain shift, and observation-action-log reproducibility before removing richer sensors or safety layers.
 - For wet-lab discovery or antibody-design runtimes, do not route on in-silico scores alone; compare hit-to-lead conversion, assay feedback latency, developability failure rate, experiment-data ingestion, model-update cadence, design-rationale traceability, and regulatory evidence preservation.
 - For agentic RL platforms, evaluate the environment and post-training loop as part of the runtime: task sandbox fidelity, verifier quality, reward-hacking controls, deployment telemetry, rollback signals, cost per production trace, and reproducibility should matter as much as model size or pretraining lineage.
 
@@ -249,6 +251,14 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
   - browser, mobile, and desktop action traces can be audited with confirmation thresholds, screenshot retention, PII controls, and rollback expectations
   - legacy or UI-only workflows matter enough to justify the higher state-tracking and security cost versus structured APIs
   - the runtime exposes interruption, retry, and failure-state evidence instead of reporting only a nominal GUI-task success rate
+- Specialized-model platforms are strongest when:
+  - enterprise data, workflow context, or latency economics justify post-training and custom serving instead of pure frontier API calls
+  - model selection, fine-tuning, inference optimization, observability, safety filters, and governance are operated as one control plane
+  - production feedback can be converted into evals, routing changes, and rollback decisions without losing dataset or checkpoint lineage
+- Embodied-navigation runtimes are strongest when:
+  - sensor simplification lowers deployment cost without hiding safety or domain-shift risk
+  - VLM grounding, control policy, map or safety layers, and fail-safe behavior are evaluated as one system
+  - field traces can connect instruction, observation frames, predicted action, intervention, and recovery outcome for audit and retraining
 - Payment-native agent runtimes are strongest when:
   - agents need to purchase data feeds, APIs, or MCP services inside the execution loop
   - budget limits, transaction traces, and wallet scope should be enforced by the runtime rather than handwritten into each app
