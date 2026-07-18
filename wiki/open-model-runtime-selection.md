@@ -48,6 +48,20 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Qwen3.6 open-weight releases add another coding-agent signal beyond the Plus API: compare repository-level reasoning, front-end workflow completion, and long-session thinking preservation before treating leaderboard score as the main adoption criterion.
 - When a model family ships its own terminal agent surface, such as Qwen Code, evaluate model and host together; adoption friction can drop when the runtime, prompts, tool loop, and workflow assumptions are co-designed.
 
+## Kimi K3 Signal
+
+- Treat Kimi K3-style "API now, weights later" releases as two separate adoption paths: hosted API evaluation can start before full-weight self-hosting, but deployment, license, serving stack, and TCO decisions should wait for the actual weight release artifact.
+- A 2.8T total-parameter MoE with 1M context should be scored by active-expert behavior, cache-hit economics, long-session recovery, tool-loop stability, and harness compatibility, not by total parameter count alone.
+- Kimi Delta Attention changes the cache question: require workflow-specific prefix-cache measurements, preserved-thinking-history behavior, and model-switch recovery tests before moving existing long-running agent sessions onto the runtime.
+- Vendor coding benchmarks that compare Kimi Code, Claude Code, Codex, or other agent shells are harness evidence, not model-only evidence; record system prompt, tool permissions, fallback policy, thinking effort, cache ratio, tool errors, and human intervention before treating the comparison as procurement input.
+
+## Inkling Signal
+
+- Inkling-style open-weight releases combine checkpoint access with hosted customization, so evaluate the runtime as a base model plus post-training control plane rather than as a single downloadable artifact.
+- For large multimodal MoE models, compare active-parameter count, context length, native modality support, training-data provenance, serving topology, and tail latency before assuming the larger checkpoint is better for an agent workflow.
+- Controllable thinking effort must be part of eval metadata: quality, latency, token cost, and failure modes can change enough across effort settings that one benchmark number is not a stable production routing signal.
+- Hosted fine-tuning paths should preserve training data lineage, synthetic-data policy, eval harness version, checkpoint export format, rollback criteria, and safety responsibility; open weights do not transfer operational risk away from the adopting team.
+
 ## GLM-5.2 Signal
 
 - GLM-5.2 adds an open-weight long-context adoption gate: a 1M-token window should be judged by long-horizon coding benchmarks, compaction-aware rollout behavior, serving throughput, and cost-per-task, not by context size alone.
@@ -144,6 +158,9 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Treat model marketplaces and routers as runtime candidates when they expose enough cost observability, provider health, and governance to prevent a single-model dependency from turning into an outage or margin risk.
 - For custom-model platforms, compare closed frontier APIs, fine-tuned models, and open-weight serving by workload TCO rather than headline unit price: quality threshold, latency, GPU utilization, data boundary, model-update cost, evaluation set, rollback criteria, adapter or checkpoint lineage, routing rules, and production-feedback capture decide whether specialization is real.
 - Treat standalone model-catalog APIs as deprecation-prone integration points unless brownout windows, migration targets, BYOK continuity, request logging, fallback routing, and cost controls are documented outside the vendor UI.
+- When a model-catalog API announces a full shutdown, inventory code, CI, secret managers, IaC, model IDs, BYOK endpoints, playground dependencies, and UI-driven workflows separately; endpoint migration and workflow migration have different owners and failure modes.
+- Use scheduled brownouts as failover rehearsals, not calendar trivia: validate timeout, retry, circuit breaker, fallback model, user-facing error copy, telemetry, and safety-eval replay under outage-like conditions before the final retirement date.
+- If the suggested replacement changes identity, billing, data residency, model catalog, or governance surface, treat it as a new runtime procurement decision rather than a drop-in SDK swap.
 - For agentic products with many subcalls per user request, optimize routing economics before fine-tuning prompts endlessly; cheaper intermediate models, expensive final reasoners, and explicit fallback ladders can change unit economics more than a small benchmark gain.
 - For local open-model deployment, score runtime portability alongside model quality: GGUF compatibility, llama.cpp integration, and Vulkan-backed GPU paths can matter more than a small benchmark delta when AMD, Intel, and NVIDIA hardware coexist.
 - Treat Ollama-style runtime updates as deployment-surface signals when they widen model-family support, quantization paths, or default GPU acceleration; they reduce switching cost even when they do not change the underlying model.
