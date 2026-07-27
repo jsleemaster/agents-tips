@@ -48,12 +48,21 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Qwen3.6 open-weight releases add another coding-agent signal beyond the Plus API: compare repository-level reasoning, front-end workflow completion, and long-session thinking preservation before treating leaderboard score as the main adoption criterion.
 - When a model family ships its own terminal agent surface, such as Qwen Code, evaluate model and host together; adoption friction can drop when the runtime, prompts, tool loop, and workflow assumptions are co-designed.
 
+## Gemini Flash Portfolio Signal
+
+- Treat Flash-style model portfolios as routing evidence, not just model-release news: a stronger master model, a cheaper high-throughput worker, and a restricted cyber model imply different lanes inside the same agent product.
+- When a vendor reports output-token reduction against a prior model, measure task-level cost anyway: output tokens, tool calls, retries, and latency per completed workflow matter more than token price alone.
+- High-throughput worker models are best evaluated on batch-size-one latency, output tokens per second, extraction or classification accuracy, and failure isolation when hundreds of subagent tasks fan out.
+- Security-specialized or cyber models should remain tied to defensive workflow scope, partner eligibility, exploitability criteria, and audit logs; do not route general coding work to them just because the benchmark domain sounds adjacent.
+
 ## Kimi K3 Signal
 
 - Treat Kimi K3-style "API now, weights later" releases as two separate adoption paths: hosted API evaluation can start before full-weight self-hosting, but deployment, license, serving stack, and TCO decisions should wait for the actual weight release artifact.
 - A 2.8T total-parameter MoE with 1M context should be scored by active-expert behavior, cache-hit economics, long-session recovery, tool-loop stability, and harness compatibility, not by total parameter count alone.
 - Kimi Delta Attention changes the cache question: require workflow-specific prefix-cache measurements, preserved-thinking-history behavior, and model-switch recovery tests before moving existing long-running agent sessions onto the runtime.
 - Vendor coding benchmarks that compare Kimi Code, Claude Code, Codex, or other agent shells are harness evidence, not model-only evidence; record system prompt, tool permissions, fallback policy, thinking effort, cache ratio, tool errors, and human intervention before treating the comparison as procurement input.
+- For very sparse MoE releases, record active expert count, expert pool size, quantization-aware training scheme, recommended accelerator topology, and serving-engine commitments before comparing them with dense or smaller open-weight models.
+- Split Kimi-style cache-hit and cache-miss pricing in TCO models; a long-context agent with poor prefix reuse can look cheap in cached demos and expensive in real mixed-turn work.
 
 ## Inkling Signal
 
@@ -162,6 +171,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Use scheduled brownouts as failover rehearsals, not calendar trivia: validate timeout, retry, circuit breaker, fallback model, user-facing error copy, telemetry, and safety-eval replay under outage-like conditions before the final retirement date.
 - If the suggested replacement changes identity, billing, data residency, model catalog, or governance surface, treat it as a new runtime procurement decision rather than a drop-in SDK swap.
 - For agentic products with many subcalls per user request, optimize routing economics before fine-tuning prompts endlessly; cheaper intermediate models, expensive final reasoners, and explicit fallback ladders can change unit economics more than a small benchmark gain.
+- For portfolio runtimes that expose master, lite, and specialized variants, require route-level evals: which model handles planning, bulk extraction, code execution, security analysis, and final synthesis should be justified by completed-task cost and quality, not by a single default choice.
 - For local open-model deployment, score runtime portability alongside model quality: GGUF compatibility, llama.cpp integration, and Vulkan-backed GPU paths can matter more than a small benchmark delta when AMD, Intel, and NVIDIA hardware coexist.
 - Treat Ollama-style runtime updates as deployment-surface signals when they widen model-family support, quantization paths, or default GPU acceleration; they reduce switching cost even when they do not change the underlying model.
 - For enterprise coding agents, treat data-plane proximity as a runtime signal: hybrid or on-prem placement near existing code, documents, and systems of record can matter more than a benchmark delta if SaaS egress or policy boundaries would block adoption.
