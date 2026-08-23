@@ -266,6 +266,15 @@ When a new Notion page is added, extract:
 - For hiring or other high-stakes human-decision agents, package structured rubrics, prompt and version control, transcript retention, adverse-impact testing, candidate consent, blind-review fallback, human appeal paths, and audit logs before treating efficiency as product value.
 - For education agents, package age-tiered access, teacher-supervised modes, answer-generation limits, source or citation discipline, assessment separation, and learning-process logs; school adoption depends on protecting learning stages as much as model quality.
 
+## Enterprise Agent Governance Signals (2026-07-28 링크 정리)
+
+- OpenAI Presence는 엔터프라이즈 생산환경에서 policy adherence, 승인/에스컬레이션, simulation, evaluation, 변경 제안 루프를 하나의 운영 체인으로 묶은 운영 패턴을 제시한다.
+- 실무 반영 규칙: 모델 정확도보다 `policy 준수율`, `tool-action 승인율`, `escalation 품질`, `회귀 테스트`를 결합해 운영 품질 게이트를 정의하고, 업무별 최소 권한·승인 경계·fallback 소유자·평가 데이터셋을 사전에 명시한다.
+- Open Secure AI Alliance(출범)는 공개 모델 시대의 방어를 “모델 공개 여부”가 아니라 `identity`, `permission`, `isolation`, `defense automation`, `log`, `evaluation`이 있는 agent stack으로 판단해야 함을 강화한다.
+- 보안 운영 규칙: 오픈 모델·외부 모델을 채택해도 self-hosted 포렌식/분석 경로와 incident response를 별도 승인 lane으로 두고, 모델 API 차단 전후 모두 forensic 분석 가능성을 확보한다.
+- OpenAI Health in ChatGPT는 건강 데이터 연동 사례에서 consent granularity, 데이터 사용 목적, 보존/삭제 정책, 액션별 재확인, 독립 red team이 제품 릴리스 검증 경로가 되어야 함을 보여 준다.
+- 민감 도메인 운영 원칙: 높은 처리 민감도 작업은 `동의 캡처`, `세션별 동의 상태`, `오류 시 사용자 알림`, `전문가 escalation`을 필수 신호로 두고, 학습·광고·채널 노출용 데이터 경로와 분리한다.
+
 ## Related Pages
 
 - [[Claude Code Operating Patterns]]

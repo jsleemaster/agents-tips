@@ -63,6 +63,7 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - Vendor coding benchmarks that compare Kimi Code, Claude Code, Codex, or other agent shells are harness evidence, not model-only evidence; record system prompt, tool permissions, fallback policy, thinking effort, cache ratio, tool errors, and human intervention before treating the comparison as procurement input.
 - For very sparse MoE releases, record active expert count, expert pool size, quantization-aware training scheme, recommended accelerator topology, and serving-engine commitments before comparing them with dense or smaller open-weight models.
 - Split Kimi-style cache-hit and cache-miss pricing in TCO models; a long-context agent with poor prefix reuse can look cheap in cached demos and expensive in real mixed-turn work.
+- 2026-07-28 링크 정리 확장으로 Kimi K3는 2.8T total / 104B activated 파라미터, 1M context, 896 experts(16 active), MXFP4 weights + MXFP8 activations로 정리되었으며 vLLM/SGLang 배포 경로가 같이 공개되었다. `weights·라이선스·서빙 스택·양자화 경로`가 동시에 확보되지 않으면 운영 채택 게이트를 통과하지 않는다.
 
 ## Inkling Signal
 
