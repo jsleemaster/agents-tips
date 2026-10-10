@@ -275,6 +275,13 @@ When a new Notion page is added, extract:
 - OpenAI Health in ChatGPT는 건강 데이터 연동 사례에서 consent granularity, 데이터 사용 목적, 보존/삭제 정책, 액션별 재확인, 독립 red team이 제품 릴리스 검증 경로가 되어야 함을 보여 준다.
 - 민감 도메인 운영 원칙: 높은 처리 민감도 작업은 `동의 캡처`, `세션별 동의 상태`, `오류 시 사용자 알림`, `전문가 escalation`을 필수 신호로 두고, 학습·광고·채널 노출용 데이터 경로와 분리한다.
 
+## Evaluator, Execution, And Review Harness Signals (2026-07-16 to 2026-07-27 링크 정리)
+
+- AlphaEvolve-style optimization agents should package a fixed baseline, deterministic scoring function, safety constraints, cost ceiling, sandbox, regression suite, human-review threshold, and rollback rule before they search for improvements. A score that omits maintainability, security, or operational constraints invites Goodhart behavior rather than a deployable optimization.
+- Production agent stacks should bind durable state and retry semantics, isolated execution, and task-scoped credentials to the same approval and trace contract. Replacing long-lived provider tokens with temporary scoped authorization is only useful when the credential scope, cancellation path, network policy, and action owner are observable and reviewable.
+- Code-review skills need task-shaped tool instructions rather than a generic repository-search prompt. Anchor the agent to the PR diff, preserve a golden PR set and expected findings, then compare evidence relevance, tool-trace budget, accepted-finding cost, false positives, first-review latency, and review-cycle count whenever tools or instructions change.
+- Do not generalize a harness optimization across agent surfaces without evidence: GitHub's diff-focused review instruction reduced reported review cost only after trace and benchmark iteration, while the same narrow guidance did not automatically transfer to broad interactive CLI exploration.
+
 ## Related Pages
 
 - [[Claude Code Operating Patterns]]

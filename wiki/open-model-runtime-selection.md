@@ -55,6 +55,13 @@ This page compiles the model/runtime decisions surfaced by the Notion source pag
 - High-throughput worker models are best evaluated on batch-size-one latency, output tokens per second, extraction or classification accuracy, and failure isolation when hundreds of subagent tasks fan out.
 - Security-specialized or cyber models should remain tied to defensive workflow scope, partner eligibility, exploitability criteria, and audit logs; do not route general coding work to them just because the benchmark domain sounds adjacent.
 
+## Portfolio And Edge Deployment Signals
+
+- The 2026-07-26 Gemini Flash portfolio makes the route split concrete: put complex coding, knowledge work, and multimodal planning in a master lane; reserve lower-cost, high-throughput variants for bounded extraction or fan-out; and keep cyber variants restricted to their approved defensive workflow and access conditions.
+- A reported 17% output-token reduction or an advertised 350 output tokens/second is an evaluation hypothesis, not a routing decision. Compare completed-task tokens, tool calls, retries, batch-size-one latency, and error isolation on the same workflow before changing the default lane.
+- Claude Sonnet 5 is a reminder that a mid-priced agent model may change the cost-performance frontier, but model replacement still requires A/B evidence for task success, tool-call count, retries, token volume, and the unchanged approval, observability, and stop controls around it.
+- Cosmos 3 Edge makes edge deployment a distinct runtime lane rather than a smaller cloud-model choice. For physical AI, accept an on-device vision/action runtime only after target-device latency, sensor drift, fail-safe activation, human intervention, post-training data quality, and rollback have been tested on the actual Jetson, RTX, or DGX path.
+
 ## Kimi K3 Signal
 
 - Treat Kimi K3-style "API now, weights later" releases as two separate adoption paths: hosted API evaluation can start before full-weight self-hosting, but deployment, license, serving stack, and TCO decisions should wait for the actual weight release artifact.
