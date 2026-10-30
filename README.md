@@ -102,3 +102,8 @@ The validator checks:
 - Tool-specific behavior belongs in notes and comparisons, not in the core contract.
 - Workflow skills and capability skills solve different problems and should stay distinct.
 - A reusable asset package is usually more useful than a long chat transcript.
+
+## Agent Setup
+
+- Codex reads `AGENTS.md`; Claude Code reads `CLAUDE.md`, which imports `AGENTS.md`.
+- Change project rules only in `AGENTS.md`; `CLAUDE.md` holds Claude-specific differences.
